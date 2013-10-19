@@ -1,0 +1,102 @@
+body {
+  margin: 0 10px 10px 0;
+  background-size: cover;
+}
+#window {
+  width: 100%;
+  max-width: 570px;
+  min-width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.message {
+  padding: 5px 10px 0px 10px;
+  margin-left: 40px;
+}
+.announce {
+  background: #eee;
+}
+.hidden {
+  display: none;
+}
+.center {
+  text-align: center;
+}
+.tag {
+  color: #999;
+  text-decoration: none;
+}
+.full {
+  width: 100%;
+  max-width: 570px;
+  height: auto;
+}
+.time {
+  float: right;
+  color: #999;
+}
+.avatar {
+  float: left;
+  margin-left: -40px;
+  width: 32px;
+  height: auto;
+}
+p {
+  margin-bottom: 10px;
+}
+strong,
+b {
+  font-weight: bold;
+}
+div.message>p {
+  min-height: 10px;
+  line-height: 1.2;
+  margin-bottom: 0;
+}
+div.message>p.name {
+  margin-bottom: 0;
+}
+#input,
+#username {
+  width: 100%;
+  height: 30px;
+  max-width: 490px;
+  min-width: 100px;
+  border: 1px solid #fff;
+  font-size: 11pt;
+}
+#input:focus {
+  outline: 0;
+}
+#jetzt {
+  margin-bottom: 20px;
+}
+canvas#meme {
+  -webkit-transition: 1s;
+  transition: 1s;
+  display: none;
+}
+#meme {
+  height: auto;
+  width: 510px;
+  height: 338px;
+}
+
+#bigFork {
+    display: inline;
+}
+
+#smallFork {
+    display: none;
+}
+
+@media all and (max-width:400px) {
+  #bigFork {
+    display: none;
+  }
+  #smallFork {
+    display: inline;
+  }
+}
+
+

@@ -1,0 +1,32 @@
+/*
+// Here's a sample
+
+@font-face {
+    font-family: 'avenirBold';
+    src: url('../fonts/avenirltstd-black-webfont.eot');
+    src: url('../fonts/avenirltstd-black-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/avenirltstd-black-webfont.woff') format('application/x-font-woff'),
+         url('../fonts/avenirltstd-black-webfont.ttf') format('font/truetype'),
+         url('../fonts/avenirltstd-black-webfont.svg#avenir_lt_std_65_mediumbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'avenir';
+    src: url('../fonts/avenirltstd-medium-webfont.eot');
+    src: url('../fonts/avenirltstd-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../fonts/avenirltstd-medium-webfont.woff') format('application/x-font-woff'),
+         url('../fonts/avenirltstd-medium-webfont.ttf') format('font/truetype'),
+         url('../fonts/avenirltstd-medium-webfont.svg#avenir_lt_std_65_mediumRg') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body
+    font-family: avenir, arial, helvetica, sans-serif
+
+strong, b 
+    font-family: avenirBold, Helvetica, Arial, sans-serif
+
+*/

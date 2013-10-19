@@ -1,0 +1,15 @@
+
+# Don't get the conf files:
+
+
+# Don't get the phonegap files:
+public/.cordova
+public/plugins
+public/platforms
+public/merges
+public/www/config.xml
+public/www/icon.png
+public/www/javascripts/phonegapStuff.js
+
+# Don't get heroku files:
+

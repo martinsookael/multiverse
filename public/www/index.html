@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <title>T</title>
+        
+        <link rel="stylesheet" href="stylesheets/reset.css">
+        <link rel="stylesheet" href="stylesheets/fonts.css">
+        <link rel="stylesheet" href="stylesheets/style.css">
+        
+        <script type="text/javascript" src="javascripts/head.load.min.js"></script>
+
+        <script type="text/javascript" src="javascripts/socket.io.js"></script>
+        <script type="text/javascript" src="phonegap.js"></script>
+        <script>
+            var socket = io.connect('http://meie.tallinn.ee:3001');
+            //var socket = io.connect('http://127.0.0.1:3001');
+        </script>
+        <audio id="ping1" preload="auto" src="sounds/ping.mp3"></audio>
+        
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    </head>
+    <body>
+        <a href="https://github.com/451ee/t">
+            <img id="bigFork" src="images/forkme_right_gray_6d6d6d.png" style="position: absolute; top: 0; right: 0; border: 0;" alt="Fork me on GitHub">
+            <img id="smallFork" src="images/forkme.png" style="float: right;" alt="Fork me on GitHub">
+        </a>
+        <div id="window">
+            <div id="message1" class="message">
+                Kasutajanimi:<br>
+                <form id="login">
+                    <input id="username" type="text" value="" autocomplete="off" style="border: 1px solid #999;">
+                </form>
+            </div>
+            <div id="pleaseWait" class="message hidden">
+                <img src="images/be.png" class="avatar">
+                <div class="time">20:26</div>
+                <p class="name"><strong>Server</strong></p>
+                <p>Please wait, connecting to server.</p>
+            </div>
+            <div id="jetzt" class="message hidden">
+                <img src="images/drm.jpg" class="avatar">
+                <form id="send" method="post" action="/">
+                    <input id="input" type="text" autocomplete="off" name="title">
+                </form>
+            </div>
+        </div>
+        <script>
+            head.js("javascripts/jquery-1.10.0.min.js", "javascripts/meme.js", "javascripts/shortcuts.js", "javascripts/script.js", "javascripts/phonegapstuff.js");
+        </script>
+    </body>
+</html>
+
+
