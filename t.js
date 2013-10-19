@@ -22,7 +22,7 @@ if(conf.db.usesDb === true) {
 }
 
 // all environments
-app.set('port', conf.general.port);
+app.set('port', process.env.PORT || conf.general.port);
 app.set('views', __dirname + '/views');
 //app.set('view engine', 'jade');
 app.use(express.favicon());
