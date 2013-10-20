@@ -127,7 +127,7 @@ var memes = [
         "img" : "images/meme/noSuchMeme.gif",
     },{
         "name": "yoda",
-        "img" : "images/meme/ypda.jpg",
+        "img" : "images/meme/yoda.jpg",
     }
 ]
 
