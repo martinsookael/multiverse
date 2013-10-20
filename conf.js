@@ -7,8 +7,12 @@ module.exports = {
         // annonAccess IS NOT WORKING 
     }
   , db: {
-        usesDb: false // true - uses db, false - uses not. // IF TALKER WON'T START, START DEBUGGING FROM HERE
-      , dbName: 'talker'
+        usesDb: true // true - uses db, false - uses not. // IF TALKER WON'T START, START DEBUGGING FROM HERE
+      , host: 'ds051368.mongolab.com' // notice the missing "http://"
+      , port: 51368 
+      , dbName: 'heroku_app18775261'
       , collectionName: 'chat'
+      , username: 'heroku_app18775261'
+      , password: 'qfhs9bftk5k41of30q0i2oa0ot'
     }
 };

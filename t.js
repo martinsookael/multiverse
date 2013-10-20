@@ -18,7 +18,7 @@ var express = require('express')
 // Mongo db operations
 if(conf.db.usesDb === true) { 
   var ArticleProvider = require('./db').ArticleProvider;
-  var articleProvider = new ArticleProvider(conf.general.host, 27017)
+  var articleProvider = new ArticleProvider(conf.db.host, conf.db.port)
 }
 
 // all environments

@@ -40,6 +40,9 @@ SETUP
 1. basic configuration is in conf.js
 2. /public/stylesheets/fonts.styl - I use it to keep several installations with different fonts.
 
+HEROKU:
+heroku labs:enable websockets 
+heroku addons:add mongolab 
 
 CURRENT STATUS
 -------------
