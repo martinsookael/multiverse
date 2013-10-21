@@ -1,6 +1,6 @@
 
 # Don't get the conf files:
-
+conf.js
 
 # Don't get the phonegap files:
 public/.cordova
