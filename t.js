@@ -100,7 +100,7 @@ io.sockets.on('connection', function (socket) {
     socket.on('adduser', function(data){
         socket.username = data.username; // store the username in the socket session for this client
         usernames[data.username] = data.username; // add the client's username to the global list
-        socket.broadcast.emit('news', { title: '<strong>'+data.username + '</strong> has connected', name: 'Server', time: data.time}); // echo to room  that a person has connected 
+        socket.broadcast.emit('news', { title: '<strong>'+data.username + '</strong> has connected', author: 'Server', time: data.time}); // echo to room  that a person has connected 
         socket.emit('help');
         socket.emit('news', { title: 'Buongiorno! You are connected', author: 'Server', time: data.time}); // echo to client they've connected
         socket.emit('who', usernames);
@@ -122,7 +122,7 @@ io.sockets.on('connection', function (socket) {
         // remove the username from global usernames list
         delete usernames[socket.username];
         // echo globally that this client has left
-        socket.broadcast.emit('news', { title: '<strong>'+socket.username + '</strong> has disconnected', name: 'Server', time: 'bye'});
+        socket.broadcast.emit('news', { title: '<strong>'+socket.username + '</strong> has disconnected', author: 'Server', time: 'bye'});
     });
 
 });
