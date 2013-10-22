@@ -49,7 +49,7 @@ $(document).ready(function() {
             // is it a meme with a typo?
             if(findMemeError(message) === "error") { 
                 var data = new Array; 
-                data.message = '<strong>'+input.val()+'</strong> - no such meme here :(';
+                data.title = '<strong>'+input.val()+'</strong> - no such meme here :(';
                 input.val('');
                 data.name = "Server";
                 data.time = getTime();
@@ -60,22 +60,22 @@ $(document).ready(function() {
                     announcer('<strong>Meme it, bitch!</strong><br /><br /><strong>usage: <br /></strong>m fwp<br>m fwp text to top / text to bottom<br>m fwp text to top<br>m fwp / text to bottom<br><br><strong>Available memes:</strong><br /><strong>m fwp</strong> - First World Problem<br><strong>m bru</strong> - bottom text: "IMPOSSIBRU!!"<br /><strong>m baby</strong> - SuccessBaby<br /><strong>m yuno</strong> - Y U No?<br /><strong>m goodguy</strong> - Good Guy Greg<br /><strong>m man</strong> - Most interesting guy on earth<br /><strong>m simply</strong> - top text: "One does not simply"<br /><strong>m whatif</strong> - top text: "What if I told you?"<br /><strong>m scumb</strong> - Scumbag Steve<br /><strong>m scumg</strong> - Scumbag Stacy<br /><strong>m gf</strong> - Overly attached girlfriend<br /><strong>m fuckme</strong> - bottom text: "Fuck me, right?" <br /><strong>m nobody</strong> - Bottom text: "Ain&quot;t nobody got time for that"<br /><strong>m fa</strong> - Forever alone <br /><strong>m boat</strong> - I should buy a boat cat <br /><strong>m acc</strong> - top text: "challegne accepted" <br />');                
                 }
                 else {
-                    var channel = shortcuts[firstWord].channel;
-                    socket.emit(channel, { text: message, name: sessionStorage.username, time: getTime() });
+                    var channel = shortcuts[firstWord].channel; 
+                    socket.emit(channel, { title: message, author: sessionStorage.username, time: getTime() });
                 }
             } // it's a meme!
             else {  
                 var data = new Array; 
-                data.message = input.val();
-                data.name = "Server";
+                data.title = input.val();
+                data.author = "Server";
                 data.time = getTime();
-                socket.emit("meme", { text: message, name: sessionStorage.username, time: getTime() });
+                socket.emit("meme", { title: message, author: sessionStorage.username, time: getTime() });
             }
         }
         
         else { // if no shortcut, send it to the wire
             //console.log("läheb");
-            socket.emit('news', { text: message, name: sessionStorage.username, time: getTime() });
+            socket.emit('news', { text: message, author: sessionStorage.username, time: getTime() });
         }
      
         input.val(''); // clear the text input. Or should it be - reset form?
@@ -109,7 +109,7 @@ $(document).ready(function() {
         writer(data);
     });
 
-    socket.on('last', function (data) { 
+    socket.on('last', function (data) { //cl(data);
         serialWriter(data);
     });
     
@@ -118,8 +118,8 @@ $(document).ready(function() {
     
     /* PRINT TEMPLATES */
     // print news
-    function writer(data) { 
-        message = data.message || ''; name = data.name || ''; time = data.time || '';
+    function writer(data) { //cl(data);
+        message = data.title || ''; name = data.author || ''; time = data.time || '';
         message = findLinksAndImages(message); // find links and images
         var avatar = getAvatar(name);
         $("#jetzt").before('<div class="message"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+'</p></div>');
@@ -134,9 +134,9 @@ $(document).ready(function() {
         $("#jetzt").before('<div class="message announce"><p>'+message+'</p>');    
     }
 
-    function paint(data) { 
-        message = data.message || ''; name = data.name || ''; time = data.time || '';
-        $("#jetzt").before('<div class="message center"><div class="time">'+time+'</div><p class="name"><strong>'+name+'</strong></p><img src="images/shortcuts/'+shortcuts[data.message].img+'" /></div>');
+    function paint(data) { //cl(data);
+        title = data.title || ''; author = data.author || ''; time = data.time || '';
+        $("#jetzt").before('<div class="message center"><div class="time">'+time+'</div><p class="name"><strong>'+author+'</strong></p><img src="images/shortcuts/'+shortcuts[title].img+'" /></div>');
         scrollAndBeep(data);
     }
     
@@ -156,34 +156,95 @@ $(document).ready(function() {
     }    
     
 
-    function serialWriter(data) { 
-        var singleMessage = Array();
+    function serialWriter(data) { /*cl(data);
+        
+        var array = $.map(data, function(value, index) {
+            return [value];
+        });
+                                 
+         */
+        //cl(data);        
+        
+        for (var i=0;i<data.length;i++) {
+            //cl(data[i]);
+            if(data[i].title.indexOf(" ") != -1) var firstWord = data[i].title.slice(0, data[i].title.indexOf(" "));
+            else var firstWord = data[i].title;
+            //cl(firstWord);
+            /*
+            (function(first){
+                if(firstWord in shortcuts) { 
+                    //cl(message);
+                    memeIt(data[i]);
+                }
+                else { // if no shortcut, send it to the wire
+                    writer(data[i]);
+                }
+            }(i++));
+            */
+            
+
+            if(firstWord in shortcuts) { 
+                // it's a shortcut but no meme
+                if(findMemeError(data[i].title) === "noMeme" || findMemeError(data[i].title) === "error"){ 
+                    // well hello there
+                    // hardcode often?
+                    paint(data[i]); 
+                } // it's a meme!
+                else {  
+                    memeIt(data[i]); 
+                }
+            }
+            else { // if no shortcut, send it to the wire
+                writer(data[i]);
+            }
+        }
+        
+        
+        /*data.forEach(function(message){
+            //console.log(message.title);
+            if(message.title.indexOf(" ") != -1) var firstWord = message.title.slice(0, message.title.indexOf(" "));
+            else var firstWord = message.title;
+            //cl(firstWord);
+
+            if(firstWord in shortcuts) { 
+                //cl(message);
+                memeIt(message);
+            }
+            
+        });*/
+
+        
+        /*var singleMessage = Array();
+        
+        
         $.each(data, function(key, value) {
             singleMessage.message = value.title; 
             singleMessage.name = value.author; 
             singleMessage.time = value.time;
+            
+            //cl(singleMessage.name);
 
             // get the first word
-            if(singleMessage.message.indexOf(" ") != -1) var firstWord = singleMessage.message.slice(0, singleMessage.message.indexOf(" "));
-            else var firstWord = singleMessage.message;
+            if(message.title.indexOf(" ") != -1) var firstWord = message.title.slice(0, message.title.indexOf(" "));
+            else var firstWord = message.title;
             
             // is it a shortcut?
             if(firstWord in shortcuts) { 
                 // it's a shortcut but no meme
-                if(findMemeError(singleMessage.message) === "noMeme" || findMemeError(singleMessage.message) === "error"){ 
+                if(findMemeError(message.title) === "noMeme" || findMemeError(message.title) === "error"){ 
                     // well hello there
                     // hardcode often?
-                    paint(singleMessage);
+                    paint(message); 
                 } // it's a meme!
                 else {  
-                    memeIt(singleMessage);
+                    memeIt(message); 
                 }
             }
             else { // if no shortcut, send it to the wire
-                writer(singleMessage);
+                writer(message);
             }
         });
-        delete singleMessage;
+        delete singleMessage; */
     }
     
     // automagic link creation from URLs 

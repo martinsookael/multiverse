@@ -42,7 +42,7 @@ ArticleProvider.prototype.findLast = function(callback) {
     this.getCollection(function(error, article_collection) {
       if( error ) callback(error)
       else {
-        article_collection.find().sort({$natural:-1}).limit(5).toArray(function(error, results) {
+        article_collection.find().sort({$natural:-1}).limit(7).toArray(function(error, results) {
           if( error ) callback(error)
           else callback(null, results.reverse())
         });

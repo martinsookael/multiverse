@@ -155,7 +155,7 @@ function findMemeError(input) {
 
 
 // takes meme message and slices & returns meme name
-function getMemeName(message) {
+function getMemeName(message) { //cl(message);
     message = message.slice(2); // remove "m " from beginning
     
     if(message.indexOf(" ") != -1) var memeName = message.slice(0, message.indexOf(" ")); // get the meme name (if the text fields are not empty)
@@ -170,9 +170,17 @@ function getMemeName(message) {
 }
 
 function memeIt(data) { //cl(sessionStorage.username);
+
+    var rndNumb=Math.floor(Math.random()*1000000)
+    var memeId = "meme"+rndNumb;
+    //cl(data);
+    
+    
+    //$("#jetzt").before("<div class='message'><p><canvas id='"+memeId+"' class='full'></canvas></p></div>");        
+    $("#jetzt").before('<div class="message"><img src="images/drm.jpg" class="avatar" /><div class="time">'+data.time+'</div><p class="name"><strong>'+data.author+'</strong></p><p><canvas id='+memeId+' class="full"></canvas></p></div>'); 
     
     //console.log(data);
-    var message = data.message;
+    var message = data.title;
             
     var processedMessage = getMemeName(message);
     message = processedMessage['message'];
@@ -203,9 +211,9 @@ function memeIt(data) { //cl(sessionStorage.username);
         }
     });
 
-    $("#jetzt").before("<div class='message'><p><canvas id='meme' class='full'></canvas></p></div>");        
+    //$("#jetzt").before("<div class='message'><p><canvas id='meme' class='full'></canvas></p></div>");        
     
-    var canvas = document.getElementById('meme');
+    var canvas = document.getElementById(memeId);
     var context = canvas.getContext('2d');
     
     var imageObj = new Image();
@@ -219,7 +227,7 @@ function memeIt(data) { //cl(sessionStorage.username);
         context.drawImage(imageObj, 0, 0);
         drawText(message1, message2, data.name); // <---- 
         var img    = canvas.toDataURL("image/png");
-        $("#jetzt").before('<div class="message"><img src="images/drm.jpg" class="avatar" /><div class="time">'+data.time+'</div><p class="name"><strong>'+data.name+'</strong></p><p><img class="full" src="'+img+'" /></p></div>'); 
+        //$("#jetzt").before('<div class="message"><img src="images/drm.jpg" class="avatar" /><div class="time">'+data.time+'</div><p class="name"><strong>'+data.author+'</strong></p><p><img class="full" src="'+img+'" /></p></div>'); 
         //window.scroll();
     };
     imageObj.src = memeImg;

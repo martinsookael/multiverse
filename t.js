@@ -41,10 +41,10 @@ if ('development' == app.get('env')) {
 // usernames which are currently connected to the chat
 var usernames = {};
 
-function saveToDb(message, name, time) {
+function saveToDb(message, author, time) {
     articleProvider.save({
         title: message,
-        author: name,
+        author: author,
         time: time
         }, function(error, docs) {
         // ERROR HANDLING
@@ -55,26 +55,26 @@ function saveToDb(message, name, time) {
 io.sockets.on('connection', function (socket) {
     
     socket.on('news', function (data) { 
-        socket.emit('news', { message: data.text, name: data.name, time: data.time });
-        socket.broadcast.emit('news', { message: data.text, name: data.name, time: data.time });
+        socket.emit('news', { title: data.text, author: data.author, time: data.time });
+        socket.broadcast.emit('news', { title: data.text, author: data.author, time: data.time });
         if(conf.db.usesDb === true) {
-            saveToDb(data.text, data.name, data.time);
+            saveToDb(data.text, data.author, data.time);
         }
     });
 
-    socket.on('paint', function (data) { 
-        socket.emit('paint', { message: data.text, name: data.name, time: data.time });
-        socket.broadcast.emit('paint', { message: data.text, name: data.name, time: data.time });
+    socket.on('paint', function (data) { //console.log(data);
+        socket.emit('paint', { title: data.title, author: data.author, time: data.time });
+        socket.broadcast.emit('paint', { title: data.title, author: data.author, time: data.time });
         if(conf.db.usesDb === true) {
-            saveToDb(data.text, data.name, data.time);
+            saveToDb(data.title, data.author, data.time);
         }
     });
 
     socket.on('meme', function (data) { 
-        socket.emit('meme', { message: data.text, name: data.name, time: data.time });
-        socket.broadcast.emit('meme', { message: data.text, name: data.name, time: data.time });
+        socket.emit('meme', { title: data.title, author: data.author, time: data.time });
+        socket.broadcast.emit('meme', { title: data.title, author: data.author, time: data.time });
         if(conf.db.usesDb === true) {
-            saveToDb(data.text, data.name, data.time);
+            saveToDb(data.title, data.author, data.time);
         }
     });
     
@@ -89,11 +89,11 @@ io.sockets.on('connection', function (socket) {
     
     socket.on('last', function () { 
         if(conf.db.usesDb === true) {
-            articleProvider.findLast( function(error,docs){
+            articleProvider.findLast( function(error,docs){ //console.log(docs);
                 socket.emit('last', docs);
             })
         }
-        else socket.emit('news', { message: 'no datatabase connected', name: 'Server', time: ''});
+        else socket.emit('news', { message: 'no datatabase connected', author: 'Server', time: ''});
 
     });    
     
@@ -102,7 +102,7 @@ io.sockets.on('connection', function (socket) {
         usernames[data.username] = data.username; // add the client's username to the global list
         socket.broadcast.emit('news', { message: '<strong>'+data.username + '</strong> has connected', name: 'Server', time: data.time}); // echo to room  that a person has connected 
         socket.emit('help');
-        socket.emit('news', { message: 'Buongiorno! You are connected', name: 'Server', time: data.time}); // echo to client they've connected
+        socket.emit('news', { message: 'Buongiorno! You are connected', author: 'Server', time: data.time}); // echo to client they've connected
         socket.emit('who', usernames);
         socket.emit('getUp');
         if(conf.db.usesDb === true) {
