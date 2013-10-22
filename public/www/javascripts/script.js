@@ -9,7 +9,24 @@ $(document).ready(function() {
 	}
 	else {
 		$("#input").focus();			
-	}    
+	}
+
+    //Catches info from user login box
+    $('#login').on('submit', function(e) { 
+
+        e.preventDefault();         
+        var username = $('#username');
+		username = username.val(); 
+		name = String(username); //cl (username);
+				
+		if (username) { 
+            $("#pleaseWait").show();
+			$('#message1').hide();
+            socket.emit('adduser', { username: username, time: getTime() });
+            sessionStorage.username = username; // this can be achieved just with using "name"
+		}
+    });
+    
     
     /* CATCH CONTENT FROM FORM */
     $('#send').on('submit', function(e) { 
