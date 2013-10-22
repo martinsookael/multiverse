@@ -14,19 +14,20 @@
         <script type="text/javascript" src="phonegap.js"></script>
         <script>
             //Catches info from user login box
-            $('#login').on('submit', function(e) { 
-                e.preventDefault();         
-                var username = $('#username');
-                username = username.val(); 
-                name = String(username); //cl (username);
-                if (username) { 
-                    $("#pleaseWait").show();
-                    $('#message1').hide();
-                    socket.emit('adduser', { username: username, time: getTime() });
-                    sessionStorage.username = username; // this can be achieved just with using "name"
-                }
+            $(document).ready(function() { 
+                $('#login').on('submit', function(e) { 
+                    e.preventDefault();         
+                    var username = $('#username');
+                    username = username.val(); 
+                    name = String(username); //cl (username);
+                    if (username) { 
+                        $("#pleaseWait").show();
+                        $('#message1').hide();
+                        socket.emit('adduser', { username: username, time: getTime() });
+                        sessionStorage.username = username; // this can be achieved just with using "name"
+                    }
+                });
             });
-
             var socket = io.connect('http://immultiverse.herokuapp.com');
             //var socket = io.connect('http://127.0.0.1:3001');
         </script>
