@@ -122,7 +122,7 @@ io.sockets.on('connection', function (socket) {
         // remove the username from global usernames list
         delete usernames[socket.username];
         // echo globally that this client has left
-        socket.broadcast.emit('news', { message: '<strong>'+socket.username + '</strong> has disconnected', name: 'Server', time: 'bye'});
+        socket.broadcast.emit('news', { title: '<strong>'+socket.username + '</strong> has disconnected', name: 'Server', time: 'bye'});
     });
 
 });
