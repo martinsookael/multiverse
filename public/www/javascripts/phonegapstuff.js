@@ -38,14 +38,14 @@
     }
 
     function makeBeep() {
-        if(deviceActive === true) { 
+        if(deviceActive === false) { 
             navigator.notification.beep(1);
         }
         //navigator.notification.beep(3); // for three beeps
     }
 
     function vibrate() {
-        if(deviceActive === true) { 
+        if(deviceActive === false) { 
             navigator.notification.vibrate(200);
         }
     }

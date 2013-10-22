@@ -76,6 +76,9 @@ https://app.asana.com/-/share?s=7719476021228-pxHKCllHXsiHL17Dbn8QlqCeedhtgmC3TW
 UPDATES
 --------
 
+22nd Oct 2013
+Android App + Heroku hosting + www.multiverse.im
+
 12th of Oct 2013
 Now works with MongoDb.
 
