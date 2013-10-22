@@ -41,6 +41,9 @@ if ('development' == app.get('env')) {
 // usernames which are currently connected to the chat
 var usernames = {};
 
+// rooms which are currently available in chat
+var rooms = ['room1','room2','room3'];
+
 function saveToDb(message, author, time) {
     articleProvider.save({
         title: message,
@@ -55,24 +58,27 @@ function saveToDb(message, author, time) {
 io.sockets.on('connection', function (socket) {
     
     socket.on('news', function (data) { 
-        socket.emit('news', { title: data.text, author: data.author, time: data.time });
-        socket.broadcast.emit('news', { title: data.text, author: data.author, time: data.time });
+        io.sockets.in(socket.room).emit('news', { title: data.text, author: data.author, time: data.time });
+        //socket.emit('news', { title: data.text, author: data.author, time: data.time });
+        //socket.broadcast.emit('news', { title: data.text, author: data.author, time: data.time });
         if(conf.db.usesDb === true) {
             saveToDb(data.text, data.author, data.time);
         }
     });
 
     socket.on('paint', function (data) { //console.log(data);
-        socket.emit('paint', { title: data.title, author: data.author, time: data.time });
-        socket.broadcast.emit('paint', { title: data.title, author: data.author, time: data.time });
+        io.sockets.in(socket.room).emit('paint', { title: data.title, author: data.author, time: data.time });
+        //socket.emit('paint', { title: data.title, author: data.author, time: data.time });
+        //socket.broadcast.emit('paint', { title: data.title, author: data.author, time: data.time });
         if(conf.db.usesDb === true) {
             saveToDb(data.title, data.author, data.time);
         }
     });
 
     socket.on('meme', function (data) { 
-        socket.emit('meme', { title: data.title, author: data.author, time: data.time });
-        socket.broadcast.emit('meme', { title: data.title, author: data.author, time: data.time });
+        io.sockets.in(socket.room).emit('meme', { title: data.title, author: data.author, time: data.time });
+        //socket.emit('meme', { title: data.title, author: data.author, time: data.time });
+        //socket.broadcast.emit('meme', { title: data.title, author: data.author, time: data.time });
         if(conf.db.usesDb === true) {
             saveToDb(data.title, data.author, data.time);
         }
@@ -100,7 +106,11 @@ io.sockets.on('connection', function (socket) {
     socket.on('adduser', function(data){
         socket.username = data.username; // store the username in the socket session for this client
         usernames[data.username] = data.username; // add the client's username to the global list
-        socket.broadcast.emit('news', { title: '<strong>'+data.username + '</strong> has connected', author: 'Server', time: data.time}); // echo to room  that a person has connected 
+		socket.room = 'room1'; // store the room name in the socket session for this client
+		socket.join('room1'); // send client to room 1
+        //socket.broadcast.emit('news', { title: '<strong>'+data.username + '</strong> has connected', author: 'Server', time: data.time}); // echo to room  that a person has connected 
+		socket.broadcast.to('room1').emit('news', { title: '<strong>'+data.username + '</strong> has connected', author: 'Server', time: data.time});
+
         socket.emit('help');
         socket.emit('news', { title: 'Buongiorno! You are connected', author: 'Server', time: data.time}); // echo to client they've connected
         socket.emit('who', usernames);
@@ -122,9 +132,23 @@ io.sockets.on('connection', function (socket) {
         // remove the username from global usernames list
         delete usernames[socket.username];
         // echo globally that this client has left
-        socket.broadcast.emit('news', { title: '<strong>'+socket.username + '</strong> has disconnected', author: 'Server', time: 'bye'});
+        socket.broadcast.to('room1').emit('news', { title: '<strong>'+socket.username + '</strong> has disconnected', author: 'Server', time: 'bye'});
+        //socket.broadcast.emit('news', { title: '<strong>'+socket.username + '</strong> has disconnected', author: 'Server', time: 'bye'});
+		socket.leave(socket.room);
     });
 
+	socket.on('switchRoom', function(newroom){
+		socket.leave(socket.room);
+		socket.join(newroom);
+        socket.emit('news', { title: '! You are connected to #'+newroom, author: 'Server', time: data.time}); // echo to client they've connected
+		// sent message to OLD room
+		socket.broadcast.to(socket.room).emit('news', { title: socket.username+' has left this room', author: 'Server', time: data.time}); 
+		// update socket session room title
+		socket.room = newroom;
+		socket.broadcast.to(newroom).emit('news', { title: '<strong>'+socket.username + '</strong> has joined this room', author: 'Server', time: data.time});
+		//socket.emit('updaterooms', rooms, newroom);
+	});
+    
 });
 /*
 app.get('/', function(req, res){
