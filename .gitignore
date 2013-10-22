@@ -9,7 +9,6 @@ public/platforms
 public/merges
 public/www/config.xml
 public/www/icon.png
-public/www/javascripts/phonegapStuff.js
 
 # Don't get heroku files:
 
