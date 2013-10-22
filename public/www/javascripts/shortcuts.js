@@ -50,6 +50,9 @@ shortcuts = {
     "l":{ 
         "channel":"last" 
     },
+    "r":{ 
+        "channel":"room" 
+    },
 }
 
 
