@@ -12,7 +12,7 @@ var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 
 ArticleProvider = function(host, port) {
-  this.db= new Db(conf.db.dbName, new Server(host, port, {auto_reconnect: true}, {}));
+  this.db= new Db(conf.db.dbName, new Server(host, port, {auto_reconnect: true, 'reconnection delay': 5000, 'max reconnection attempts': 60}, {}));
   /*this.db.open(function(){
       this.db.authenticate(conf.db.username, conf.db.password, function(err, res) {
       // callback
