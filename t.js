@@ -96,6 +96,8 @@ io.sockets.on('connection', function (socket) {
 		// update socket session room title
 		socket.room = newroom;
 		socket.broadcast.to(newroom).emit('news', { title: '<strong>'+socket.username + '</strong> has joined this room', author: 'Server', time: data.time});
+        socket.emit('roomHeader', { room: newroom}); // echo to client they've connected
+
 		//socket.emit('updaterooms', rooms, newroom);
     });
 
@@ -156,7 +158,7 @@ io.sockets.on('connection', function (socket) {
 		socket.leave(socket.room);
     });
 
-	socket.on('switchRoom', function(newroom){
+	/*socket.on('switchRoom', function(newroom){
 		socket.leave(socket.room);
 		socket.join(newroom);
         socket.emit('news', { title: '! You are connected to #'+newroom, author: 'Server', time: data.time}); // echo to client they've connected
@@ -165,8 +167,12 @@ io.sockets.on('connection', function (socket) {
 		// update socket session room title
 		socket.room = newroom;
 		socket.broadcast.to(newroom).emit('news', { title: '<strong>'+socket.username + '</strong> has joined this room', author: 'Server', time: data.time});
+        socket.emit('roomHeader', { room: 'yolo'+newroom}); // echo to client they've connected
+
+		//socket.emit('roomHeader', {room: newroom});
+        
 		//socket.emit('updaterooms', rooms, newroom);
-	});
+	});*/
     
 });
 /*

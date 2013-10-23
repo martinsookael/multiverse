@@ -112,6 +112,14 @@ $(document).ready(function() {
     socket.on('last', function (data) { //cl(data);
         serialWriter(data);
     });
+
+    socket.on('roomHeader', function (data) { 
+        console.log(data);
+        $("#roomName").show();	
+        $("#roomName").html("#"+data.room);	
+    });
+    
+    
     
 
 
