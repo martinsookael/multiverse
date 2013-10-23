@@ -2,6 +2,8 @@
 
 $(document).ready(function() { 
     
+    sessionStorage.username = false;
+    
     // hold focus on the text input, unless it's the log in screen.
 	if ($("#username").is(":visible")) {
 		$("#username").focus();			
@@ -112,7 +114,9 @@ $(document).ready(function() {
     });
 
     socket.on('news', function (data) { 
-        writer(data);
+        if(sessionStorage.username != "false") {
+            writer(data);
+        }
     });
 
     socket.on('last', function (data) { //cl(data);
