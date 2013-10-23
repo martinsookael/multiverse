@@ -160,7 +160,8 @@ io.sockets.on('connection', function (socket) {
         //socket.broadcast.to('room1').emit('news', { title: '<strong>'+socket.username + '</strong> has disconnected', author: 'Server', time: 'bye'});
         // remove disconnected because remove disconnected
         //io.sockets.emit('news', { title: '<strong>'+socket.username + '</strong> has disconnected', author: 'Server', time: 'bye'});
-		socket.leave(socket.room);
+		
+        //socket.leave(socket.room); // turned that off, since other way started havocing
     });
 
 	/*socket.on('switchRoom', function(newroom){

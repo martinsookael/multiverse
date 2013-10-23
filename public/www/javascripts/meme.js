@@ -132,6 +132,9 @@ var memes = [
         "name": "notbad",
         "img" : "images/meme/notbad.jpg",
         "message2" : "not bad", 
+    },{
+        "name": "soclose",
+        "img" : "images/meme/soclose.gif",
     }
 ]
 
