@@ -44,11 +44,12 @@ var usernames = {};
 // rooms which are currently available in chat
 var rooms = ['room1','room2','room3'];
 
-function saveToDb(message, author, time) {
+function saveToDb(message, author, time, room) {
     articleProvider.save({
         title: message,
         author: author,
-        time: time
+        time: time,
+        room: room
         }, function(error, docs) {
         // ERROR HANDLING
     });
