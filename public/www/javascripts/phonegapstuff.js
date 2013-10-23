@@ -9,17 +9,21 @@
     
 
     var deviceActive = false;
+    var isWeb = true;
 
     function onDeviceReady() { 
         deviceActive = true;
+        isWeb = false;
     }
 
     function onPause() { 
         deviceActive = false;
+        isWeb = false;
     }
 
     function onResume() { 
         deviceActive = true;
+        isWeb = false;
     }
 
     function openLink(match) { //console.log(match);
@@ -38,14 +42,14 @@
     }
 
     function makeBeep() {
-        if(deviceActive === false) { 
+        if(isWeb === false) { 
             navigator.notification.beep(1);
         }
         //navigator.notification.beep(3); // for three beeps
     }
 
     function vibrate() {
-        if(deviceActive === false) { 
+        if(isWeb === false) { 
             navigator.notification.vibrate(200);
         }
     }
