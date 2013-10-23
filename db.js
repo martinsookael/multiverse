@@ -26,8 +26,6 @@ ArticleProvider = function(host, port) {
         })
       }
     });
-
-
 };
 
 
@@ -38,13 +36,13 @@ ArticleProvider.prototype.getCollection= function(callback) {
   });
 };
 
-ArticleProvider.prototype.findLast = function(callback) {
+ArticleProvider.prototype.findLast = function(callback2) {
     this.getCollection(function(error, article_collection) {
       if( error ) callback(error)
       else {
         article_collection.find().sort({$natural:-1}).limit(7).toArray(function(error, results) {
-          if( error ) callback(error)
-          else callback(null, results.reverse())
+          if( error ) callback2(error)
+          else callback2(null, results.reverse())
         });
       }
     });

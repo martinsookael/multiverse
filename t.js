@@ -109,7 +109,7 @@ io.sockets.on('connection', function (socket) {
     
     socket.on('last', function () { 
         if(conf.db.usesDb === true) {
-            articleProvider.findLast( function(error,docs){ //console.log(docs);
+            articleProvider.findLast( {room: socket.room}, function(error,docs){ //console.log(docs);
                 socket.emit('last', docs);
             })
         }
