@@ -36,16 +36,22 @@ ArticleProvider.prototype.getCollection= function(callback) {
   });
 };
 
-ArticleProvider.prototype.findLast = function(callback2) {
+ArticleProvider.prototype.findLast = function(room, callback) { //console.log(room);
+    //console.log("db.js: "+room);
+    
+//    this.getCollection(function(error, article_collection) {
+//    }); 
+    
+    
     this.getCollection(function(error, article_collection) {
       if( error ) callback(error)
       else {
         article_collection.find().sort({$natural:-1}).limit(7).toArray(function(error, results) {
-          if( error ) callback2(error)
-          else callback2(null, results.reverse())
+          if( error ) callback(error)
+          else callback(null, results.reverse())
         });
       }
-    });
+    }); 
 };
 
 ArticleProvider.prototype.save = function(articles, callback) {  

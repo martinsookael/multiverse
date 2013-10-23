@@ -109,7 +109,10 @@ io.sockets.on('connection', function (socket) {
     
     socket.on('last', function () { 
         if(conf.db.usesDb === true) {
-            articleProvider.findLast( {room: socket.room}, function(error,docs){ //console.log(docs);
+            var room = socket.room;
+            //console.log("t.js: "+room);
+            //articleProvider.findLast(room);
+            articleProvider.findLast(room, function(error,docs){ //console.log(docs);
                 socket.emit('last', docs);
             })
         }
@@ -130,7 +133,8 @@ io.sockets.on('connection', function (socket) {
         socket.emit('who', usernames);
         socket.emit('getUp');
         if(conf.db.usesDb === true) {
-            articleProvider.findLast( function(error,docs){
+            var room = socket.room;
+            articleProvider.findLast( room, function(error,docs){
                 socket.emit('last', docs);
             });
         }            
