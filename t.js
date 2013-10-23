@@ -57,8 +57,16 @@ function saveToDb(message, author, time, room) {
 
 // socket
 io.sockets.on('connection', function (socket) {
+
+    function printLast() {
+        var room = socket.room;
+        articleProvider.findLast(room, function(error,docs){ //console.log(docs);
+            socket.emit('last', docs);
+        })
+    }
     
-    socket.on('news', function (data) { 
+    
+    socket.on('news', function (data) { console.log(data);
         io.sockets.in(socket.room).emit('news', { title: data.text, author: data.author, time: data.time });
         //socket.emit('news', { title: data.text, author: data.author, time: data.time });
         //socket.broadcast.emit('news', { title: data.text, author: data.author, time: data.time });
@@ -97,6 +105,10 @@ io.sockets.on('connection', function (socket) {
 		socket.room = newroom;
 		socket.broadcast.to(newroom).emit('news', { title: '<strong>'+socket.username + '</strong> has joined this room', author: 'Server', time: data.time});
         socket.emit('roomHeader', { room: newroom}); // echo to client they've connected
+        printLast();
+        
+
+ 
 
 		//socket.emit('updaterooms', rooms, newroom);
     });
@@ -112,12 +124,7 @@ io.sockets.on('connection', function (socket) {
     
     socket.on('last', function () { 
         if(conf.db.usesDb === true) {
-            var room = socket.room;
-            //console.log("t.js: "+room);
-            //articleProvider.findLast(room);
-            articleProvider.findLast(room, function(error,docs){ //console.log(docs);
-                socket.emit('last', docs);
-            })
+            printLast();
         }
         else socket.emit('news', { message: 'no datatabase connected', author: 'Server', time: ''});
 
@@ -126,21 +133,20 @@ io.sockets.on('connection', function (socket) {
     socket.on('adduser', function(data){
         socket.username = data.username; // store the username in the socket session for this client
         usernames[data.username] = data.username; // add the client's username to the global list
-		socket.room = 'room1'; // store the room name in the socket session for this client
-		socket.join('room1'); // send client to room 1
+		socket.room = 'multiverse'; // store the room name in the socket session for this client
+		socket.join('multiverse'); // send client to room 1
         //socket.broadcast.emit('news', { title: '<strong>'+data.username + '</strong> has connected', author: 'Server', time: data.time}); // echo to room  that a person has connected 
-		socket.broadcast.to('room1').emit('news', { title: '<strong>'+data.username + '</strong> has connected', author: 'Server', time: data.time});
 
         socket.emit('help');
         socket.emit('news', { title: 'Buongiorno! You are connected', author: 'Server', time: data.time}); // echo to client they've connected
         socket.emit('who', usernames);
         socket.emit('getUp');
         if(conf.db.usesDb === true) {
-            var room = socket.room;
-            articleProvider.findLast( room, function(error,docs){
-                socket.emit('last', docs);
-            });
+            printLast();
         }            
+		//socket.broadcast.to('room1').emit('news', { title: '<strong>'+data.username + '</strong> has connected', author: 'Server', time: data.time});
+        io.sockets.emit('news', { title: '<strong>'+socket.username + '</strong> has connected to ' +socket.room, author: 'Server', time: 'bye'});
+
     });
     /*
     socket.on('getUsers', function(){
@@ -153,8 +159,8 @@ io.sockets.on('connection', function (socket) {
         // remove the username from global usernames list
         delete usernames[socket.username];
         // echo globally that this client has left
-        socket.broadcast.to('room1').emit('news', { title: '<strong>'+socket.username + '</strong> has disconnected', author: 'Server', time: 'bye'});
-        //socket.broadcast.emit('news', { title: '<strong>'+socket.username + '</strong> has disconnected', author: 'Server', time: 'bye'});
+        //socket.broadcast.to('room1').emit('news', { title: '<strong>'+socket.username + '</strong> has disconnected', author: 'Server', time: 'bye'});
+        io.sockets.emit('news', { title: '<strong>'+socket.username + '</strong> has disconnected', author: 'Server', time: 'bye'});
 		socket.leave(socket.room);
     });
 
