@@ -67,9 +67,7 @@ io.sockets.on('connection', function (socket) {
     
     
     socket.on('news', function (data) { console.log(data);
-        io.sockets.in(socket.room).emit('news', { title: data.text, author: data.author, time: data.time });
-        //socket.emit('news', { title: data.text, author: data.author, time: data.time });
-        //socket.broadcast.emit('news', { title: data.text, author: data.author, time: data.time });
+        io.sockets.in(socket.room).emit('news', { title: data.text, author: data.author, time: data.time, city: data.city });
         if(conf.db.usesDb === true) {
             saveToDb(data.text, data.author, data.time, socket.room);
         }

@@ -128,6 +128,10 @@ var memes = [
     },{
         "name": "yoda",
         "img" : "images/meme/yoda.jpg",
+    },{
+        "name": "notbad",
+        "img" : "images/meme/notbad.jpg",
+        "message2" : "not bad", 
     }
 ]
 
@@ -175,9 +179,10 @@ function memeIt(data) { //cl(sessionStorage.username);
     var memeId = "meme"+rndNumb;
     //cl(data);
     
-    
+    var avatar = getAvatar(name);
+
     //$("#jetzt").before("<div class='message'><p><canvas id='"+memeId+"' class='full'></canvas></p></div>");        
-    $("#jetzt").before('<div class="message"><img src="images/drm.jpg" class="avatar" /><div class="time">'+data.time+'</div><p class="name"><strong>'+data.author+'</strong></p><p><canvas id='+memeId+' class="full"></canvas></p></div>'); 
+    $("#jetzt").before('<div class="message"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+data.time+'</div><p class="name"><strong>'+data.author+'</strong></p><p><canvas id='+memeId+' class="full"></canvas></p></div>'); 
     
     //console.log(data);
     var message = data.title;

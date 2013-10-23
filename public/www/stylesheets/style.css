@@ -8,6 +8,7 @@ body {
   min-width: 100px;
   margin-left: auto;
   margin-right: auto;
+  position: relative;
 }
 .message {
   padding: 5px 10px 0px 10px;
@@ -34,6 +35,12 @@ body {
 .time {
   float: right;
   color: #999;
+}
+.place {
+color: #DDD;
+float: right;
+position: absolute;
+right: 70px;
 }
 .avatar {
   float: left;

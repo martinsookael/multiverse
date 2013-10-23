@@ -1,7 +1,6 @@
 // JavaScript Document
 
 $(document).ready(function() { 
-
     
     // hold focus on the text input, unless it's the log in screen.
 	if ($("#username").is(":visible")) {
@@ -57,7 +56,7 @@ $(document).ready(function() {
             } // it's no meme, pass it on
             else if(findMemeError(message) === "noMeme"){ 
                 if(message === "m") {
-                    announcer('<strong>Meme it, bitch!</strong><br /><br /><strong>usage: <br /></strong>m fwp<br>m fwp text to top / text to bottom<br>m fwp text to top<br>m fwp / text to bottom<br><br><strong>Available memes:</strong><br /><strong>m fwp</strong> - First World Problem<br><strong>m bru</strong> - bottom text: "IMPOSSIBRU!!"<br /><strong>m baby</strong> - SuccessBaby<br /><strong>m yuno</strong> - Y U No?<br /><strong>m goodguy</strong> - Good Guy Greg<br /><strong>m man</strong> - Most interesting guy on earth<br /><strong>m simply</strong> - top text: "One does not simply"<br /><strong>m whatif</strong> - top text: "What if I told you?"<br /><strong>m scumb</strong> - Scumbag Steve<br /><strong>m scumg</strong> - Scumbag Stacy<br /><strong>m gf</strong> - Overly attached girlfriend<br /><strong>m fuckme</strong> - bottom text: "Fuck me, right?" <br /><strong>m nobody</strong> - Bottom text: "Ain&quot;t nobody got time for that"<br /><strong>m fa</strong> - Forever alone <br /><strong>m boat</strong> - I should buy a boat cat <br /><strong>m acc</strong> - top text: "challegne accepted" <br />');                
+                    announcer('<strong>Meme it, bitch!</strong><br /><br /><strong>usage: <br /></strong>m fwp<br>m fwp text to top / text to bottom<br>m fwp text to top<br>m fwp / text to bottom<br><br><strong>Available memes:</strong><br /><strong>m fwp</strong> - First World Problem<br><strong>m bru</strong> - bottom text: "IMPOSSIBRU!!"<br /><strong>m baby</strong> - SuccessBaby<br /><strong>m yuno</strong> - Y U No?<br /><strong>m goodguy</strong> - Good Guy Greg<br /><strong>m man</strong> - Most interesting guy on earth<br /><strong>m simply</strong> - top text: "One does not simply"<br /><strong>m whatif</strong> - top text: "What if I told you?"<br /><strong>m scumb</strong> - Scumbag Steve<br /><strong>m scumg</strong> - Scumbag Stacy<br /><strong>m gf</strong> - Overly attached girlfriend<br /><strong>m fuckme</strong> - bottom text: "Fuck me, right?" <br /><strong>m nobody</strong> - Bottom text: "Ain&quot;t nobody got time for that"<br /><strong>m fa</strong> - Forever alone <br /><strong>m boat</strong> - I should buy a boat cat <br /><strong>m acc</strong> - top text: "challegne accepted" <br /><strong>m notbad</strong> - bottom text: "not bad" <br /><strong>m yoda</strong> - master yoda<br />');                
                 scroll();
                 }
                 
@@ -80,7 +79,8 @@ $(document).ready(function() {
         
         else { // if no shortcut, send it to the wire
             //console.log("läheb");
-            socket.emit('news', { text: message, author: sessionStorage.username, time: getTime() });
+            var city = geoip_city();
+            socket.emit('news', { text: message, author: sessionStorage.username, time: getTime(), city: city });
         }
      
         input.val(''); // clear the text input. Or should it be - reset form?
@@ -132,10 +132,10 @@ $(document).ready(function() {
     /* PRINT TEMPLATES */
     // print news
     function writer(data) { //cl(data);
-        message = data.title || ''; name = data.author || ''; time = data.time || '';
+        message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || '';
         message = findLinksAndImages(message); // find links and images
         var avatar = getAvatar(name);
-        $("#jetzt").before('<div class="message"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+'</p></div>');
+        $("#jetzt").before('<div class="message"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+'</p></div>');
         //makeBeep();
         //vibrate();
         scrollAndBeep(data);
