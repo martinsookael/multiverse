@@ -45,9 +45,10 @@ ArticleProvider.prototype.findLast = function(room, callback) { //console.log(ro
     
     this.getCollection(function(error, article_collection) {
       if( error ) callback(error)
-      else {
-        article_collection.find().sort({$natural:-1}).limit(7).toArray(function(error, results) {
-          if( error ) callback(error)
+      else { 
+        article_collection.find({ room: { $in: [room] }}).sort({$natural:-1}).limit(7).toArray(function(error, results) {
+          console.log(results.reverse());
+            if( error ) callback(error)
           else callback(null, results.reverse())
         });
       }
