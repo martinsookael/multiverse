@@ -63,7 +63,7 @@ io.sockets.on('connection', function (socket) {
         //socket.emit('news', { title: data.text, author: data.author, time: data.time });
         //socket.broadcast.emit('news', { title: data.text, author: data.author, time: data.time });
         if(conf.db.usesDb === true) {
-            saveToDb(data.text, data.author, data.time);
+            saveToDb(data.text, data.author, data.time, socket.room);
         }
     });
 
@@ -72,7 +72,7 @@ io.sockets.on('connection', function (socket) {
         //socket.emit('paint', { title: data.title, author: data.author, time: data.time });
         //socket.broadcast.emit('paint', { title: data.title, author: data.author, time: data.time });
         if(conf.db.usesDb === true) {
-            saveToDb(data.title, data.author, data.time);
+            saveToDb(data.title, data.author, data.time, socket.room);
         }
     });
 
@@ -81,7 +81,7 @@ io.sockets.on('connection', function (socket) {
         //socket.emit('meme', { title: data.title, author: data.author, time: data.time });
         //socket.broadcast.emit('meme', { title: data.title, author: data.author, time: data.time });
         if(conf.db.usesDb === true) {
-            saveToDb(data.title, data.author, data.time);
+            saveToDb(data.title, data.author, data.time, socket.room);
         }
     });
     
