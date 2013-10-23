@@ -229,6 +229,8 @@ function memeIt(data) { //cl(sessionStorage.username);
         var img    = canvas.toDataURL("image/png");
         //$("#jetzt").before('<div class="message"><img src="images/drm.jpg" class="avatar" /><div class="time">'+data.time+'</div><p class="name"><strong>'+data.author+'</strong></p><p><img class="full" src="'+img+'" /></p></div>'); 
         //window.scroll();
+        //setTimeout( scroll(), 1000 );
+        
     };
     imageObj.src = memeImg;
     
