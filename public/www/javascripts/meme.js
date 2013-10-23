@@ -182,7 +182,7 @@ function memeIt(data) { //cl(sessionStorage.username);
     var memeId = "meme"+rndNumb;
     //cl(data);
     
-    var avatar = getAvatar(name);
+    var avatar = getAvatar(data.author);
 
     //$("#jetzt").before("<div class='message'><p><canvas id='"+memeId+"' class='full'></canvas></p></div>");        
     $("#jetzt").before('<div class="message"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+data.time+'</div><p class="name"><strong>'+data.author+'</strong></p><p><canvas id='+memeId+' class="full"></canvas></p></div>'); 
