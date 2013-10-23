@@ -90,6 +90,10 @@ canvas#meme {
     display: none;
 }
 
+#roomName {
+    position:fixed; top: 0; height: 40px; background: #fff; border: 1px solid #eee; font-size: 20pt; padding-left: 20px; padding-top: 15px; width: 100%; max-width: 550px;
+}
+
 @media all and (max-width:400px) {
   #bigFork {
     display: none;
