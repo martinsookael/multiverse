@@ -13,8 +13,8 @@
         <script type="text/javascript" src="javascripts/socket.io.js"></script>
         <script type="text/javascript" src="phonegap.js"></script>
         <script>
-            var socket = io.connect('http://immultiverse.herokuapp.com');
-            //var socket = io.connect('http://127.0.0.1:3001');
+            //var socket = io.connect('http://immultiverse.herokuapp.com');
+            var socket = io.connect('http://127.0.0.1:3001');
         </script>
         <audio id="ping1" preload="auto" src="sounds/ping.mp3"></audio>
         
@@ -39,6 +39,10 @@
                 <form id="login">
                     <input id="username" type="text" value="" autocomplete="off" style="border: 1px solid #999;">
                 </form>
+                <div style="text-align: center;">
+                    <br /><br />
+                    <a target="_blank" href="https://build.phonegap.com/apps/609149/download/android/?qr_key=Bd8AyqmTDxUM9x275Uyt" style="text-decoration: none;">Or download Multiverse Android App <strong>(βeta)</strong></a>
+                </div>
             </div>
             <div id="pleaseWait" class="message hidden">
                 <img src="images/be.png" class="avatar">

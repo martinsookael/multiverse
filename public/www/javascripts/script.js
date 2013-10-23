@@ -294,7 +294,7 @@ $(document).ready(function() {
     
     // scroll and beep on command
     function scrollAndBeep(data) {
-        if (sessionStorage.username != data.name) {
+        if (sessionStorage.username != data.author) {
             document.getElementById('ping1').play();
             if(deviceActive === false) {
                 makeBeep();

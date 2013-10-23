@@ -160,7 +160,8 @@ io.sockets.on('connection', function (socket) {
         delete usernames[socket.username];
         // echo globally that this client has left
         //socket.broadcast.to('room1').emit('news', { title: '<strong>'+socket.username + '</strong> has disconnected', author: 'Server', time: 'bye'});
-        io.sockets.emit('news', { title: '<strong>'+socket.username + '</strong> has disconnected', author: 'Server', time: 'bye'});
+        // remove disconnected because remove disconnected
+        //io.sockets.emit('news', { title: '<strong>'+socket.username + '</strong> has disconnected', author: 'Server', time: 'bye'});
 		socket.leave(socket.room);
     });
 
