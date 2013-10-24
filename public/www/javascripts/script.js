@@ -4,9 +4,35 @@ $(document).ready(function() {
     
     sessionStorage.username = false;
     
+    var c = new Array;
+    c.push("");
+    var cIndex = 0;
+
+    $(document).keydown(function(e){
+        if (e.keyCode == 38) { 
+            cIndex--;
+            var command = $(c).get(cIndex);
+            $("#input").val(command);
+            //c.pop();
+            return false;
+        }
+    });
+
+    $(document).keydown(function(e){
+        if (e.keyCode == 40) { 
+            cIndex++;
+            var command = $(c).get(cIndex);
+            $("#input").val(command);
+            //c.pop();
+            return false;
+        }
+    });
+
+    
     // hold focus on the text input, unless it's the log in screen.
 	if ($("#username").is(":visible")) {
 		$("#username").focus();			
+		$("#username").keypress(); // i wonder			
 	}
 	else {
 		$("#input").focus();			
@@ -15,7 +41,7 @@ $(document).ready(function() {
     //Catches info from user login box
     $('#login').on('submit', function(e) { 
 
-        e.preventDefault();         
+        e.preventDefault();   
         var username = $('#username');
 		username = username.val(); 
 		name = String(username); //cl (username);
@@ -37,6 +63,9 @@ $(document).ready(function() {
         var input = $('#input'); 
         var message = input.val();
         
+        c.push(message);
+        console.log(c);
+
         // get the first word
         if (message === '') return false;
         message = message.trim(); 
