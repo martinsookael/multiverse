@@ -3,32 +3,7 @@
 $(document).ready(function() { 
     
     sessionStorage.username = false;
-    
-    var c = new Array;
-    c.push("");
-    var cIndex = 0;
-
-    $(document).keydown(function(e){
-        if (e.keyCode == 38) { 
-            cIndex--;
-            var command = $(c).get(cIndex);
-            $("#input").val(command);
-            //c.pop();
-            return false;
-        }
-    });
-
-    $(document).keydown(function(e){
-        if (e.keyCode == 40) { 
-            cIndex++;
-            var command = $(c).get(cIndex);
-            $("#input").val(command);
-            //c.pop();
-            return false;
-        }
-    });
-
-    
+        
     // hold focus on the text input, unless it's the log in screen.
 	if ($("#username").is(":visible")) {
 		$("#username").focus();			
@@ -339,6 +314,33 @@ $(document).ready(function() {
         }
         scroll();
     }
+    
+    
+    // up and down arrows bring up last commands
+    var c = new Array;
+    c.push("");
+    var cIndex = 0;
+
+    $(document).keydown(function(e){
+        if (e.keyCode == 38) { 
+            cIndex--;
+            var command = $(c).get(cIndex);
+            $("#input").val(command);
+            //c.pop();
+            return false;
+        }
+    });
+
+    $(document).keydown(function(e){
+        if (e.keyCode == 40) { 
+            cIndex++;
+            var command = $(c).get(cIndex);
+            $("#input").val(command);
+            //c.pop();
+            return false;
+        }
+    });  
+    
 });
 
 // get local time
