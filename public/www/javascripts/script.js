@@ -3,6 +3,7 @@
 $(document).ready(function() { 
     
     sessionStorage.username = false;
+    sessionStorage.room = "multiverse";
         
     // hold focus on the text input, unless it's the log in screen.
 	if ($("#username").is(":visible")) {
@@ -28,6 +29,35 @@ $(document).ready(function() {
             sessionStorage.username = username; // this can be achieved just with using "name"
 		}
     });
+    
+
+   
+    
+    // check weather user is writing
+    /*
+    //var writing = false;
+    $("#send").keyup(function() { 
+        var textbox_text = $("#input").val(); 
+            if(textbox_text !== '' ){
+                socket.emit('writing', {user: sessionStorage.username, writing: true, room: sessionStorage.room});
+                //console.log("writing");
+                //console.log(sessionStorage.room);
+                //writing = true;
+            }else{
+                //socket.emit('writing', {user: sessionStorage.username, writing: "off", room: sessionStorage.room});
+                //console.log("not");
+                //writing = false;
+            }
+    });
+    */
+    
+    setInterval(checkTyping, 3000);    
+    function checkTyping(){
+        var isWritten = $("#input").val()
+            if(isWritten !== '' ){
+                socket.emit('writing', {user: sessionStorage.username, writing: true, room: sessionStorage.room});
+            }
+    }
     
     
     /* CATCH CONTENT FROM FORM */
@@ -133,9 +163,20 @@ $(document).ready(function() {
         serialWriter(data);
     });
 
+    socket.on('writing', function (data) { 
+        if(data.writing === true && data.user !== sessionStorage.username) {
+            $("#isWriting").remove();
+            $("#jetzt").before('<span id="isWriting" class="gray small">'+data.user+' is wrting</span>');
+        }
+        else {
+            $("#isWriting").remove();        
+        }
+    });
+    
     socket.on('roomHeader', function (data) { 
         $("#roomName").show();	
         $("#roomId").html("#"+data.room);	
+        sessionStorage.room = data.room;
     });
 
     socket.on('nsa', function (data) { 
@@ -209,7 +250,7 @@ $(document).ready(function() {
     }
 
     function printHelp() { 
-        announcer('<strong>w</strong> - who - who is here<br><strong>h</strong> - help - show this helpscreen here<br><strong>c</strong> - che cazzo - curse in Italian <!--<br><strong>y</strong> - yes - success baby --><br><strong>m</strong> - meme - create a meme <br>');
+        announcer('Write the following letter and press enter<br /> <strong>w</strong> - <strong>who</strong> is here<br><strong>h</strong> - show this <strong>help</strong>screen here<br><strong>c</strong> - <strong>curse</strong> in Italian <!--<br><strong>y</strong> - yes - success baby --><br><strong>m</strong> - create a <strong>meme</strong> <br>');
         scroll();
     }    
     

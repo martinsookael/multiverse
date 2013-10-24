@@ -113,6 +113,10 @@ canvas#meme {
     position:fixed; top: 0; height: 40px; background: #000; color: #fff; font-size: 20pt; padding-left: 20px; padding-top: 15px; width: 100%; max-width: 550px; display: none; z-index: 10;
 }
 
+#isWriting {
+    margin-left: 50px;
+}
+
 @media all and (max-width:400px) {
   #bigFork {
     display: none;

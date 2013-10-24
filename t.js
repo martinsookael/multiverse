@@ -118,6 +118,11 @@ io.sockets.on('connection', function (socket) {
         //socket.broadcast.to(data.room).emit('nsa', { nid: data.nid, name: data.name });
         io.sockets.emit('nsa', { nid: data.nid, name: data.name }); // to fix - send only to apropriate room
     }); 
+
+
+    socket.on('writing', function (data) { 
+        io.sockets.in(data.room).emit('writing', { user: data.user, writing: data.writing});
+    }); 
     
     
     socket.on('who', function (data) { 
