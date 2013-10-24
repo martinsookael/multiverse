@@ -29,34 +29,23 @@ $(document).ready(function() {
             sessionStorage.username = username; // this can be achieved just with using "name"
 		}
     });
-    
 
-   
     
     // check weather user is writing
-    /*
-    //var writing = false;
-    $("#send").keyup(function() { 
-        var textbox_text = $("#input").val(); 
-            if(textbox_text !== '' ){
-                socket.emit('writing', {user: sessionStorage.username, writing: true, room: sessionStorage.room});
-                //console.log("writing");
-                //console.log(sessionStorage.room);
-                //writing = true;
-            }else{
-                //socket.emit('writing', {user: sessionStorage.username, writing: "off", room: sessionStorage.room});
-                //console.log("not");
-                //writing = false;
-            }
-    });
-    */
-    
+    var sentFalse = true;
     setInterval(checkTyping, 3000);    
     function checkTyping(){
-        var isWritten = $("#input").val()
-            if(isWritten !== '' ){
-                socket.emit('writing', {user: sessionStorage.username, writing: true, room: sessionStorage.room});
+        var isWritten = $("#input").val();
+        if(isWritten !== '' ){ // something is written
+            socket.emit('writing', {user: sessionStorage.username, writing: true, room: sessionStorage.room});
+            sentFalse = false;
+        }
+        else { // is not written
+            if(sentFalse === false) {  // send it only once
+                socket.emit('writing', {user: sessionStorage.username, writing: false, room: sessionStorage.room});
+                sentFalse = true;        
             }
+        }
     }
     
     
@@ -80,7 +69,6 @@ $(document).ready(function() {
         else var firstWord = message;
 
         // get geoinfo
-        
         var city ='';
         if (typeof(geoip_city) != "undefined") { 
             city = geoip_city()+", "+geoip_region()+", "+geoip_country_name();
@@ -133,6 +121,7 @@ $(document).ready(function() {
 
     
     /* PROCESS SERVER RESPONSES */
+    
     socket.on('getUp', function () { 
         $('#jetzt').show();
         $("#input").focus();	
@@ -162,16 +151,6 @@ $(document).ready(function() {
     socket.on('last', function (data) { 
         serialWriter(data);
     });
-
-    socket.on('writing', function (data) { 
-        if(data.writing === true && data.user !== sessionStorage.username) {
-            $("#isWriting").remove();
-            $("#jetzt").before('<span id="isWriting" class="gray small">'+data.user+' is wrting</span>');
-        }
-        else {
-            $("#isWriting").remove();        
-        }
-    });
     
     socket.on('roomHeader', function (data) { 
         $("#roomName").show();	
@@ -179,6 +158,7 @@ $(document).ready(function() {
         sessionStorage.room = data.room;
     });
 
+    // let know if users have seen the message
     socket.on('nsa', function (data) { 
         //serialWriter(data);
         var thePost = "#"+data.nid;
@@ -190,34 +170,28 @@ $(document).ready(function() {
             $(thePost).find(".viewers").append("&nbsp;"+data.name+",");
         }
     });
-    
-    
-    
-
 
     
-    /* PRINT TEMPLATES */
-    // print news
-    /*
-    function writer(data) { 
-        if(sessionStorage.username != "false") { // hides news from non logged ins
-            message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; 
-            message = findLinksAndImages(message); // find links and images
-            var avatar = getAvatar(name);
-            $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+'<span class="gray small">esd</span></p></div>');
-            //<a class="tick hidden">&nbsp;&nbsp;&#10003;</a>
-            scrollAndBeep(data);
-            
-            socket.emit('nsa', { nid: data.nid, name: sessionStorage.username, room: data.room });
+    // let know if a user is writing    
+    socket.on('writing', function (data) { 
+        if(data.writing === true) {
+            if(data.user !== sessionStorage.username) { 
+                $("#isWriting").remove();
+                $("#jetzt").before('<span id="isWriting" class="gray small">'+data.user+' is wrting</span>');
+            }
         }
-    }*/
-
+        else {  
+            $("#isWriting").remove(); 
+        }
+    });
+    
 
     function writer(data) { 
         if(sessionStorage.username != "false") { // hides news from non logged ins
             message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; 
             message = findLinksAndImages(message); // find links and images
             var avatar = getAvatar(name);
+            $("#isWriting").remove();
             $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+'<span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div>');
             scrollAndBeep(data);
             
@@ -234,6 +208,7 @@ $(document).ready(function() {
     function paint(data) { 
         title = data.title || ''; author = data.author || ''; time = data.time || ''; city = data.city || '';
         var avatar = getAvatar(name);
+        $("#isWriting").remove();
         $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place small">'+city+'</div><p class="name"><strong>'+author+'</strong></p><img class="full" src="images/shortcuts/'+shortcuts[title].img+'" /><span class="viewers"></span></div>');
         scrollAndBeep(data);
         socket.emit('nsa', { nid: data.nid, name: sessionStorage.username, room: data.room });

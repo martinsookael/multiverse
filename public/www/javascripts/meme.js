@@ -207,6 +207,7 @@ function memeIt(data) {
     var memeId = "meme"+rndNumb;
     
     var avatar = getAvatar(data.author);
+    $("#isWriting").remove();
 
     //$("#jetzt").before("<div class='message'><p><canvas id='"+memeId+"' class='full'></canvas></p></div>");        
     $("#jetzt").before('<div class="message" id="'+data.nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+data.time+'</div><div class="place small">'+data.city+'</div><p class="name"><strong>'+data.author+'</strong></p><p><canvas id='+memeId+' class="full"></canvas><span class="viewers"></span></p></div>'); 
