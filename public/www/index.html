@@ -13,8 +13,8 @@
         <script type="text/javascript" src="javascripts/socket.io.js"></script>
         <script type="text/javascript" src="phonegap.js"></script>
         <script>
-            var socket = io.connect('http://immultiverse.herokuapp.com');
-            //var socket = io.connect('http://127.0.0.1:3001');
+            //var socket = io.connect('http://immultiverse.herokuapp.com');
+            var socket = io.connect('http://127.0.0.1:3001');
         </script>
         
         <audio id="ping1" preload="auto" src="sounds/ping.mp3"></audio>
@@ -22,6 +22,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="shortcut icon" href="images/favicon.ico">
     </head>
     <body>
         <!--<a href="https://github.com/451ee/t">

@@ -15,6 +15,7 @@ var express = require('express')
   , io = require('socket.io').listen(server)
   , date = new Date();
 
+
 // Mongo db operations
 if(conf.db.usesDb === true) { 
   var ArticleProvider = require('./db').ArticleProvider;
@@ -23,9 +24,9 @@ if(conf.db.usesDb === true) {
 
 // all environments
 app.set('port', process.env.PORT || conf.general.port);
-app.set('views', __dirname + '/views');
+//app.set('views', __dirname + '/views');
 //app.set('view engine', 'jade');
-app.use(express.favicon());
+app.use(express.favicon(__dirname + '/public/www/images/favicon.ico'));
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
