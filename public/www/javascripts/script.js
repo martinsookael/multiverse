@@ -146,7 +146,7 @@ $(document).ready(function() {
                                       
         if(sessionStorage.username != data.name && data.name != author) {
             //$(thePost).find(".content").append("<span class='gray small'> &#10003;"+data.name+"</div>");
-            $(thePost).find(".viewers").html("<span class='gray small'> &nbsp;&nbsp;&#10003;"+data.name+"</div>");
+            $(thePost).find(".viewers").append("<span class='gray small'> &nbsp;&nbsp;&#10003;"+data.name+"</div>");
         }
     });
     
@@ -190,7 +190,8 @@ $(document).ready(function() {
 
     function paint(data) { 
         title = data.title || ''; author = data.author || ''; time = data.time || ''; city = data.city || '';
-        $("#jetzt").before('<div class="message" id="'+nid+'"><div class="time">'+time+'</div><div class="place small">'+city+'</div><p class="name"><strong>'+author+'</strong></p><img class="full" src="images/shortcuts/'+shortcuts[title].img+'" /><span class="viewers"></span></div>');
+        var avatar = getAvatar(name);
+        $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place small">'+city+'</div><p class="name"><strong>'+author+'</strong></p><img class="full" src="images/shortcuts/'+shortcuts[title].img+'" /><span class="viewers"></span></div>');
         scrollAndBeep(data);
         socket.emit('nsa', { nid: data.nid, name: sessionStorage.username, room: data.room });
     }
@@ -333,6 +334,10 @@ function getAvatar(name){
         var avatar = "muusa.jpg";
         break;
 
+        case "Greta":
+        var avatar = "greta.jpg";
+        break;
+            
         case "Server":
         var avatar = "be.png";
         break;
