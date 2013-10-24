@@ -7,7 +7,7 @@ $(document).ready(function() {
     // hold focus on the text input, unless it's the log in screen.
 	if ($("#username").is(":visible")) {
 		$("#username").focus();			
-		$("#username").keypress(); // i wonder			
+		//$("#username").keypress(); // didn't help, at least not for android.
 	}
 	else {
 		$("#input").focus();			
