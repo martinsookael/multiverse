@@ -20,6 +20,12 @@ body {
 .hidden {
   display: none;
 }
+.gray {
+  color: #999;
+}
+.small {
+  font-size: 9pt;
+}
 .center {
   text-align: center;
 }

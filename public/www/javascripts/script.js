@@ -35,11 +35,14 @@ $(document).ready(function() {
        
         e.preventDefault(); 
         
+        var rndNumb=Math.floor(Math.random()*1000000);
+        var nid = "p"+rndNumb;
+        
         var input = $('#input'); 
         var message = input.val();
         
-        c.push(message);
-        console.log(c);
+        c.push({id:nid, message:message}); // add this to local command list
+        //cl(c);
 
         // get the first word
         if (message === '') return false;
@@ -84,9 +87,10 @@ $(document).ready(function() {
         }
         
         else { // if no shortcut, send it to the wire
-            //console.log("läheb");
             var city = geoip_city();
-            socket.emit('news', { text: message, author: sessionStorage.username, time: getTime(), city: city });
+            socket.emit('news', { text: message, author: sessionStorage.username, time: getTime(), city: city, nid: nid}, function(feedBack) {
+                //console.log(feedBack); // fires when server has seen it
+            });
         }
      
         input.val(''); // clear the text input. Or should it be - reset form?
@@ -118,9 +122,7 @@ $(document).ready(function() {
     });
 
     socket.on('news', function (data) { 
-        if(sessionStorage.username != "false") {
-            writer(data);
-        }
+        writer(data);
     });
 
     socket.on('last', function (data) { //cl(data);
@@ -131,6 +133,15 @@ $(document).ready(function() {
         $("#roomName").show();	
         $("#roomId").html("#"+data.room);	
     });
+
+    socket.on('nsa', function (data) { cl(data);
+        //serialWriter(data);
+        var thePost = "#"+data.nid;
+        if(sessionStorage.username != data.name) {
+            $(thePost).find(".name").append("<span class='gray small'> &#10003;"+data.name+"</div>");
+        }
+            //cl(data);
+    });
     
     
     
@@ -140,13 +151,15 @@ $(document).ready(function() {
     /* PRINT TEMPLATES */
     // print news
     function writer(data) { //cl(data);
-        message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || '';
-        message = findLinksAndImages(message); // find links and images
-        var avatar = getAvatar(name);
-        $("#jetzt").before('<div class="message"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+'</p></div>');
-        //makeBeep();
-        //vibrate();
-        scrollAndBeep(data);
+        if(sessionStorage.username != "false") { // hides news from non logged ins
+            message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; 
+            message = findLinksAndImages(message); // find links and images
+            var avatar = getAvatar(name);
+            $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+'</p></div>');
+            scrollAndBeep(data);
+            
+            socket.emit('nsa', { nid: data.nid, name: sessionStorage.username, room: data.room });
+        }
     }
     
     // print announcements
@@ -177,32 +190,11 @@ $(document).ready(function() {
     }    
     
 
-    function serialWriter(data) { /*cl(data);
-        
-        var array = $.map(data, function(value, index) {
-            return [value];
-        });
-                                 
-         */
-        //cl(data);        
+    function serialWriter(data) {        
         
         for (var i=0;i<data.length;i++) {
-            //cl(data[i]);
             if(data[i].title.indexOf(" ") != -1) var firstWord = data[i].title.slice(0, data[i].title.indexOf(" "));
-            else var firstWord = data[i].title;
-            //cl(firstWord);
-            /*
-            (function(first){
-                if(firstWord in shortcuts) { 
-                    //cl(message);
-                    memeIt(data[i]);
-                }
-                else { // if no shortcut, send it to the wire
-                    writer(data[i]);
-                }
-            }(i++));
-            */
-            
+            else var firstWord = data[i].title;    
 
             if(firstWord in shortcuts) { 
                 // it's a shortcut but no meme
@@ -219,53 +211,6 @@ $(document).ready(function() {
                 writer(data[i]);
             }
         }
-        
-        
-        /*data.forEach(function(message){
-            //console.log(message.title);
-            if(message.title.indexOf(" ") != -1) var firstWord = message.title.slice(0, message.title.indexOf(" "));
-            else var firstWord = message.title;
-            //cl(firstWord);
-
-            if(firstWord in shortcuts) { 
-                //cl(message);
-                memeIt(message);
-            }
-            
-        });*/
-
-        
-        /*var singleMessage = Array();
-        
-        
-        $.each(data, function(key, value) {
-            singleMessage.message = value.title; 
-            singleMessage.name = value.author; 
-            singleMessage.time = value.time;
-            
-            //cl(singleMessage.name);
-
-            // get the first word
-            if(message.title.indexOf(" ") != -1) var firstWord = message.title.slice(0, message.title.indexOf(" "));
-            else var firstWord = message.title;
-            
-            // is it a shortcut?
-            if(firstWord in shortcuts) { 
-                // it's a shortcut but no meme
-                if(findMemeError(message.title) === "noMeme" || findMemeError(message.title) === "error"){ 
-                    // well hello there
-                    // hardcode often?
-                    paint(message); 
-                } // it's a meme!
-                else {  
-                    memeIt(message); 
-                }
-            }
-            else { // if no shortcut, send it to the wire
-                writer(message);
-            }
-        });
-        delete singleMessage; */
     }
     
     // automagic link creation from URLs 
@@ -318,14 +263,14 @@ $(document).ready(function() {
     
     // up and down arrows bring up last commands
     var c = new Array;
-    c.push("");
+    c.push({id:"", message:""});
     var cIndex = 0;
 
     $(document).keydown(function(e){
         if (e.keyCode == 38) { 
             cIndex--;
             var command = $(c).get(cIndex);
-            $("#input").val(command);
+            $("#input").val(command.message);
             //c.pop();
             return false;
         }
@@ -335,7 +280,7 @@ $(document).ready(function() {
         if (e.keyCode == 40) { 
             cIndex++;
             var command = $(c).get(cIndex);
-            $("#input").val(command);
+            $("#input").val(command.message);
             //c.pop();
             return false;
         }

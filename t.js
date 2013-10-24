@@ -65,12 +65,15 @@ io.sockets.on('connection', function (socket) {
         })
     }
     
-    
-    socket.on('news', function (data) { console.log(data);
-        io.sockets.in(socket.room).emit('news', { title: data.text, author: data.author, time: data.time, city: data.city });
+    socket.on('news', function (data, smth) { //console.log(data);
+        
+        // send it to all
+        io.sockets.in(socket.room).emit('news', { title: data.text, author: data.author, time: data.time, city: data.city, nid: data.nid, room: socket.room });
+        // write it to tb
         if(conf.db.usesDb === true) {
-            saveToDb(data.text, data.author, data.time, socket.room);
+            saveToDb(data.text, data.author, data.time, socket.room, data.city, data.nid);
         }
+        smth(data.nid);
     });
 
     socket.on('paint', function (data) { //console.log(data);
@@ -104,13 +107,18 @@ io.sockets.on('connection', function (socket) {
 		socket.broadcast.to(newroom).emit('news', { title: '<strong>'+socket.username + '</strong> has joined this room', author: 'Server', time: data.time});
         socket.emit('roomHeader', { room: newroom}); // echo to client they've connected
         printLast();
-        
-
- 
-
 		//socket.emit('updaterooms', rooms, newroom);
     });
 
+    
+    socket.on('nsa', function (data) { 
+        //console.log("JAAAAAAAAAAAAAAAAAAAAAAAAAAA");
+        //console.log(data);
+        //socket.broadcast.to(data.room).emit('nsa', { nid: data.nid, name: data.name });
+        io.sockets.emit('nsa', { nid: data.nid, name: data.name }); // to fix - send only to apropriate room
+    }); 
+    
+    
     socket.on('who', function (data) { 
         socket.emit('who', usernames);
     });
