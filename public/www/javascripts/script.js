@@ -42,7 +42,6 @@ $(document).ready(function() {
         var message = input.val();
         
         c.push({id:nid, message:message}); // add this to local command list
-        //cl(c);
 
         // get the first word
         if (message === '') return false;
@@ -125,7 +124,7 @@ $(document).ready(function() {
         writer(data);
     });
 
-    socket.on('last', function (data) { //cl(data);
+    socket.on('last', function (data) { 
         serialWriter(data);
     });
 
@@ -134,13 +133,14 @@ $(document).ready(function() {
         $("#roomId").html("#"+data.room);	
     });
 
-    socket.on('nsa', function (data) { cl(data);
+    socket.on('nsa', function (data) { 
         //serialWriter(data);
         var thePost = "#"+data.nid;
-        if(sessionStorage.username != data.name) {
+        var author = $(thePost).find(".name").find("strong").html();
+                                      
+        if(sessionStorage.username != data.name && data.name != author) {
             $(thePost).find(".name").append("<span class='gray small'> &#10003;"+data.name+"</div>");
         }
-            //cl(data);
     });
     
     
@@ -150,7 +150,7 @@ $(document).ready(function() {
     
     /* PRINT TEMPLATES */
     // print news
-    function writer(data) { //cl(data);
+    function writer(data) { 
         if(sessionStorage.username != "false") { // hides news from non logged ins
             message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; 
             message = findLinksAndImages(message); // find links and images
@@ -168,7 +168,7 @@ $(document).ready(function() {
         $("#jetzt").before('<div class="message announce"><p>'+message+'</p>');    
     }
 
-    function paint(data) { //cl(data);
+    function paint(data) { 
         title = data.title || ''; author = data.author || ''; time = data.time || '';
         $("#jetzt").before('<div class="message center"><div class="time">'+time+'</div><p class="name"><strong>'+author+'</strong></p><img src="images/shortcuts/'+shortcuts[title].img+'" /></div>');
         scrollAndBeep(data);
@@ -244,7 +244,6 @@ $(document).ready(function() {
     function scroll() { 
         //if (name != username) document.getElementById('ping1').play();
         var height = $(document).height();
-        //console.log(height);
         $(window).scrollTop(height); 
     }  
     
