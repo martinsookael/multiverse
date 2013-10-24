@@ -23,5 +23,5 @@ module.exports = {
       , collectionName: 'chat2'
      // , username: 'heroku_app18775261'
     //  , password: 'qfhs9bftk5k41of30q0i2oa0ot'
-    } */&
+    } */
 };

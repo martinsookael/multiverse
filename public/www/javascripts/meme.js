@@ -135,6 +135,31 @@ var memes = [
     },{
         "name": "soclose",
         "img" : "images/meme/soclose.gif",
+    },{
+        "name": "africa",
+        "img" : "images/meme/africa.jpg",
+        "message1" : "so you're telling me", 
+    },{
+        "name": "aliens",
+        "img" : "images/meme/aliens.jpg",
+        "message1" : "Aliens", 
+    },{
+        "name": "brian",
+        "img" : "images/meme/brian.jpg",
+    },{
+        "name": "dawg",
+        "img" : "images/meme/dawg.jpg",
+    },{
+        "name": "high",
+        "img" : "images/meme/high.jpg",
+        "message2" : "is too damn high", 
+    },{
+        "name": "isee",
+        "img" : "images/meme/isee.gif",
+        "message2" : "i see what you did there", 
+    },{
+        "name": "notsure",
+        "img" : "images/meme/notsure.jpg",
     }
 ]
 
