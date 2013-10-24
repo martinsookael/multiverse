@@ -46,7 +46,8 @@ body {
 color: #DDD;
 float: right;
 position: absolute;
-right: 70px;
+right: 55px;
+margin-top: 4px;
 }
 .avatar {
   float: left;

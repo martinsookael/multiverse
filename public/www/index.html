@@ -13,8 +13,8 @@
         <script type="text/javascript" src="javascripts/socket.io.js"></script>
         <script type="text/javascript" src="phonegap.js"></script>
         <script>
-            var socket = io.connect('http://immultiverse.herokuapp.com');
-            //var socket = io.connect('http://127.0.0.1:3001');
+            //var socket = io.connect('http://immultiverse.herokuapp.com');
+            var socket = io.connect('http://127.0.0.1:3001');
         </script>
         
         <audio id="ping1" preload="auto" src="sounds/ping.mp3"></audio>
@@ -59,7 +59,8 @@
             </div>
         </div>
         <script>
-            head.js("javascripts/jquery-1.10.0.min.js", "javascripts/script.js", "javascripts/meme.js", "javascripts/shortcuts.js",  "javascripts/phonegapstuff.js", "http://j.maxmind.com/app/geoip.js");            
+            head.js("javascripts/jquery-1.10.0.min.js", "javascripts/script.js", "javascripts/meme.js", "javascripts/shortcuts.js",  "javascripts/phonegapstuff.js", "http://j.maxmind.com/app/geoip.js");     
+            setTimeout( head.js("http://j.maxmind.com/app/geoip.js"), 600000 );
         </script>
 
         

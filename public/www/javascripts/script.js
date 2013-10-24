@@ -86,7 +86,7 @@ $(document).ready(function() {
         }
         
         else { // if no shortcut, send it to the wire
-            var city = geoip_city();
+            var city = geoip_city()+", "+geoip_region()+", "+geoip_country_name();
             socket.emit('news', { text: message, author: sessionStorage.username, time: getTime(), city: city, nid: nid}, function(feedBack) {
                 //console.log(feedBack); // fires when server has seen it
             });
@@ -139,7 +139,8 @@ $(document).ready(function() {
         var author = $(thePost).find(".name").find("strong").html();
                                       
         if(sessionStorage.username != data.name && data.name != author) {
-            $(thePost).find(".name").append("<span class='gray small'> &#10003;"+data.name+"</div>");
+            //$(thePost).find(".content").append("<span class='gray small'> &#10003;"+data.name+"</div>");
+            $(thePost).find(".content").append("<span class='gray small'> &nbsp;&nbsp;&#10003;"+data.name+"</div>");
         }
     });
     
@@ -155,7 +156,7 @@ $(document).ready(function() {
             message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; 
             message = findLinksAndImages(message); // find links and images
             var avatar = getAvatar(name);
-            $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+'</p></div>');
+            $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p class="content">'+message+'</p></div>');
             scrollAndBeep(data);
             
             socket.emit('nsa', { nid: data.nid, name: sessionStorage.username, room: data.room });
