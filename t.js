@@ -76,8 +76,8 @@ io.sockets.on('connection', function (socket) {
         smth(data.nid);
     });
 
-    socket.on('paint', function (data) { //console.log(data);
-        io.sockets.in(socket.room).emit('paint', { title: data.title, author: data.author, time: data.time });
+    socket.on('paint', function (data) { 
+        io.sockets.in(socket.room).emit('paint', { title: data.title, author: data.author, time: data.time, city: data.city, nid: data.nid });
         //socket.emit('paint', { title: data.title, author: data.author, time: data.time });
         //socket.broadcast.emit('paint', { title: data.title, author: data.author, time: data.time });
         if(conf.db.usesDb === true) {
@@ -85,18 +85,18 @@ io.sockets.on('connection', function (socket) {
         }
     });
 
-    socket.on('meme', function (data) { 
-        io.sockets.in(socket.room).emit('meme', { title: data.title, author: data.author, time: data.time });
+    socket.on('meme', function (data) {  
+        io.sockets.in(socket.room).emit('meme', { title: data.title, author: data.author, time: data.time, city: data.city, nid:data.nid });
         //socket.emit('meme', { title: data.title, author: data.author, time: data.time });
         //socket.broadcast.emit('meme', { title: data.title, author: data.author, time: data.time });
         if(conf.db.usesDb === true) {
-            saveToDb(data.title, data.author, data.time, socket.room);
+            saveToDb(data.title, data.author, data.time, socket.room, data.city);
         }
     });
     
     socket.on('room', function (data) { 
         var newroom = data.title.slice(2); // remove "r" from beginning
-        //console.log(room);
+        
 		socket.leave(socket.room);
 		socket.join(newroom);
         socket.emit('news', { title: 'You are connected to #'+newroom, author: 'Server', time: data.time}); // echo to client they've connected
@@ -151,7 +151,7 @@ io.sockets.on('connection', function (socket) {
             printLast();
         }            
 		//socket.broadcast.to('room1').emit('news', { title: '<strong>'+data.username + '</strong> has connected', author: 'Server', time: data.time});
-        io.sockets.emit('news', { title: '<strong>'+socket.username + '</strong> has connected to ' +socket.room, author: 'Server', time: 'bye'});
+        io.sockets.emit('news', { title: '<strong>'+socket.username + '</strong> has connected to ' +socket.room, author: 'Server', time: ''});
 
     });
     /*

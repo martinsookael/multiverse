@@ -142,7 +142,7 @@ function findMemeError(input) {
     var findMeme = /^m /;
     if(findMeme.test(input)) { // it's a meme
         processMessage = getMemeName(input);
-        var memeName = processMessage['memeName']; //cl(processMessage);
+        var memeName = processMessage['memeName']; 
         var localMemes = new Array();
         var i = 0;
         $.each(window.memes, function(key, value) {
@@ -162,7 +162,7 @@ function findMemeError(input) {
 
 
 // takes meme message and slices & returns meme name
-function getMemeName(message) { //cl(message);
+function getMemeName(message) { 
     message = message.slice(2); // remove "m " from beginning
     
     if(message.indexOf(" ") != -1) var memeName = message.slice(0, message.indexOf(" ")); // get the meme name (if the text fields are not empty)
@@ -176,18 +176,18 @@ function getMemeName(message) { //cl(message);
     return processedMessage;
 }
 
-function memeIt(data) { //cl(sessionStorage.username);
+function memeIt(data) { 
 
     var rndNumb=Math.floor(Math.random()*1000000)
     var memeId = "meme"+rndNumb;
-    //cl(data);
     
     var avatar = getAvatar(data.author);
 
     //$("#jetzt").before("<div class='message'><p><canvas id='"+memeId+"' class='full'></canvas></p></div>");        
-    $("#jetzt").before('<div class="message"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+data.time+'</div><p class="name"><strong>'+data.author+'</strong></p><p><canvas id='+memeId+' class="full"></canvas></p></div>'); 
+    $("#jetzt").before('<div class="message" id="'+data.nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+data.time+'</div><div class="place small">'+data.city+'</div><p class="name"><strong>'+data.author+'</strong></p><p><canvas id='+memeId+' class="full"></canvas><span class="viewers"></span></p></div>'); 
+
+    socket.emit('nsa', { nid: data.nid, name: sessionStorage.username, room: data.room });
     
-    //console.log(data);
     var message = data.title;
             
     var processedMessage = getMemeName(message);
@@ -239,6 +239,7 @@ function memeIt(data) { //cl(sessionStorage.username);
         //window.scroll();
         //setTimeout( scroll(), 1000 );
         
+        
     };
     imageObj.src = memeImg;
     
@@ -246,7 +247,6 @@ function memeIt(data) { //cl(sessionStorage.username);
         message1 = message1.toUpperCase();
         message2 = message2.toUpperCase();
         
-        //window.cl(message1.length);
         
         context.font = '40px Impact';
         context.textAlign = 'center';

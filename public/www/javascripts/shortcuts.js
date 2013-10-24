@@ -38,6 +38,10 @@ shortcuts = {
         "img" : "yes.jpg",
         "channel": "paint",
     },
+    "think":{ 
+        "img" : "think.jpg",
+        "channel": "paint",
+    },
     "m":{ 
         "channel":"meme" 
     },

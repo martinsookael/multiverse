@@ -48,7 +48,13 @@ $(document).ready(function() {
         message = message.trim(); 
         if(message.indexOf(" ") != -1) var firstWord = message.slice(0, message.indexOf(" "));
         else var firstWord = message;
+
+        // get geoinfo
         
+        var city ='';
+        if (typeof(geoip_city) != "undefined") { 
+            city = geoip_city()+", "+geoip_region()+", "+geoip_country_name();
+        }
         // is it a shortcut?
         if(firstWord in shortcuts) { 
             
@@ -72,7 +78,7 @@ $(document).ready(function() {
                     if(message === "r" || message === "r " ) {return false;} // r misfire 
                     else {
                         var channel = shortcuts[firstWord].channel; 
-                        socket.emit(channel, { title: message, author: sessionStorage.username, time: getTime() });
+                        socket.emit(channel, { title: message, author: sessionStorage.username, time: getTime(), city: city, nid:nid });
                     }
                 }
             } // it's a meme!
@@ -81,12 +87,11 @@ $(document).ready(function() {
                 data.title = input.val();
                 data.author = "Server";
                 data.time = getTime();
-                socket.emit("meme", { title: message, author: sessionStorage.username, time: getTime() });
+                socket.emit("meme", { title: message, author: sessionStorage.username, time: getTime(), city: city, nid: nid });
             }
         }
         
         else { // if no shortcut, send it to the wire
-            var city = geoip_city()+", "+geoip_region()+", "+geoip_country_name();
             socket.emit('news', { text: message, author: sessionStorage.username, time: getTime(), city: city, nid: nid}, function(feedBack) {
                 //console.log(feedBack); // fires when server has seen it
             });
@@ -135,12 +140,13 @@ $(document).ready(function() {
 
     socket.on('nsa', function (data) { 
         //serialWriter(data);
+        cl(data);
         var thePost = "#"+data.nid;
         var author = $(thePost).find(".name").find("strong").html();
                                       
         if(sessionStorage.username != data.name && data.name != author) {
             //$(thePost).find(".content").append("<span class='gray small'> &#10003;"+data.name+"</div>");
-            $(thePost).find(".content").append("<span class='gray small'> &nbsp;&nbsp;&#10003;"+data.name+"</div>");
+            $(thePost).find(".viewers").html("<span class='gray small'> &nbsp;&nbsp;&#10003;"+data.name+"</div>");
         }
     });
     
@@ -156,7 +162,7 @@ $(document).ready(function() {
             message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; 
             message = findLinksAndImages(message); // find links and images
             var avatar = getAvatar(name);
-            $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p class="content">'+message+'</p></div>');
+            $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+'<span class="viewers"></span></p></div>');
             scrollAndBeep(data);
             
             socket.emit('nsa', { nid: data.nid, name: sessionStorage.username, room: data.room });
@@ -170,9 +176,10 @@ $(document).ready(function() {
     }
 
     function paint(data) { 
-        title = data.title || ''; author = data.author || ''; time = data.time || '';
-        $("#jetzt").before('<div class="message center"><div class="time">'+time+'</div><p class="name"><strong>'+author+'</strong></p><img src="images/shortcuts/'+shortcuts[title].img+'" /></div>');
+        title = data.title || ''; author = data.author || ''; time = data.time || ''; city = data.city || '';
+        $("#jetzt").before('<div class="message" id="'+nid+'"><div class="time">'+time+'</div><div class="place small">'+city+'</div><p class="name"><strong>'+author+'</strong></p><img class="full" src="images/shortcuts/'+shortcuts[title].img+'" /><span class="viewers"></span></div>');
         scrollAndBeep(data);
+        socket.emit('nsa', { nid: data.nid, name: sessionStorage.username, room: data.room });
     }
     
     function printWho(data){
