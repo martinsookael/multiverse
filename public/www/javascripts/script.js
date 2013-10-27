@@ -268,7 +268,6 @@ $(document).ready(function() {
         var avatar = getAvatar(name);
         
         if(title.indexOf(" ") != -1) title = title.slice(0, title.indexOf(" "));
-        console.log(title);
         $("#isWriting").remove();
         $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place small">'+city+'</div><p class="name"><strong>'+author+'</strong></p><img class="full" src="images/shortcuts/'+shortcuts[title].img+'" /><span class="viewers"></span></div>');
         scrollAndBeep(data);
