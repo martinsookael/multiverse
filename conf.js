@@ -14,14 +14,14 @@ module.exports = {
       , collectionName: 'chat'
       , username: 'heroku_app18775261'
       , password: 'qfhs9bftk5k41of30q0i2oa0ot'
-    }/*
-  , db: {
+    }
+  /*, db: {
         usesDb: true // true - uses db, false - uses not. // IF TALKER WON'T START, START DEBUGGING FROM HERE
       , host: '127.0.0.1' // notice the missing "http://"
       , port: 27017 
       , dbName: 'talker'
-      , collectionName: 'chat2'
+      , collectionName: 'chat3'
      // , username: 'heroku_app18775261'
     //  , password: 'qfhs9bftk5k41of30q0i2oa0ot'
-    } */
+    }*/
 };

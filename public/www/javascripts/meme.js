@@ -210,7 +210,7 @@ function memeIt(data) {
     $("#isWriting").remove();
 
     //$("#jetzt").before("<div class='message'><p><canvas id='"+memeId+"' class='full'></canvas></p></div>");        
-    $("#jetzt").before('<div class="message" id="'+data.nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+data.time+'</div><div class="place small">'+data.city+'</div><p class="name"><strong>'+data.author+'</strong></p><p><canvas id='+memeId+' class="full"></canvas><span class="viewers"></span></p></div>'); 
+    $("#jetzt").before('<div class="message" id="'+data.nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+data.time+'</div><div class="place small">'+data.city+'</div><p class="name"><strong>'+data.author+'</strong></p><p><canvas id='+memeId+' class="full"></canvas><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div>'); 
 
     socket.emit('nsa', { nid: data.nid, name: sessionStorage.username, room: data.room });
     

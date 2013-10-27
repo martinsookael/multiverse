@@ -126,8 +126,9 @@ $(document).ready(function() {
 
         // get geoinfo
         var city ='';
-        if (typeof(geoip_city) != "undefined") { 
-            city = geoip_city()+", "+geoip_region()+", "+geoip_country_name();
+        if (typeof(geoip_city) != "undefined") {
+            //city = geoip_city()+", "+geoip_region()+", "+geoip_country_name();
+            city = geoip_city();
         }
         // is it a shortcut?
         if(firstWord in shortcuts) { 
@@ -152,7 +153,7 @@ $(document).ready(function() {
                     if(message === "r" || message === "r " ) {return false;} // r misfire 
                     else {
                         var channel = shortcuts[firstWord].channel; 
-                        socket.emit(channel, { title: message, author: sessionStorage.username, time: getTime(), city: city, nid:nid });
+                        socket.emit(channel, { title: message, author: sessionStorage.username, time: getTime(), city: city, nid:nid, room:sessionStorage.room });
                     }
                 }
             } // it's a meme!
@@ -161,12 +162,12 @@ $(document).ready(function() {
                 data.title = input.val();
                 data.author = "Server";
                 data.time = getTime();
-                socket.emit("meme", { title: message, author: sessionStorage.username, time: getTime(), city: city, nid: nid });
+                socket.emit("meme", { title: message, author: sessionStorage.username, time: getTime(), city: city, nid: nid, room: sessionStorage.room });
             }
         }
         
         else { // if no shortcut, send it to the wire
-            socket.emit('news', { text: message, author: sessionStorage.username, time: getTime(), city: city, nid: nid}, function(feedBack) {
+            socket.emit('news', { text: message, author: sessionStorage.username, time: getTime(), city: city, nid: nid, room: sessionStorage.room}, function(feedBack) {
                 //console.log(feedBack); // fires when server has seen it
             });
         }
@@ -201,7 +202,7 @@ $(document).ready(function() {
         printHelp();
     });
 
-    socket.on('news', function (data) { console.log(data);
+    socket.on('news', function (data) { 
         writer(data);
     });
 

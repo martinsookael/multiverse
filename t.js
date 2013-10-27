@@ -73,12 +73,14 @@ function switchUserRoom(username,room) {
 }
 
 
-function saveToDb(message, author, time, room) {
+function saveToDb(message, author, time, room, city, nid) {
     articleProvider.save({
         title: message,
         author: author,
         time: time,
-        room: room
+        room: room,
+        city: city, 
+        nid: nid
         }, function(error, docs) {
         // ERROR HANDLING
     });
@@ -115,22 +117,23 @@ io.sockets.on('connection', function (socket) {
         if(data.room === null) {
             data.room = findUserRoom(socket.username);
         }
+        console.log("t:news:room: "+data.room);
                 
         // send it to all
-        io.sockets.in(socket.room).emit('news', { title: data.text, author: data.author, time: data.time, city: data.city, nid: data.nid, room: socket.room });
+        io.sockets.in(socket.room).emit('news', { title: data.text, author: data.author, time: data.time, city: data.city, nid: data.nid, room: data.room });
         // write it to tb
         if(conf.db.usesDb === true) {
-            saveToDb(data.text, data.author, data.time, socket.room, data.city, data.nid);
+            saveToDb(data.text, data.author, data.time, data.room, data.city, data.nid);
         }
         pingBack(data.nid);
     });
 
     socket.on('paint', function (data) { 
-        io.sockets.in(socket.room).emit('paint', { title: data.title, author: data.author, time: data.time, city: data.city, nid: data.nid });
+        io.sockets.in(socket.room).emit('paint', { title: data.title, author: data.author, time: data.time, room: data.room, city: data.city, nid: data.nid });
         //socket.emit('paint', { title: data.title, author: data.author, time: data.time });
         //socket.broadcast.emit('paint', { title: data.title, author: data.author, time: data.time });
         if(conf.db.usesDb === true) {
-            saveToDb(data.title, data.author, data.time, socket.room);
+            saveToDb(data.title, data.author, data.time, data.room, data.city, data.nid, data.room);
         }
     });
 
@@ -139,7 +142,8 @@ io.sockets.on('connection', function (socket) {
         //socket.emit('meme', { title: data.title, author: data.author, time: data.time });
         //socket.broadcast.emit('meme', { title: data.title, author: data.author, time: data.time });
         if(conf.db.usesDb === true) {
-            saveToDb(data.title, data.author, data.time, socket.room, data.city);
+            saveToDb(data.title, data.author, data.time, data.room, data.city, data.nid );
+            
         }
     });
     
