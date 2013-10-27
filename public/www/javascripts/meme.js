@@ -201,6 +201,8 @@ function getMemeName(message) {
     return processedMessage;
 }
 
+
+
 function memeIt(data) { 
 
     var rndNumb=Math.floor(Math.random()*1000000)
@@ -234,16 +236,21 @@ function memeIt(data) {
         message1 = message.slice(0, split).trim();
         message2 = message.slice(split+1).trim();
     }
-    
-    var memeImg = "images/meme/noSuchMeme.gif";
-    
+    //var memeImg = "images/meme/noSuchMeme.gif";
     $.each(memes, function(key, value) {
         if(memeName === value.name) {
             memeImg = value.img;
-            if(value.message1) message1 = value.message1;
-            if(value.message2) message2 = value.message2;
+            //console.log(value.message1);
+            memeDefaultMessage1 = value.message1 || '';
+            memeDefaultMessage2 = value.message2 || '';
+            
+            if(message1 === '') message1 = memeDefaultMessage1;
+            if(message2 === '') message2 = memeDefaultMessage2;
         }
     });
+    
+    cl(message1);
+    cl(message2);
 
     //$("#jetzt").before("<div class='message'><p><canvas id='meme' class='full'></canvas></p></div>");        
     
