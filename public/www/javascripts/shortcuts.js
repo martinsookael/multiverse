@@ -26,18 +26,6 @@ shortcuts = {
         "img" : "selffive.gif",
         "channel": "paint",
     },
-    "i":{ 
-        "img" : "idea.jpeg",
-        "channel": "paint",
-    },
-    "8":{ 
-        "img" : "note.gif",
-        "channel": "paint",
-    },
-    "y":{ 
-        "img" : "yes.jpg",
-        "channel": "paint",
-    },
     "think":{ 
         "img" : "think.jpg",
         "channel": "paint",
