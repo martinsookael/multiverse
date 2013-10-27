@@ -13,9 +13,9 @@
         <script type="text/javascript" src="javascripts/socket.io.js"></script>
         <script type="text/javascript" src="phonegap.js"></script>
         <script>
-            window.onerror = function(message, url, lineNumber) {
-                alert("Error: "+message+" in "+url+" at line "+lineNumber);
-            }
+            //window.onerror = function(message, url, lineNumber) {
+                //alert("Error: "+message+" in "+url+" at line "+lineNumber);
+            //}
             
             var socket = io.connect('http://immultiverse.herokuapp.com');
             //var socket = io.connect('http://127.0.0.1:3001', {'max reconnection attempts': 3});
