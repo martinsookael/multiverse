@@ -96,7 +96,7 @@ io.sockets.on('connection', function (socket) {
             socket.join(newroom);
             socket.emit('news', { title: 'You are connected to #'+newroom, author: 'Server', time: data.time}); // echo to client they've connected
             // sent message to OLD room
-            socket.broadcast.to(socket.room).emit('news', { title: socket.username+' has left this room', author: 'Server', time: data.time}); 
+            socket.broadcast.to(socket.room).emit('news', { title: '<strong>'+socket.username+'</strong> has left this room', author: 'Server', time: data.time}); 
             // update socket session room title
             socket.room = newroom;
             socket.broadcast.to(newroom).emit('news', { title: '<strong>'+socket.username + '</strong> has joined this room', author: 'Server', time: data.time});
