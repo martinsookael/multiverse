@@ -246,11 +246,11 @@ $(document).ready(function() {
 
     function writer(data) { 
         if(sessionStorage.username != "false") { // hides news from non logged ins
-            message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; 
+            message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; room = data.room || ''; 
             message = findLinksAndImages(message); // find links and images
             var avatar = getAvatar(name);
             $("#isWriting").remove();
-            $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+'<span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div>');
+            $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+' <span class="gray">#'+room+'</span><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div>');
             scrollAndBeep(data);
             
             socket.emit('nsa', { nid: data.nid, name: sessionStorage.username, room: data.room });
