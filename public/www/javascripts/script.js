@@ -48,6 +48,62 @@ $(document).ready(function() {
         }
     }
     
+    // are we online?
+    setInterval(checkOnline, 3000);  
+    function checkOnline() {
+        if(socket.socket.connected === true) {
+         $("#connected").show();
+         $("#disconnected").hide();
+        //cl(socket.socket);
+
+        }
+        else {
+         $("#connected").hide();
+         $("#disconnected").show();
+        //cl(socket.socket);
+            
+        }
+    }
+    
+     
+    socket.on('reconnect_failed', function () {cl("reconnect failed!");})
+
+    socket.on('reconnect_error', function (data) {cl("reconnect error!"+data);})
+        
+        
+	socket.on("connecting", function(){
+		cl("client connecting");
+	});
+	socket.on("connect", function(){
+		cl("client connected");
+		//if(end){end(ioclient);}
+	});
+	socket.on("connect_failed", function(){
+		cl("client connect_failed");
+	});
+	socket.on("reconnecting", function(){
+		cl("client reconnecting");
+	});
+	socket.on("reconnect", function(){
+		cl("client reconnected");
+	});
+	socket.on("reconnect_failed", function(){
+		cl("client reconnect_failed");
+	});
+	socket.on('message', function(message){
+		cl(message);
+		//playerName[message.shift()].send(message);
+	});
+	socket.on('disconnect', function(){
+		cl("client disconnected");
+	});
+	socket.on('error', function(err){ // server not started
+		cl("client error\n"+err);
+		//setTimeout(function(){connectClient(url,end);}, 5000);
+	});        
+         
+    
+    
     
     /* CATCH CONTENT FROM FORM */
     $('#send').on('submit', function(e) { 
@@ -121,10 +177,11 @@ $(document).ready(function() {
 
     
     /* PROCESS SERVER RESPONSES */
-    
+        
     socket.on('getUp', function () { 
         $('#jetzt').show();
         $("#input").focus();	
+        $("#roomName").show();	
     });
 
     socket.on('paint', function (data) { 
@@ -144,7 +201,7 @@ $(document).ready(function() {
         printHelp();
     });
 
-    socket.on('news', function (data) { 
+    socket.on('news', function (data) { console.log(data);
         writer(data);
     });
 
@@ -153,7 +210,7 @@ $(document).ready(function() {
     });
     
     socket.on('roomHeader', function (data) { 
-        $("#roomName").show();	
+        //$("#roomName").show();	
         $("#roomId").html("#"+data.room);	
         sessionStorage.room = data.room;
     });
@@ -218,7 +275,8 @@ $(document).ready(function() {
         var allUsers = []; 
         $.each(data, function(key, value) {
             if(allUsers != 'undefined'){
-                allUsers = key + ', ' + allUsers;
+                //allUsers = key + ', ' + allUsers; // old
+                allUsers = value.name + ', ' + allUsers;
             }
         });
         $("#jetzt").before('<div class="message announce"><div class="time">'+getTime()+'</div><p class="name"><strong>Online users:</strong></p>'+allUsers+'<p></p></div>');
@@ -231,6 +289,8 @@ $(document).ready(function() {
     
 
     function serialWriter(data) {        
+        announcer('History for room #' +sessionStorage.room);
+        //scroll();
         
         for (var i=0;i<data.length;i++) {
             if(data[i].title.indexOf(" ") != -1) var firstWord = data[i].title.slice(0, data[i].title.indexOf(" "));

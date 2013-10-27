@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="utf-8">
-            <title>T</title>
+            <title>Multiverse</title>
         
         <link rel="stylesheet" href="stylesheets/reset.css">
         <link rel="stylesheet" href="stylesheets/fonts.css">
@@ -14,7 +14,7 @@
         <script type="text/javascript" src="phonegap.js"></script>
         <script>
             var socket = io.connect('http://immultiverse.herokuapp.com');
-            //var socket = io.connect('http://127.0.0.1:3001');
+            //var socket = io.connect('http://127.0.0.1:3001', {'max reconnection attempts': 3});
         </script>
         
         <audio id="ping1" preload="auto" src="sounds/ping.mp3"></audio>
@@ -31,9 +31,13 @@
         </a>-->
         <div id="window">
             <div id="roomName">
-                <div id="roomId" style="float: left;"></div>
+                <div id="roomId" style="float: left;">
+                    #multiverse
+                </div>
                 <div style="float: right; font-size: 9pt; margin-right: 35px;">
-                    r multiverse = beginning
+                    r multiverse = beginning<br />
+                    <div id="connected" style="float: right;"><strong>connected</strong></div>
+                    <div id="disconnected" style="float: right; color: #900;"><strong>disconnected</strong></div>
                 </div>
             </div>
             <div id="message1" class="message">
