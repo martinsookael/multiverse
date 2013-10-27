@@ -265,7 +265,7 @@ $(document).ready(function() {
 
     function paint(data) { 
         title = data.title || ''; author = data.author || ''; time = data.time || ''; city = data.city || '';
-        var avatar = getAvatar(name);
+        var avatar = getAvatar(author);
         
         if(title.indexOf(" ") != -1) title = title.slice(0, title.indexOf(" "));
         $("#isWriting").remove();
