@@ -30,8 +30,12 @@ shortcuts = {
         "img" : "think.jpg",
         "channel": "paint",
     },
-    "merka":{ 
+    ".merka":{ 
         "img" : "merka.gif",
+        "channel": "paint",
+    },
+    ".martin":{ 
+        "img" : "martin.jpg",
         "channel": "paint",
     },
     "m":{ 
