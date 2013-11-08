@@ -161,6 +161,14 @@ var memes = [
         "name": "notsure",
         "img" : "images/meme/notsure.jpg",
     }
+    },{
+        "name": "bean",
+        "img" : "images/meme/bean.png",
+    }
+    },{
+        "name": "evil",
+        "img" : "images/meme/evil.jpg",
+    }
 ]
 
 function findMemeError(input) { 
