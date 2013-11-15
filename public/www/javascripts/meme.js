@@ -166,11 +166,9 @@ var memes = [
     },{
         "name": "evil",
         "img" : "images/meme/evil.jpg",
-    }
     },{
         "name": "merka1",
         "img" : "images/meme/merka1.jpg",
-    }
     },{
         "name": "evil",
         "img" : "images/meme/merka2.jpg",
