@@ -170,7 +170,7 @@ var memes = [
         "name": "merka1",
         "img" : "images/meme/merka1.jpg",
     },{
-        "name": "evil",
+        "name": "merka2",
         "img" : "images/meme/merka2.jpg",
     }
 ]
