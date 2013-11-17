@@ -164,6 +164,36 @@ var memes = [
         "name": "bean",
         "img" : "images/meme/bean.png",
     },{
+        "name": "stoned",
+        "img" : "images/meme/stoned.png",
+    },{
+        "name": "gusta",
+        "img" : "images/meme/gusta.png",
+    },{
+        "name": "parrot",
+        "img" : "images/meme/parrot.jpg",
+    },{
+        "name": "social",
+        "img" : "images/meme/social.jpg",
+    },{
+        "name": "say",
+        "img" : "images/meme/say.png",
+    },{
+        "name": "kidding",
+        "img" : "images/meme/kidding.jpg",
+    },{
+        "name": "smth",
+        "img" : "images/meme/smth.jpg",
+    },{
+        "name": "story",
+        "img" : "images/meme/story.png",
+    },{
+        "name": "yeah",
+        "img" : "images/meme/yeah.jpg",
+    },{
+        "name": "please",
+        "img" : "images/meme/please.png",
+    },{
         "name": "evil",
         "img" : "images/meme/evil.jpg",
     }
