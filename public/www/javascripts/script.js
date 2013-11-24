@@ -250,7 +250,7 @@ $(document).ready(function() {
             message = findLinksAndImages(message); // find links and images
             var avatar = getAvatar(name);
             $("#isWriting").remove();
-            $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+' <span class="gray">#'+room+'</span><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div>');
+            $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+' <span class="gray">#'+room+'</span><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div>');
             scrollAndBeep(data);
             
             socket.emit('nsa', { nid: data.nid, name: sessionStorage.username, room: data.room });
@@ -269,7 +269,7 @@ $(document).ready(function() {
         
         if(title.indexOf(" ") != -1) title = title.slice(0, title.indexOf(" "));
         $("#isWriting").remove();
-        $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place small">'+city+'</div><p class="name"><strong>'+author+'</strong></p><img class="full" src="images/shortcuts/'+shortcuts[title].img+'" /><span class="viewers"></span></div>');
+        $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time">'+time+'</div><div class="place small">'+city+'</div><p class="name"><strong>'+author+'</strong></p><img class="full" src="images/shortcuts/'+shortcuts[title].img+'" /><span class="viewers"></span></div>');
         scrollAndBeep(data);
         socket.emit('nsa', { nid: data.nid, name: sessionStorage.username, room: data.room });
     }
@@ -423,6 +423,10 @@ function getAvatar(name){
         var avatar = "be.png";
         break;
             
+        case "vilkas":
+        var avatar = "vilkas.jpg";
+        break;
+
         default:
         var avatar = "drm.jpg";
         break;
