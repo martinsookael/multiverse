@@ -38,6 +38,14 @@ shortcuts = {
         "img" : "martin.jpg",
         "channel": "paint",
     },
+    "spread":{ 
+        "img" : "spread.gif",
+        "channel": "paint",
+    },
+    "itson":{ 
+        "img" : "itson.gif",
+        "channel": "paint",
+    },
     "m":{ 
         "channel":"meme" 
     },

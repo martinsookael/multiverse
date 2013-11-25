@@ -202,9 +202,6 @@ var memes = [
     },{
         "name": "merka2",
         "img" : "images/meme/merka2.jpg",
-    },{
-        "name": "spread",
-        "img" : "images/meme/spread.jpg",
     }
 ]
 
