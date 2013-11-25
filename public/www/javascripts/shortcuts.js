@@ -39,7 +39,7 @@ shortcuts = {
         "channel": "paint",
     },
     "spread":{ 
-        "img" : "spread.gif",
+        "img" : "spread.jpg",
         "channel": "paint",
     },
     "itson":{ 
