@@ -197,6 +197,12 @@ var memes = [
         "name": "evil",
         "img" : "images/meme/evil.jpg",
     },{
+        "name": "eyes",
+        "img" : "images/meme/eyes.jpg",
+    },{
+        "name": "fu",
+        "img" : "images/meme/fu.gif",
+    },{
         "name": "merka1",
         "img" : "images/meme/merka1.jpg",
     },{
