@@ -46,6 +46,10 @@ shortcuts = {
         "img" : "itson.gif",
         "channel": "paint",
     },
+    "okeiko1":{ 
+        "img" : "okeiko1.gif",
+        "channel": "paint",
+    },
     "m":{ 
         "channel":"meme" 
     },
