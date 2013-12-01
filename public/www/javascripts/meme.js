@@ -203,6 +203,9 @@ var memes = [
         "name": "fu",
         "img" : "images/meme/fu.gif",
     },{
+        "name": "sparta",
+        "img" : "images/meme/sparta.jpg",
+    },{
         "name": "merka1",
         "img" : "images/meme/merka1.jpg",
     },{
