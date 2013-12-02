@@ -4,7 +4,11 @@ $(document).ready(function() {
     
     sessionStorage.username = false;
     sessionStorage.room = "multiverse";
-        
+	
+	if(localStorage.sound !== "off") {
+		localStorage.sound = "on";
+	}
+		
     // hold focus on the text input, unless it's the log in screen.
 	if ($("#username").is(":visible")) {
 		$("#username").focus();			
@@ -150,7 +154,32 @@ $(document).ready(function() {
                 }
                 
                 else { 
-                    if(message === "r" || message === "r " ) {return false;} // r misfire 
+                    if(message === "r" || message === "r " || message === "soundon" || message === "soundoff"  ) { 	// put these also to shortcuts.js
+
+						switch(message) {
+							
+							case "r": // r misfire 
+							return false;
+							break;
+								
+							case "r ": // r misfire 
+							return false;
+							break;
+								
+							case "soundon":
+							soundOn();
+							break;
+								
+							case "soundoff":
+							soundOff();
+							break;
+
+							default:
+							return false;
+							break;						
+						}
+					
+					}
                     else {
                         var channel = shortcuts[firstWord].channel; 
                         socket.emit(channel, { title: message, author: sessionStorage.username, time: getTime(), city: city, nid:nid, room:sessionStorage.room });
@@ -286,7 +315,7 @@ $(document).ready(function() {
     }
 
     function printHelp() { 
-        announcer('Write the following letter and press enter<br /> <strong>w</strong> - <strong>who</strong> is here<br><strong>h</strong> - show this <strong>help</strong>screen here<br><strong>c</strong> - <strong>curse</strong> in Italian <!--<br><strong>y</strong> - yes - success baby --><br><strong>m</strong> - create a <strong>meme</strong> <br>');
+        announcer('Write the following letter and press enter<br /> <strong>w</strong> - <strong>who</strong> is here<br><strong>h</strong> - show this <strong>help</strong>screen here<br><strong>c</strong> - <strong>curse</strong> in Italian <!--<br><strong>y</strong> - yes - success baby --><br><strong>m</strong> - create a <strong>meme</strong> <br><strong>soundon</strong> - turn  <strong>sound on</strong><br /> <strong>soundoff</strong> - turn <strong>sound off</strong>  ');
         scroll();
     }    
     
@@ -353,7 +382,10 @@ $(document).ready(function() {
     // scroll and beep on command
     function scrollAndBeep(data) {
         if (sessionStorage.username != data.author) {
-            document.getElementById('ping1').play();
+			//cl (localStorage.sound);
+			if(localStorage.sound === "on") { 
+				document.getElementById('ping1').play();
+			}
             if(deviceActive === false) {
                 makeBeep();
                 vibrate();
@@ -387,7 +419,21 @@ $(document).ready(function() {
             return false;
         }
     });  
-    
+
+	function soundOn() { cl("waea");
+		localStorage.sound = "on";
+		var soundOn = {};
+		soundOn.title="sound is now on"; soundOn.author="Server"; soundOn.room="multiverse"; 
+		writer(soundOn);
+	}
+
+	function soundOff() {
+		localStorage.sound = "off";
+		var soundOff = {};
+		soundOff.title="sound is now off"; soundOff.author="Server"; soundOff.room="multiverse"; 
+		writer(soundOff);
+	}
+
 });
 
 // get local time

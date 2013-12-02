@@ -65,6 +65,12 @@ shortcuts = {
     "r":{ 
         "channel":"room" 
     },
+    "soundon":{ 
+        "channel":"room" 
+    },
+    "soundoff":{ 
+        "channel":"room" 
+    },
 }
 
 
