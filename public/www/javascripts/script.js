@@ -383,9 +383,9 @@ $(document).ready(function() {
     function scrollAndBeep(data) {
         if (sessionStorage.username != data.author) {
 			//cl (localStorage.sound);
-			if(localStorage.sound === "on") { 
-				document.getElementById('ping1').play();
-			}
+			//if(localStorage.sound === "on") { 
+				//document.getElementById('ping1').play();
+			//}
             if(deviceActive === false) {
                 makeBeep();
                 vibrate();
@@ -473,6 +473,10 @@ function getAvatar(name){
         var avatar = "vilkas.jpg";
         break;
 
+        case "murphy":
+        var avatar = "murphy.jpg";
+        break;
+			
         default:
         var avatar = "drm.jpg";
         break;

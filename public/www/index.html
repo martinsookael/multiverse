@@ -17,8 +17,8 @@
                 //alert("Error: "+message+" in "+url+" at line "+lineNumber);
             //}
             
-            var socket = io.connect('http://immultiverse.herokuapp.com');
-            //var socket = io.connect('http://127.0.0.1:3001', {'max reconnection attempts': 3});
+            //var socket = io.connect('http://immultiverse.herokuapp.com');
+            var socket = io.connect('http://127.0.0.1:3001', {'max reconnection attempts': 3});
         </script>
         
         <audio id="ping1" preload="auto" src="sounds/ping.mp3"></audio>

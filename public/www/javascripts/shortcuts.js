@@ -38,6 +38,10 @@ shortcuts = {
         "img" : "martin.jpg",
         "channel": "paint",
     },
+    ".murphy":{ 
+        "img" : "murphy.jpg",
+        "channel": "paint",
+    },
     "spread":{ 
         "img" : "spread.jpg",
         "channel": "paint",
