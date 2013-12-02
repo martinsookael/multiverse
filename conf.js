@@ -6,7 +6,7 @@ module.exports = {
       , anonAccess: true // leave true for non-logged in users to be able to see conversation
         // annonAccess IS NOT WORKING 
     }
- /* , db: {
+  , db: {
         usesDb: true // true - uses db, false - uses not. // IF TALKER WON'T START, START DEBUGGING FROM HERE
       , host: 'ds051368.mongolab.com' // notice the missing "http://"
       , port: 51368 
@@ -14,8 +14,8 @@ module.exports = {
       , collectionName: 'chat'
       , username: 'heroku_app18775261'
       , password: 'qfhs9bftk5k41of30q0i2oa0ot'
-    } */
-  , db: {
+    }
+  /*, db: {
         usesDb: true // true - uses db, false - uses not. // IF TALKER WON'T START, START DEBUGGING FROM HERE
       , host: '127.0.0.1' // notice the missing "http://"
       , port: 27017 
@@ -23,5 +23,5 @@ module.exports = {
       , collectionName: 'chat3'
      // , username: 'heroku_app18775261'
     //  , password: 'qfhs9bftk5k41of30q0i2oa0ot'
-    }
+    }*/
 };
