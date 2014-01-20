@@ -214,6 +214,15 @@ var memes = [
     },{
         "name": "merka2",
         "img" : "images/meme/merka2.jpg",
+    },{
+        "name": "malev",
+        "img" : "images/meme/malev.jpg",
+    },{
+        "name": "parts",
+        "img" : "images/meme/parts.jpg",
+    },{
+        "name": "tulnukas",
+        "img" : "images/meme/tulnukas.jpg",
     }
 ]
 
