@@ -46,6 +46,10 @@ shortcuts = {
         "img" : "spread.jpg",
         "channel": "paint",
     },
+    "bullshit":{ 
+        "img" : "bullshit.gif",
+        "channel": "paint",
+    },
     "itson":{ 
         "img" : "itson.gif",
         "channel": "paint",
