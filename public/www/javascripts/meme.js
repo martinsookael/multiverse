@@ -221,6 +221,9 @@ var memes = [
         "name": "parts",
         "img" : "images/meme/parts.jpg",
     },{
+        "name": "ojuland",
+        "img" : "images/meme/ojuland.jpg",
+    },{
         "name": "all",
         "img" : "images/meme/all.jpg",
     },{
