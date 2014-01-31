@@ -480,7 +480,11 @@ function getAvatar(name){
         case "jp":
         var avatar = "jp.jpg";
         break;
-			
+
+        case "rampage":
+        var avatar = "rampage.png";
+        break;
+            
         default:
         var avatar = "drm.jpg";
         break;
