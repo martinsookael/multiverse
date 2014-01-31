@@ -450,6 +450,11 @@ function cl(data) {
     console.log(data);
 }
 
+socket.on('reload', function (data) {  
+    console.log("REEEEEFRESH");
+    window.location = ("");
+});    
+
 
 function getAvatar(name){
     switch(name) {

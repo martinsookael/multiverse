@@ -34,6 +34,22 @@ app.use(app.router);
 //app.use(require('stylus').middleware(__dirname + '/public'));
 app.use(express.static(path.join(__dirname, 'public/www')));
 
+
+// Set sockets ready for production:
+io.enable('browser client minification');  // send minified client
+io.enable('browser client etag');          // apply etag caching logic based on version number
+io.enable('browser client gzip');          // gzip the file
+io.set('log level', 1);                    // reduce logging
+
+io.set('transports', [
+    'websocket'
+  , 'flashsocket'
+  , 'htmlfile'
+  , 'xhr-polling'
+  , 'jsonp-polling'
+]);
+
+
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
@@ -88,7 +104,6 @@ function saveToDb(message, author, time, room, city, nid) {
 
 // socket
 io.sockets.on('connection', function (socket) {
-
     
     function changeRoom(data) {  
             var newroom = data.title.slice(2); // remove "r" from beginning
