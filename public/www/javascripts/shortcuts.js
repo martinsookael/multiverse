@@ -2,7 +2,7 @@
 var shortcuts = Array();
 
 shortcuts = {
-    "c":{
+    "c":{  
         "img" : "che.png",
         "channel": "paint",
     },
