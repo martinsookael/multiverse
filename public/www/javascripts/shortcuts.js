@@ -1,4 +1,5 @@
 
+// Test if deploy e-mails arrive
 var shortcuts = Array();
 
 shortcuts = {
