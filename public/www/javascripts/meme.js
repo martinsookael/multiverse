@@ -227,6 +227,9 @@ var memes = [
         "name": "manly",
         "img" : "images/meme/manly.jpg",
     },{
+        "name": "stop",
+        "img" : "images/meme/stop.png",
+    },{
         "name": "badass",
         "img" : "images/meme/badass.jpg",
     },{
