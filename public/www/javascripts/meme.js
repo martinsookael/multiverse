@@ -239,6 +239,12 @@ var memes = [
         "name": "all",
         "img" : "images/meme/all.jpg",
     },{
+        "name": "cleese",
+        "img" : "images/meme/cleese.png",
+    },{
+        "name": "cleese2",
+        "img" : "images/meme/cleese2.png",
+    },{
         "name": "tulnukas",
         "img" : "images/meme/tulnukas.jpg",
     }
