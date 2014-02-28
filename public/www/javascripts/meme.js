@@ -251,6 +251,9 @@ var memes = [
         "name": "biz",
         "img" : "images/meme/biz.png",
     },{
+        "name": "freud",
+        "img" : "images/meme/freud.png",
+    },{
         "name": "tulnukas",
         "img" : "images/meme/tulnukas.jpg",
     }
