@@ -55,6 +55,10 @@ shortcuts = {
         "img" : "itson.gif",
         "channel": "paint",
     },
+    "bond":{ 
+        "img" : "bond.gif",
+        "channel": "paint",
+    },
     "nofuck":{ 
         "img" : "nofuck.gif",
         "channel": "paint",
