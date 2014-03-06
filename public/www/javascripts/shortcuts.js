@@ -67,6 +67,14 @@ shortcuts = {
         "img" : "yttekoma.jpg",
         "channel": "paint",
     },
+    "enough":{ 
+        "img" : "enough.gif",
+        "channel": "paint",
+    },
+    "notfunny":{ 
+        "img" : "notfunny.png",
+        "channel": "paint",
+    },
     "okeiko1":{ 
         "img" : "okeiko1.gif",
         "channel": "paint",
