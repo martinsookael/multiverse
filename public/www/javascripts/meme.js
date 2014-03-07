@@ -263,6 +263,9 @@ var memes = [
         "name": "mog",
         "img" : "images/meme/mog.jpg",
     },{
+        "name": "punked",
+        "img" : "images/meme/punked.jpg",
+    },{
         "name": "tulnukas",
         "img" : "images/meme/tulnukas.jpg",
     }
