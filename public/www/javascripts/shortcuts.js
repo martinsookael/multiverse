@@ -75,6 +75,10 @@ shortcuts = {
         "img" : "notfunny.png",
         "channel": "paint",
     },
+    "shit":{ 
+        "img" : "shit.gif",
+        "channel": "paint",
+    },
     "okeiko1":{ 
         "img" : "okeiko1.gif",
         "channel": "paint",
