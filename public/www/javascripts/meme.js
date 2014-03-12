@@ -239,6 +239,9 @@ var memes = [
         "name": "badass",
         "img" : "images/meme/badass.jpg",
     },{
+        "name": "90",
+        "img" : "images/meme/90.jpg",
+    },{
         "name": "ojuland",
         "img" : "images/meme/ojuland.jpg",
     },{
