@@ -119,6 +119,11 @@ var memes = [
         "name": "boat",
         "img" : "images/meme/boat.jpg",
     },{
+        "name": "science",
+        "img" : "images/meme/science.jpg",
+        "message1" : "yeah", 
+        "message1" : "science, bithch!"
+    },{
         "name": "acc",
         "img" : "images/meme/challengeaccepted.gif",
         "message1" : "challenge accepted", 
