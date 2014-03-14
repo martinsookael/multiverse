@@ -141,6 +141,9 @@ var memes = [
         "name": "soclose",
         "img" : "images/meme/soclose.gif",
     },{
+        "name": "you",
+        "img" : "images/meme/you.jpg",
+    },{
         "name": "africa",
         "img" : "images/meme/africa.jpg",
         "message1" : "so you're telling me", 
