@@ -122,7 +122,7 @@ var memes = [
         "name": "science",
         "img" : "images/meme/science.jpg",
         "message1" : "yeah", 
-        "message1" : "science, bithch!"
+        "message2" : "science, bithch!"
     },{
         "name": "acc",
         "img" : "images/meme/challengeaccepted.gif",
