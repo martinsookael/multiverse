@@ -67,6 +67,10 @@ shortcuts = {
         "img" : "nofuck.gif",
         "channel": "paint",
     },
+    "again":{ 
+        "img" : "again.gif",
+        "channel": "paint",
+    },
     "üttekoma":{ 
         "img" : "yttekoma.jpg",
         "channel": "paint",

@@ -152,6 +152,10 @@ var memes = [
         "img" : "images/meme/aliens.jpg",
         "message1" : "Aliens", 
     },{
+        "name": "live",
+        "img" : "images/meme/live.jpg",
+        "message2" : "I also like to live dangerously", 
+    },{
         "name": "brian",
         "img" : "images/meme/brian.jpg",
     },{
