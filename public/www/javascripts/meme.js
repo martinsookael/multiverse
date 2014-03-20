@@ -162,6 +162,9 @@ var memes = [
         "name": "dawg",
         "img" : "images/meme/dawg.jpg",
     },{
+        "name": "wizard",
+        "img" : "images/meme/wizard.jpg",
+    },{
         "name": "high",
         "img" : "images/meme/high.jpg",
         "message2" : "is too damn high", 
