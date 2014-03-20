@@ -87,6 +87,14 @@ shortcuts = {
         "img" : "shit.gif",
         "channel": "paint",
     },
+    "facepalm":{ 
+        "img" : "facepalm.gif",
+        "channel": "paint",
+    },
+    "facepalm2":{ 
+        "img" : "facepalm2.gif",
+        "channel": "paint",
+    },
     "okeiko1":{ 
         "img" : "okeiko1.gif",
         "channel": "paint",
