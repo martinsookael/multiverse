@@ -7,143 +7,147 @@ shortcuts = {
         "img" : "che.png",
         "channel": "paint",
     },
-    "mybody":{ 
+    "mybody":{
         "img" : "mybody.gif",
         "channel": "paint",
     },
-    "mybody2":{ 
+    "mybody2":{
         "img" : "mybody2.gif",
         "channel": "paint",
     },
-    "lol":{ 
+    "lol":{
         "img" : "lol.gif",
         "channel": "paint",
     },
-    "dance":{ 
+    "dance":{
         "img" : "dance.gif",
         "channel": "paint",
     },
-    "selffive":{ 
+    "selffive":{
         "img" : "selffive.gif",
         "channel": "paint",
     },
-    "think":{ 
+    "think":{
         "img" : "think.jpg",
         "channel": "paint",
     },
-    "tense":{ 
+    "tense":{
         "img" : "tense.gif",
         "channel": "paint",
     },
-    ".merka":{ 
+    ".merka":{
         "img" : "merka.gif",
         "channel": "paint",
     },
-    ".martin":{ 
+    ".martin":{
         "img" : "martin.jpg",
         "channel": "paint",
     },
-    ".murphy":{ 
+    ".murphy":{
         "img" : "murphy.jpg",
         "channel": "paint",
     },
-    "spread":{ 
+    "spread":{
         "img" : "spread.jpg",
         "channel": "paint",
     },
-    "bullshit":{ 
+    "bullshit":{
         "img" : "bullshit.gif",
         "channel": "paint",
     },
-    "itson":{ 
+    "itson":{
         "img" : "itson.gif",
         "channel": "paint",
     },
-    "bond":{ 
+    "bond":{
         "img" : "bond.gif",
         "channel": "paint",
     },
-    "nofuck":{ 
+    "nofuck":{
         "img" : "nofuck.gif",
         "channel": "paint",
     },
-    "again":{ 
+    "again":{
         "img" : "again.gif",
         "channel": "paint",
     },
-    "üttekoma":{ 
+    "üttekoma":{
         "img" : "yttekoma.jpg",
         "channel": "paint",
     },
-    "enough":{ 
+    "enough":{
         "img" : "enough.gif",
         "channel": "paint",
     },
-    "notfunny":{ 
+    "notfunny":{
         "img" : "notfunny.png",
         "channel": "paint",
     },
-    "shit":{ 
+    "shit":{
         "img" : "shit.gif",
         "channel": "paint",
     },
-    "facepalm":{ 
+    "facepalm":{
         "img" : "facepalm.gif",
         "channel": "paint",
     },
-    "facepalm2":{ 
+    "facepalm2":{
         "img" : "facepalm2.gif",
         "channel": "paint",
     },
-    "okeiko1":{ 
+    "cry":{
+        "img" : "cry.gif",
+        "channel": "paint",
+    },
+    "okeiko1":{
         "img" : "okeiko1.gif",
         "channel": "paint",
     },
-    "m":{ 
-        "channel":"meme" 
+    "m":{
+        "channel":"meme"
     },
-    "w":{ 
-        "channel":"who" 
+    "w":{
+        "channel":"who"
     },
-    "h":{ 
-        "channel":"help" 
+    "h":{
+        "channel":"help"
     },
-    "l":{ 
-        "channel":"last" 
+    "l":{
+        "channel":"last"
     },
-    "r":{ 
-        "channel":"room" 
+    "r":{
+        "channel":"room"
     },
-    "soundon":{ 
-        "channel":"room" 
+    "soundon":{
+        "channel":"room"
     },
-    "soundoff":{ 
-        "channel":"room" 
+    "soundoff":{
+        "channel":"room"
     },
 }
 
 
 /*
-function shortCuts(data) { 
+function shortCuts(data) {
     //console.log(data.channel);
-    
+
     switch(data.channel){
-            
+
         case("paint"):
             //socket.emit('news', { text: message, name: sessionStorage.username, time: getTime() });
         break;
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
     }
-    
-    
+
+
     //return data;
 }*/
 
@@ -156,15 +160,15 @@ function shortCuts(data) {
 function findPatterns(message) {
     // get the first word
     if (message === '') return false;
-    message = message.trim(); 
+    message = message.trim();
     if(message.indexOf(" ") != -1) var firstWord = message.slice(0, message.indexOf(" "));
     else var firstWord = message;
-    
+
     // is it a shortcut?
-    if(firstWord in shortcuts) { 
-        console.log(shortcuts[firstWord].img); 
+    if(firstWord in shortcuts) {
+        console.log(shortcuts[firstWord].img);
     }
-    
+
     // if no shortcut, send it to the wire
     else {
         socket.emit('news', { text: message, name: sessionStorage.username, time: getTime() });
@@ -175,14 +179,14 @@ function findPatterns(message) {
 
 
 /*
-function findShortcut(data) { 
+function findShortcut(data) {
     //console.log(data.message);
     return data;
 }
 */
 
 /*
-function findShortcut(data) { 
+function findShortcut(data) {
     input = data.message;
     cuts = new Array();
     var i = 0;
@@ -193,14 +197,14 @@ function findShortcut(data) {
     });
     var shortCutIndex = $.inArray(input, cuts);
     cl(cuts);
-    
+
     $("#jetzt").before('<div class="message"><div id="time">'+data.time+'</div><p id="name"><strong>'+data.name+'</strong></p> <img src="/shortcuts/'+cuts[shortCutIndex]+'" class="full" /></p></div>');
 
     return shortCutIndex;
 }
 
 
-function printShortcut(data, scIndex) { 
+function printShortcut(data, scIndex) {
     cuts = new Array();
     var i = 0;
     $.each(shortcuts, function(key, value) {
