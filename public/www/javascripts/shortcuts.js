@@ -99,6 +99,10 @@ shortcuts = {
         "img" : "cry.gif",
         "channel": "paint",
     },
+    "no":{
+        "img" : "no.gif",
+        "channel": "paint",
+    },
     "itson2":{
         "img" : "itson2.gif",
         "channel": "paint",
