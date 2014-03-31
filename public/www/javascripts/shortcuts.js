@@ -79,6 +79,18 @@ shortcuts = {
         "img" : "enough.gif",
         "channel": "paint",
     },
+    "roma1":{
+        "img" : "roma1.jpg",
+        "channel": "paint",
+    },
+    "roma2":{
+        "img" : "roma2.jpg",
+        "channel": "paint",
+    },
+    "roma3":{
+        "img" : "roma3.jpg",
+        "channel": "paint",
+    },
     "notfunny":{
         "img" : "notfunny.png",
         "channel": "paint",
