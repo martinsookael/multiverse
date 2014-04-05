@@ -111,7 +111,7 @@ shortcuts = {
         "img" : "cry.gif",
         "channel": "paint",
     },
-    "no":{
+    "noo":{
         "img" : "no.gif",
         "channel": "paint",
     },
