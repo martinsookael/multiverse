@@ -137,6 +137,9 @@ var memes = [
         "name": "yoda",
         "img" : "images/meme/yoda.jpg",
     },{
+        "name": "doge",
+        "img" : "images/meme/doge.jpg",
+    },{
         "name": "notbad",
         "img" : "images/meme/notbad.jpg",
         "message2" : "not bad",
