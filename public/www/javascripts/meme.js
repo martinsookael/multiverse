@@ -131,6 +131,9 @@ var memes = [
         "name": "default",
         "img" : "images/meme/noSuchMeme.gif",
     },{
+        "name": "jorpa",
+        "img" : "images/meme/jorpa.png",
+    },{
         "name": "yoda",
         "img" : "images/meme/yoda.jpg",
     },{
@@ -140,7 +143,7 @@ var memes = [
     },{
         "name": "what",
         "img" : "images/meme/what.jpg",
-        "message1" : "what?", 
+        "message1" : "what?",
     },{
         "name": "soclose",
         "img" : "images/meme/soclose.gif",
