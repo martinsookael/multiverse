@@ -115,6 +115,14 @@ shortcuts = {
         "img" : "no.gif",
         "channel": "paint",
     },
+    "slowclap":{
+        "img" : "slowclap.gif",
+        "channel": "paint",
+    },
+    "slowclap2":{
+        "img" : "slowclap2.gif",
+        "channel": "paint",
+    },
     "itson2":{
         "img" : "itson2.gif",
         "channel": "paint",
