@@ -491,7 +491,7 @@ function getAvatar(name){
         break;
 
         case "marisjonovs":
-        var avatar = "marisjonovs.png";
+        var avatar = "marisjonovs.jpg";
         break;
 
         default:
