@@ -3,6 +3,7 @@ var memes = [
     {
         "name": "fwp",
         "img" : "images/meme/1stwp.jpg",
+        "desc": "first world problem"
     },{
         "name": "baby",
         "img" : "images/meme/successbaby.jpg",
