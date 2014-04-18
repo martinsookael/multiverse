@@ -383,9 +383,9 @@ $(document).ready(function() {
     function scrollAndBeep(data) {
         if (sessionStorage.username != data.author) {
 			//cl (localStorage.sound);
-			//if(localStorage.sound === "on") {
-				//document.getElementById('ping1').play();
-			//}
+			if(localStorage.sound === "on") {
+				document.getElementById('ping1').play();
+			}
             if(deviceActive === false) {
                 makeBeep();
                 vibrate();
