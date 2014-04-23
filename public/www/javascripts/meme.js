@@ -233,6 +233,9 @@ var memes = [
         "name": "punked",
         "img" : "images/meme/punked.jpg",
     },{
+        "name": "valmiermuiza",
+        "img" : "images/meme/valmiermuiza.jpg",
+    },{
         "name": "tulnukas",
         "img" : "images/meme/tulnukas.jpg",
     }
