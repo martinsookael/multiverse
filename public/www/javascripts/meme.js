@@ -164,6 +164,9 @@ var memes = [
         "name": "evil2",
         "img" : "images/meme/evil2.gif",
     },{
+        "name": "evil3",
+        "img" : "images/meme/evil3.png",
+    },{
         "name": "eyes",
         "img" : "images/meme/eyes.jpg",
     },{
