@@ -84,8 +84,10 @@ function removeUser(username) {
 }
 
 function switchUserRoom(username,room) {
-    var index = findUserIndex(username);
-    usernames[index].room = room;
+    var index = findUserIndex(username); console.log(username);
+    if(username != undefined) {
+      usernames[index].room = room;
+    }
 }
 
 
@@ -109,14 +111,17 @@ io.sockets.on('connection', function (socket) {
             var newroom = data.title.slice(2); // remove "r" from beginning
             socket.leave(socket.room);
             socket.join(newroom);
-            socket.emit('news', { title: 'You are connected to #'+newroom, author: 'Server', time: data.time}); // echo to client they've connected
-            // sent message to OLD room
-            socket.broadcast.to(socket.room).emit('news', { title: '<strong>'+socket.username+'</strong> has left this room', author: 'Server', time: data.time});
-            // update socket session room title
-            socket.room = newroom;
-            socket.broadcast.to(newroom).emit('news', { title: '<strong>'+socket.username + '</strong> has joined this room', author: 'Server', time: data.time});
-            socket.emit('roomHeader', { room: newroom}); // echo to client they've connected
-            switchUserRoom(socket.username,newroom)
+            if(socket.username != "undefined") {
+              socket.emit('news', { title: 'You are connected to #'+newroom, author: 'Server', time: data.time}); // echo to client they've connected
+              // sent message to OLD room
+              socket.broadcast.to(socket.room).emit('news', { title: '<strong>'+socket.username+'</strong> has left this room', author: 'Server', time: data.time});
+              // update socket session room title
+              socket.room = newroom;
+              socket.broadcast.to(newroom).emit('news', { title: '<strong>'+socket.username + '</strong> has joined this room', author: 'Server', time: data.time});
+              socket.emit('roomHeader', { room: newroom}); // echo to client they've connected
+              switchUserRoom(socket.username,newroom)
+            }
+            printLast();
     }
 
 
@@ -139,7 +144,7 @@ io.sockets.on('connection', function (socket) {
         // write it to tb
         if(conf.db.usesDb === true) {
             saveToDb(data.text, data.author, data.time, data.room, data.city, data.nid);
-        } console.log(data.nid);
+        }
         pingBack(data.nid);
     });
 
@@ -194,7 +199,7 @@ io.sockets.on('connection', function (socket) {
 
     });
 
-    socket.on('adduser', function(data){
+    socket.on('adduser', function(data){ console.log(data);
 
         socket.username = data.username; // store the username in the socket session for this client
 
@@ -202,16 +207,18 @@ io.sockets.on('connection', function (socket) {
 
         // if it's an NEW user
         if(existing === undefined) {
+          if(socket.room === undefined) {
             socket.room = 'multiverse'; // store the room name in the socket session for this client
-            usernames.push({name: socket.username, room: socket.room});
-            var query = new Array();
-            query.title = "r "+socket.room;
-            changeRoom(query);
+          }
+          usernames.push({name: socket.username, room: socket.room});
+          var query = new Array();
+          query.title = "r "+socket.room;
+          //changeRoom(query);
         } else { // if it's a EXISTING user
-            socket.room = usernames[existing].room;
-            var query = new Array();
-            query.title = "r "+socket.room;
-            changeRoom(query);
+          socket.room = usernames[existing].room;
+          var query = new Array();
+          query.title = "r "+socket.room;
+          //changeRoom(query);
         }
 
 
@@ -222,7 +229,7 @@ io.sockets.on('connection', function (socket) {
         socket.emit('who', usernames);
         socket.emit('getUp');
         if(conf.db.usesDb === true) {
-            printLast();
+        //    printLast();
         }
 //        io.sockets.emit('news', { title: '<strong>'+socket.username + '</strong> has connected to ' +socket.room, author: 'Server', time: ''});
         io.sockets.emit('news', { title: '<strong>'+socket.username + '</strong> has connected', author: 'Server', time: ''});

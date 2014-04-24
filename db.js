@@ -12,10 +12,10 @@ var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 
 // If Martin works on localhost, then the data will not be sent to the server
-// if you think, this is a ugly hack, feel free to fix it.  
+// if you think, this is a ugly hack, feel free to fix it.
 os = require("os");
 if (os.hostname() === "α") {
-  conf.db.host = "127.0.0.1";
+//  conf.db.host = "127.0.0.1";
 }
 
 
