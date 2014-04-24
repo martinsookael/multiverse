@@ -1,3 +1,5 @@
+# Don't get the log
+npm-debug.log
 
 # Don't get the conf files:
 conf.js

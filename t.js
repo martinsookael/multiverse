@@ -17,7 +17,7 @@ var express = require('express')
 
 
 // Mongo db operations
-if(conf.db.usesDb === true) { 
+if(conf.db.usesDb === true) {
   var ArticleProvider = require('./db').ArticleProvider;
   var articleProvider = new ArticleProvider(conf.db.host, conf.db.port)
 }
@@ -78,12 +78,12 @@ function findUserRoom(username) {
     var index = findUserIndex(username);
 }
 
-function removeUser(username) { 
+function removeUser(username) {
     var index = findUserIndex(username);
     usernames.splice(index,1);
 }
 
-function switchUserRoom(username,room) { 
+function switchUserRoom(username,room) {
     var index = findUserIndex(username);
     usernames[index].room = room;
 }
@@ -95,7 +95,7 @@ function saveToDb(message, author, time, room, city, nid) {
         author: author,
         time: time,
         room: room,
-        city: city, 
+        city: city,
         nid: nid
         }, function(error, docs) {
         // ERROR HANDLING
@@ -104,14 +104,14 @@ function saveToDb(message, author, time, room, city, nid) {
 
 // socket
 io.sockets.on('connection', function (socket) {
-    
-    function changeRoom(data) {  
+
+    function changeRoom(data) {
             var newroom = data.title.slice(2); // remove "r" from beginning
             socket.leave(socket.room);
             socket.join(newroom);
             socket.emit('news', { title: 'You are connected to #'+newroom, author: 'Server', time: data.time}); // echo to client they've connected
             // sent message to OLD room
-            socket.broadcast.to(socket.room).emit('news', { title: '<strong>'+socket.username+'</strong> has left this room', author: 'Server', time: data.time}); 
+            socket.broadcast.to(socket.room).emit('news', { title: '<strong>'+socket.username+'</strong> has left this room', author: 'Server', time: data.time});
             // update socket session room title
             socket.room = newroom;
             socket.broadcast.to(newroom).emit('news', { title: '<strong>'+socket.username + '</strong> has joined this room', author: 'Server', time: data.time});
@@ -119,21 +119,21 @@ io.sockets.on('connection', function (socket) {
             switchUserRoom(socket.username,newroom)
     }
 
-    
+
     function printLast() {
         var room = socket.room;
-        articleProvider.findLast(room, function(error,docs){ 
+        articleProvider.findLast(room, function(error,docs){
             socket.emit('last', docs);
         })
     }
-    
-    socket.on('news', function (data, pingBack) { 
+
+    socket.on('news', function (data, pingBack) {
         // if the data doesn't know the room, ask from usernames
         if(data.room === null) {
             data.room = findUserRoom(socket.username);
         }
         console.log("t:news:room: "+data.room);
-                
+
         // send it to all
         io.sockets.in(data.room).emit('news', { title: data.text, author: data.author, time: data.time, city: data.city, nid: data.nid, room: data.room });
         // write it to tb
@@ -143,7 +143,7 @@ io.sockets.on('connection', function (socket) {
         pingBack(data.nid);
     });
 
-    socket.on('paint', function (data) { 
+    socket.on('paint', function (data) {
         io.sockets.in(socket.room).emit('paint', { title: data.title, author: data.author, time: data.time, room: data.room, city: data.city, nid: data.nid });
         //socket.emit('paint', { title: data.title, author: data.author, time: data.time });
         //socket.broadcast.emit('paint', { title: data.title, author: data.author, time: data.time });
@@ -152,56 +152,56 @@ io.sockets.on('connection', function (socket) {
         }
     });
 
-    socket.on('meme', function (data) {  
+    socket.on('meme', function (data) {
         io.sockets.in(socket.room).emit('meme', { title: data.title, author: data.author, time: data.time, city: data.city, nid:data.nid });
         //socket.emit('meme', { title: data.title, author: data.author, time: data.time });
         //socket.broadcast.emit('meme', { title: data.title, author: data.author, time: data.time });
         if(conf.db.usesDb === true) {
             saveToDb(data.title, data.author, data.time, data.room, data.city, data.nid );
-            
+
         }
     });
-    
+
     socket.on('room', function(data) {
         changeRoom(data)
     });
 
-    
-    socket.on('nsa', function (data) { 
+
+    socket.on('nsa', function (data) {
         //socket.broadcast.to(data.room).emit('nsa', { nid: data.nid, name: data.name });
         io.sockets.emit('nsa', { nid: data.nid, name: data.name }); // to fix - send only to apropriate room
-    }); 
+    });
 
 
-    socket.on('writing', function (data) { 
+    socket.on('writing', function (data) {
         io.sockets.in(data.room).emit('writing', { user: data.user, writing: data.writing});
-    }); 
-    
-    
-    socket.on('who', function (data) { 
+    });
+
+
+    socket.on('who', function (data) {
         socket.emit('who', usernames);
     });
-    
-    socket.on('help', function () { 
+
+    socket.on('help', function () {
         socket.emit('help');
     });
-    
-    socket.on('last', function () { 
+
+    socket.on('last', function () {
         if(conf.db.usesDb === true) {
             printLast();
         }
         else socket.emit('news', { message: 'no datatabase connected', author: 'Server', time: ''});
 
-    });    
-    
+    });
+
     socket.on('adduser', function(data){
 
         socket.username = data.username; // store the username in the socket session for this client
-        
+
         var existing = findUserIndex(data.username);
-        
+
         // if it's an NEW user
-        if(existing === undefined) {         
+        if(existing === undefined) {
             socket.room = 'multiverse'; // store the room name in the socket session for this client
             usernames.push({name: socket.username, room: socket.room});
             var query = new Array();
@@ -213,17 +213,17 @@ io.sockets.on('connection', function (socket) {
             query.title = "r "+socket.room;
             changeRoom(query);
         }
-        
-        
-        
-        //socket.broadcast.emit('news', { title: '<strong>'+data.username + '</strong> has connected', author: 'Server', time: data.time}); // echo to room  that a person has connected 
+
+
+
+        //socket.broadcast.emit('news', { title: '<strong>'+data.username + '</strong> has connected', author: 'Server', time: data.time}); // echo to room  that a person has connected
         socket.emit('help');
         socket.emit('news', { title: 'Buongiorno! You are connected', author: 'Server', time: data.time}); // echo to client they've connected
         socket.emit('who', usernames);
         socket.emit('getUp');
         if(conf.db.usesDb === true) {
             printLast();
-        }            
+        }
 //        io.sockets.emit('news', { title: '<strong>'+socket.username + '</strong> has connected to ' +socket.room, author: 'Server', time: ''});
         io.sockets.emit('news', { title: '<strong>'+socket.username + '</strong> has connected', author: 'Server', time: ''});
 
@@ -233,13 +233,13 @@ io.sockets.on('connection', function (socket) {
         // update list of users in chat, client-side
         socket.emit('getUsers', usernames);
     });
-*/    
-    
+*/
+
     socket.on('disconnect', function(){ // welcome to the hotel california
 
-        // remove the username from global usernames list    
-        //removeUser(socket.username);        
-        
+        // remove the username from global usernames list
+        //removeUser(socket.username);
+
         // echo globally that this client has left
         // remove disconnected because remove disconnected
         //io.sockets.emit('news', { title: '<strong>'+socket.username + '</strong> has disconnected', author: 'Server', time: 'bye'});
@@ -251,14 +251,14 @@ io.sockets.on('connection', function (socket) {
 		socket.join(newroom);
         socket.emit('news', { title: '! You are connected to #'+newroom, author: 'Server', time: data.time}); // echo to client they've connected
 		// sent message to OLD room
-		socket.broadcast.to(socket.room).emit('news', { title: socket.username+' has left this room', author: 'Server', time: data.time}); 
+		socket.broadcast.to(socket.room).emit('news', { title: socket.username+' has left this room', author: 'Server', time: data.time});
 		// update socket session room title
 		socket.room = newroom;
 		socket.broadcast.to(newroom).emit('news', { title: '<strong>'+socket.username + '</strong> has joined this room', author: 'Server', time: data.time});
         socket.emit('roomHeader', { room: 'yolo'+newroom}); // echo to client they've connected
 
 		//socket.emit('roomHeader', {room: newroom});
-        
+
 	});*/
 
 });
@@ -266,7 +266,7 @@ io.sockets.on('connection', function (socket) {
 app.get('/', function(req, res){
     if(conf.db.usesDb === true) {
         articleProvider.findLast( function(error,docs){
-            res.render('index.jade', { 
+            res.render('index.jade', {
                 articles:docs,
                 conf: conf.general
             });
@@ -274,7 +274,7 @@ app.get('/', function(req, res){
         })
     }
     else {
-        res.render('index.jade', { 
+        res.render('index.jade', {
             conf: conf.general
         });
         //res.end();
@@ -286,7 +286,7 @@ app.get('/', function(req, res){
     //res.writeHead(200, {"Content-Type": "text/html"});
     //res.end("Hello, yes, this is server!\n<br /> Please go to <a href='www/index.html'>talker</a>.");
     //res.render('index.html');
-    res.sendfile(__dirname + '/public/www/index.html');    
+    res.sendfile(__dirname + '/public/www/index.html');
 });
 
 

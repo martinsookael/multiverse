@@ -1,6 +1,6 @@
 
 /**
- * 
+ *
  */
 
 var conf = require('./conf');
@@ -11,6 +11,14 @@ var Server = require('mongodb').Server;
 var BSON = require('mongodb').BSON;
 var ObjectID = require('mongodb').ObjectID;
 
+// If Martin works on localhost, then the data will not be sent to the server
+// if you think, this is a ugly hack, feel free to fix it.  
+os = require("os");
+if (os.hostname() === "α") {
+  conf.db.host = "127.0.0.1";
+}
+
+
 ArticleProvider = function(host, port) {
   this.db= new Db(conf.db.dbName, new Server(host, port, {auto_reconnect: true}, {}));
   /*this.db.open(function(){
@@ -18,7 +26,7 @@ ArticleProvider = function(host, port) {
       // callback
       });
   });*/
-    
+
     this.db.open(function(err, db) {
       if(!err) {
         db.authenticate(conf.db.username, conf.db.password, function(err){
@@ -39,7 +47,7 @@ ArticleProvider.prototype.getCollection= function(callback) {
 ArticleProvider.prototype.findLast = function(room, callback) { //console.log(room);
     this.getCollection(function(error, article_collection) {
       if( error ) callback(error)
-      else { 
+      else {
         article_collection.find({ room: { $in: [room] }}).sort({$natural:-1}).limit(7).toArray(function(error, results) {
           //console.log(results.reverse());
             if( error ) callback(error)
@@ -47,10 +55,10 @@ ArticleProvider.prototype.findLast = function(room, callback) { //console.log(ro
           //else callback(null, results)
         });
       }
-    }); 
+    });
 };
 
-ArticleProvider.prototype.save = function(articles, callback) {  
+ArticleProvider.prototype.save = function(articles, callback) {
     this.getCollection(function(error, article_collection) {
       if( error ) callback(error)
       else {
@@ -62,7 +70,7 @@ ArticleProvider.prototype.save = function(articles, callback) {
           //article.created_at = new Date();
         }
 
-        article_collection.insert(articles, function() { 
+        article_collection.insert(articles, function() {
           callback(null, articles);
         });
       }
