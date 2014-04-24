@@ -1,30 +1,13 @@
 // JavaScript Document
 
+sessionStorage.username = false;
+sessionStorage.room = "multiverse";
+
+if(localStorage.sound !== "off") {
+  localStorage.sound = "on";
+}
+
 $(document).ready(function() {
-
-    sessionStorage.username = false;
-    sessionStorage.room = "multiverse";
-
-  	if(localStorage.sound !== "off") {
-  		localStorage.sound = "on";
-  	}
-
-
-    //Catches info from user login box
-    $('#login').on('submit', function(e) {
-
-        e.preventDefault();
-        var username = $('#username');
-		username = username.val();
-		name = String(username); //cl (username);
-
-		if (username) {
-            $("#pleaseWait").show();
-      			$('#message1').hide();
-            socket.emit('adduser', { username: username, time: getTime() });
-            sessionStorage.username = username; // this can be achieved just with using "name"
-		}
-    });
 
 
     // check weather user is writing
@@ -479,43 +462,50 @@ multiverse.controller('jetzt', function($scope, $route, $routeParams) {
     $scope.chatter = function(htmlForm) {
       var title = $scope.chat.chaut;
       var message = title;
+      var username = sessionStorage.username;
+      if (username === "false") {
+        var username = title;
+        name = String(username);
+        $("#pleaseWait").show();
 
+        socket.emit('adduser', { username: username, time: getTime() });
+        sessionStorage.username = username; // this can be achieved just with using "name"
+        document.getElementById("chaut").removeAttribute("placeholder");
+      } else {
 
-var rndNumb=Math.floor(Math.random()*1000000);
-var nid = "p"+rndNumb;
+        cl($scope);
 
-var rndNumb=Math.floor(Math.random()*1000000);
-var nid = "p"+rndNumb;
+        var rndNumb=Math.floor(Math.random()*1000000);
+        var nid = "p"+rndNumb;
 
-c.push({id:nid, message:title}); // add this to local command list
+        var rndNumb=Math.floor(Math.random()*1000000);
+        var nid = "p"+rndNumb;
 
-// get the first word
-if (message === '') return false;
-message = message.trim();
-if(message.indexOf(" ") != -1) var firstWord = message.slice(0, message.indexOf(" "));
-else var firstWord = message;
+        c.push({id:nid, message:title}); // add this to local command list
 
-// get geoinfo
-var city ='';
-if (typeof(geoip_city) != "undefined") {
-    //city = geoip_city()+", "+geoip_region()+", "+geoip_country_name();
-    city = geoip_city();
-}
+        // get the first word
+        if (message === '') return false;
+        message = message.trim();
+        if(message.indexOf(" ") != -1) var firstWord = message.slice(0, message.indexOf(" "));
+        else var firstWord = message;
 
+        // get geoinfo
+        var city ='';
+        if (typeof(geoip_city) != "undefined") {
+            //city = geoip_city()+", "+geoip_region()+", "+geoip_country_name();
+            city = geoip_city();
+        }
 
-      cl(title);
-      //socket.emit("news", { title: title, author: sessionStorage.username, time: getTime(),  room:sessionStorage.room });
-      socket.emit('news', { text: message, author: sessionStorage.username, time: getTime(), city: city, nid: nid, room: sessionStorage.room}, function(feedBack) {
-          //console.log(feedBack); // fires when server has seen it
-      });
+        socket.emit('news', { text: message, author: sessionStorage.username, time: getTime(), city: city, nid: nid, room: sessionStorage.room}, function(feedBack) { });
 
-/*
-      todos2.push({
-        price: price,
-        article: article,
-        repeat: repeat
-      });
-*/
+  /*
+        todos2.push({
+          price: price,
+          article: article,
+          repeat: repeat
+        });
+  */
+      }
       $scope.chat = "";
     }
 
