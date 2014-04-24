@@ -213,7 +213,9 @@ io.sockets.on('connection', function (socket) {
           usernames.push({name: socket.username, room: socket.room});
           var query = new Array();
           query.title = "r "+socket.room;
-          //changeRoom(query);
+          if(socket.room === 'multiverse') {
+            changeRoom(query);
+          }
         } else { // if it's a EXISTING user
           socket.room = usernames[existing].room;
           var query = new Array();

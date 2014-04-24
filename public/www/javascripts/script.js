@@ -440,8 +440,8 @@ multiverse.config(function($routeProvider) {
 // controller for main page
 multiverse.controller('one', function($scope, $route, $routeParams) {
   //$scope.room = $routeParams.room;
-  //cl($scope.room);
-  //socket.emit('room', { title: "r "+$scope.room });
+  //cl(sessionStorage.room);
+  //socket.emit('room', { title: "r "+ sessionStorage.room });
 });
 
 multiverse.controller('room', function($scope) {
@@ -468,6 +468,8 @@ multiverse.controller('jetzt', function($scope, $route, $routeParams) {
       var title = $scope.chat.chaut;
       var message = title;
       var username = sessionStorage.username;
+
+      // does not have a username yet
       if (username === "false") {
         var username = title;
         name = String(username);
@@ -475,7 +477,8 @@ multiverse.controller('jetzt', function($scope, $route, $routeParams) {
         socket.emit('adduser', { username: username, time: getTime(), room: sessionStorage.room });
         sessionStorage.username = username; // this can be achieved just with using "name"
         document.getElementById("chaut").removeAttribute("placeholder");
-      } else {
+        
+      } else { // has a username
 
           var rndNumb=Math.floor(Math.random()*1000000);
           var nid = "p"+rndNumb;
