@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="multiverse">
     <head>
         <meta charset="utf-8">
             <title>Multiverse</title>
-        
+
         <link rel="stylesheet" href="stylesheets/reset.css">
         <link rel="stylesheet" href="stylesheets/fonts.css">
         <link rel="stylesheet" href="stylesheets/style.css">
 
+        <script type="text/javascript" src="javascripts/socket.io.js"></script>
+        <script type="text/javascript" src="javascripts/jquery-1.10.0.min.js"></script>
+        <script type="text/javascript" src="javascripts/angular.min.js"></script>
+        <script type="text/javascript" src="javascripts/angular-route.js"></script>
+        <script type="text/javascript" src="javascripts/script.js"></script>
         <script type="text/javascript" src="javascripts/head.load.min.js"></script>
 
-        <script type="text/javascript" src="javascripts/socket.io.js"></script>
         <script type="text/javascript" src="phonegap.js"></script>
         <script>
             //window.onerror = function(message, url, lineNumber) {
@@ -33,7 +37,8 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <link rel="shortcut icon" href="images/favicon.ico">
     </head>
-    <body>
+    <body ng-controller="one">
+      <div ng-view></div>
         <div id="window">
             <div id="roomName">
                 <div id="roomId" style="float: left;">
@@ -73,7 +78,8 @@
             </div>
         </div>
         <script>
-            head.js("javascripts/jquery-1.10.0.min.js", "javascripts/script.js", "javascripts/meme.js", "javascripts/shortcuts.js",  "javascripts/phonegapstuff.js", "http://j.maxmind.com/app/geoip.js");
+//            head.js("javascripts/jquery-1.10.0.min.js", "javascripts/script.js", "javascripts/meme.js", "javascripts/shortcuts.js",  "javascripts/phonegapstuff.js", "http://j.maxmind.com/app/geoip.js", "javascripts/angular.min.js", "javascripts/angular-route.js");
+              head.js("javascripts/meme.js", "javascripts/shortcuts.js",  "javascripts/phonegapstuff.js", "http://j.maxmind.com/app/geoip.js");
             setInterval( head.js("http://j.maxmind.com/app/geoip.js"), 600000 );
 
               (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

@@ -436,6 +436,53 @@ $(document).ready(function() {
 
 });
 
+
+
+var multiverse = angular.module('multiverse', ['ngRoute']);
+
+//angular.module('project', ['ngRoute', 'firebase'])
+
+// Routes
+multiverse.config(function($routeProvider) {
+  $routeProvider
+
+  // route for the home page
+  .when('/', {
+    templateUrl : 'pages/main.html',
+    controller  : 'one'
+  })
+
+  .when('/r/:room', {
+    templateUrl : 'pages/room.html',
+    controller  : 'room'
+  })
+});
+
+// controller for main page
+multiverse.controller('one', function($scope) {
+  //$scope.db = db;
+});
+
+// controller for rooms
+multiverse.controller('room', function($scope, $route, $routeParams) {
+    $scope.room = $routeParams.room;
+});
+
+
+// should clear caching. Noone knows if it does it.
+multiverse.run(function($rootScope, $templateCache) {
+   $rootScope.$on('$viewContentLoaded', function() {
+      $templateCache.removeAll();
+   });
+});
+
+
+
+
+
+
+
+
 // get local time
 function getTime() {
     var d = new Date();
