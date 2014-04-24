@@ -139,7 +139,7 @@ io.sockets.on('connection', function (socket) {
         // write it to tb
         if(conf.db.usesDb === true) {
             saveToDb(data.text, data.author, data.time, data.room, data.city, data.nid);
-        }
+        } console.log(data.nid);
         pingBack(data.nid);
     });
 

@@ -37,46 +37,15 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
         <link rel="shortcut icon" href="images/favicon.ico">
     </head>
-    <body ng-controller="one">
-      <div ng-view></div>
-        <div id="window">
-            <div id="roomName">
-                <div id="roomId" style="float: left;">
-                    #multiverse
-                </div>
-                <div style="float: right; font-size: 9pt; margin-right: 35px;">
-                    r multiverse = beginning<br />
-                    <div id="connected" style="float: right;"><strong>connected</strong></div>
-                    <div id="disconnected" style="float: right; color: #900;"><strong>disconnected</strong></div>
-                </div>
-            </div>
-            <div id="message1" class="message">
-                Choose your username:<br>
-                <form id="login">
-                    <input id="username" type="text" value="" autocomplete="off" style="border: 1px solid #999;">
-                </form>
-                <div style="text-align: left;">
-                    <br /><br />
-                    <a target="_blank" href="https://build.phonegap.com/apps/609149/download/android/?qr_key=Bd8AyqmTDxUM9x275Uyt" style="text-decoration: none;">Multiverse Android App <strong>(βeta)</strong></a><br /><br /><br />
-                    <!--<a target="_blank" href="https://build.phonegap.com/apps/609149/download/winphone/?qr_key=Bd8AyqmTDxUM9x275Uyt" style="text-decoration: none;">Multiverse Windows Phone App <strong>(βeta)</strong></a>-->
-					<br />
-					<iframe width="480" height="360" src="http://www.youtube.com/embed/9i3w06oUU1k?rel=0" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>
-            <div id="pleaseWait" class="message hidden">
-                <br /><br /><br /><br />
-                <img src="images/users/be.png" class="avatar">
-                <div class="time">20:26</div>
-                <p class="name"><strong>Server</strong></p>
-                <p>Please wait, connecting to server.</p>
-            </div>
-            <div id="jetzt" class="message hidden">
-                <img src="images/users/drm.jpg" class="avatar">
-                <form id="send" method="post" action="/">
-                    <input id="input" type="text" autocomplete="off" name="title">
-                </form>
-            </div>
+    <body>
+      <div id="window">
+        <div ng-controller="one">
+          <div ng-view></div>
         </div>
+
+        <div ng-include src="'pages/form.html'"></div>
+        
+      </div>
         <script>
 //            head.js("javascripts/jquery-1.10.0.min.js", "javascripts/script.js", "javascripts/meme.js", "javascripts/shortcuts.js",  "javascripts/phonegapstuff.js", "http://j.maxmind.com/app/geoip.js", "javascripts/angular.min.js", "javascripts/angular-route.js");
               head.js("javascripts/meme.js", "javascripts/shortcuts.js",  "javascripts/phonegapstuff.js", "http://j.maxmind.com/app/geoip.js");

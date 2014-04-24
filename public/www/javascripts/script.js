@@ -5,18 +5,10 @@ $(document).ready(function() {
     sessionStorage.username = false;
     sessionStorage.room = "multiverse";
 
-	if(localStorage.sound !== "off") {
-		localStorage.sound = "on";
-	}
+  	if(localStorage.sound !== "off") {
+  		localStorage.sound = "on";
+  	}
 
-    // hold focus on the text input, unless it's the log in screen.
-	if ($("#username").is(":visible")) {
-		$("#username").focus();
-		//$("#username").keypress(); // didn't help, at least not for android.
-	}
-	else {
-		$("#input").focus();
-	}
 
     //Catches info from user login box
     $('#login').on('submit', function(e) {
@@ -28,7 +20,7 @@ $(document).ready(function() {
 
 		if (username) {
             $("#pleaseWait").show();
-			$('#message1').hide();
+      			$('#message1').hide();
             socket.emit('adduser', { username: username, time: getTime() });
             sessionStorage.username = username; // this can be achieved just with using "name"
 		}
@@ -110,7 +102,7 @@ $(document).ready(function() {
 
 
     /* CATCH CONTENT FROM FORM */
-    $('#send').on('submit', function(e) {
+/*    $('#send').on('submit', function(e) { cl("smth");
 
         e.preventDefault();
 
@@ -203,7 +195,7 @@ $(document).ready(function() {
 
         input.val(''); // clear the text input. Or should it be - reset form?
     });
-
+*/
 
 
     /* PROCESS SERVER RESPONSES */
@@ -274,7 +266,7 @@ $(document).ready(function() {
 
 
     function writer(data) {
-        if(sessionStorage.username != "false") { // hides news from non logged ins
+        //if(sessionStorage.username != "false") { // hides news from non logged ins
             message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; room = data.room || '';
             message = findLinksAndImages(message); // find links and images
             var avatar = getAvatar(name);
@@ -283,7 +275,7 @@ $(document).ready(function() {
             scrollAndBeep(data);
 
             socket.emit('nsa', { nid: data.nid, name: sessionStorage.username, room: data.room });
-        }
+        //}
     }
 
     // print announcements
@@ -395,21 +387,6 @@ $(document).ready(function() {
     }
 
 
-    // up and down arrows bring up last commands
-    var c = new Array;
-    c.push({id:"", message:""});
-    var cIndex = 0;
-
-    $(document).keydown(function(e){
-        if (e.keyCode == 38) {
-            cIndex--;
-            var command = $(c).get(cIndex);
-            $("#input").val(command.message);
-            //c.pop();
-            return false;
-        }
-    });
-
     $(document).keydown(function(e){
         if (e.keyCode == 40) {
             cIndex++;
@@ -438,6 +415,25 @@ $(document).ready(function() {
 
 
 
+// up and down arrows bring up last commands
+var c = new Array;
+c.push({id:"", message:""});
+var cIndex = 0;
+
+$(document).keydown(function(e){
+    if (e.keyCode == 38) {
+        cIndex--;
+        var command = $(c).get(cIndex);
+        $("#input").val(command.message);
+        //c.pop();
+        return false;
+    }
+});
+
+
+
+
+
 var multiverse = angular.module('multiverse', ['ngRoute']);
 
 //angular.module('project', ['ngRoute', 'firebase'])
@@ -448,13 +444,13 @@ multiverse.config(function($routeProvider) {
 
   // route for the home page
   .when('/', {
-    templateUrl : 'pages/main.html',
+    templateUrl : 'pages/main_container.html',
     controller  : 'one'
   })
 
   .when('/r/:room', {
     templateUrl : 'pages/room.html',
-    controller  : 'room'
+    controller  : 'jetzt'
   })
 });
 
@@ -463,10 +459,69 @@ multiverse.controller('one', function($scope) {
   //$scope.db = db;
 });
 
-// controller for rooms
-multiverse.controller('room', function($scope, $route, $routeParams) {
-    $scope.room = $routeParams.room;
+multiverse.controller('room', function($scope) {
+  //$scope.db = db;
 });
+
+// controller for rooms
+multiverse.controller('jetzt', function($scope, $route, $routeParams) {
+
+    $scope.room = $routeParams.room;
+
+    // add future incomes
+    //var todos2 = $scope.todos2 = todoStorage2.get();
+
+    //$scope.newTodo2 = '';
+    //$scope.editedTodo2 = null;
+
+
+
+    $scope.chatter = function(htmlForm) {
+      var title = $scope.chat.chaut;
+      var message = title;
+
+
+var rndNumb=Math.floor(Math.random()*1000000);
+var nid = "p"+rndNumb;
+
+var rndNumb=Math.floor(Math.random()*1000000);
+var nid = "p"+rndNumb;
+
+c.push({id:nid, message:title}); // add this to local command list
+
+// get the first word
+if (message === '') return false;
+message = message.trim();
+if(message.indexOf(" ") != -1) var firstWord = message.slice(0, message.indexOf(" "));
+else var firstWord = message;
+
+// get geoinfo
+var city ='';
+if (typeof(geoip_city) != "undefined") {
+    //city = geoip_city()+", "+geoip_region()+", "+geoip_country_name();
+    city = geoip_city();
+}
+
+
+      cl(title);
+      //socket.emit("news", { title: title, author: sessionStorage.username, time: getTime(),  room:sessionStorage.room });
+      socket.emit('news', { text: message, author: sessionStorage.username, time: getTime(), city: city, nid: nid, room: sessionStorage.room}, function(feedBack) {
+          //console.log(feedBack); // fires when server has seen it
+      });
+
+/*
+      todos2.push({
+        price: price,
+        article: article,
+        repeat: repeat
+      });
+*/
+      $scope.chat = "";
+    }
+
+});
+
+
 
 
 // should clear caching. Noone knows if it does it.
@@ -476,7 +531,23 @@ multiverse.run(function($rootScope, $templateCache) {
    });
 });
 
+/*
+multiverse.directive('main', ['$timeout', function ($timeout) {
+    return {
+        restrict: 'A',
+        scope: false,
+        templateUrl: 'pages/main.html',
+    }
+}]);
+*/
 
+multiverse.directive('myImage', function() {
+    return function($scope, $element, $attrs) {
+        $scope.$watch('image', function(value){
+            console.log($('img').attr('src')); // here we get the right image
+        });
+    }
+});
 
 
 
@@ -496,12 +567,12 @@ function getTime() {
 function cl(data) {
     console.log(data);
 }
-
+/*
 socket.on('reload', function (data) {
     console.log("REEEEEFRESH");
     window.location = ("");
 });
-
+*/
 
 function getAvatar(name){
     switch(name) {
