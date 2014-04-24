@@ -477,7 +477,7 @@ multiverse.controller('jetzt', function($scope, $route, $routeParams) {
         socket.emit('adduser', { username: username, time: getTime(), room: sessionStorage.room });
         sessionStorage.username = username; // this can be achieved just with using "name"
         document.getElementById("chaut").removeAttribute("placeholder");
-        
+
       } else { // has a username
 
           var rndNumb=Math.floor(Math.random()*1000000);
@@ -626,6 +626,7 @@ multiverse.directive('lastposts', function() {
     return function($scope, $element, $attrs) {
         $scope.$watch('room', function(value){
           socket.emit('room', { title: "r "+ sessionStorage.room });
+          //$scope.$apply( $location.path( sessionStorage.room ) );
         });
     }
 });
