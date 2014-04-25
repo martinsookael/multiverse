@@ -1,0 +1,13 @@
+{
+  "name": "Multiverse frontend",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies":{
+    "matchdep": "~0.1.1",
+    "grunt": "~0.4.4",
+    "grunt-regarde": "~0.1.1",
+    "grunt-contrib-connect":  "0.1.2",
+    "grunt-contrib-livereload": "0.1.1",
+    "grunt-open": "~0.2.0"
+  }
+}
