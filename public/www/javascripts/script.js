@@ -317,7 +317,9 @@ $(document).ready(function() {
             else { // if no shortcut, send it to the wire
                 writer(data[i]);
             }
-        }
+        } 
+        setTimeout(function(){scroll();}, 1000);
+
     }
 
     // automagic link creation from URLs
@@ -351,7 +353,8 @@ $(document).ready(function() {
     function scroll() {
         //if (name != username) document.getElementById('ping1').play();
         var height = $(document).height();
-        $(window).scrollTop(height);
+        //$(window).scrollTop(height);
+        window.scrollTo(0,document.body.scrollHeight);
     }
 
     // scroll and beep on command
