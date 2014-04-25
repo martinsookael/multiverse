@@ -554,6 +554,12 @@ multiverse.controller('jetzt', function($scope, $route, $routeParams) {
           }
                     else {
                         var channel = shortcuts[firstWord].channel;
+                        //cl(channel);
+                        if(channel === 'room') {
+                          var newroom = message.slice(2);
+                          //cl(newroom);
+                          sessionStorage.room = newroom
+                        }
                         socket.emit(channel, { title: message, author: sessionStorage.username, time: getTime(), city: city, nid:nid, room:sessionStorage.room });
                     }
                 }
@@ -623,9 +629,10 @@ multiverse.directive('main', ['$timeout', function ($timeout) {
 */
 
 multiverse.directive('lastposts', function() {
-    return function($scope, $element, $attrs) {
+    return function($scope, $element, $attrs, $location) {
         $scope.$watch('room', function(value){
           socket.emit('room', { title: "r "+ sessionStorage.room });
+          //cl(sessionStorage.room);
           //$scope.$apply( $location.path( sessionStorage.room ) );
         });
     }
