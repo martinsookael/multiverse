@@ -265,7 +265,7 @@ $(document).ready(function() {
     function announcer(message) {
         message = message || '';
         $("#jetzt").before('<div class="message announce"><p>'+message+'</p>');
-    } 
+    }
 
     function paint(data) {
         title = data.title || ''; author = data.author || ''; time = data.time || ''; city = data.city || '';
@@ -425,7 +425,8 @@ var multiverse = angular.module('multiverse', ['ngRoute']);
 //angular.module('project', ['ngRoute', 'firebase'])
 
 // Routes
-multiverse.config(function($routeProvider) {
+multiverse.config(function($routeProvider, $locationProvider) {
+  $locationProvider.html5Mode(false);
   $routeProvider
 
   // route for the home page
@@ -453,7 +454,7 @@ multiverse.controller('room', function($scope) {
 });
 
 // controller for rooms
-multiverse.controller('jetzt', function($scope, $route, $routeParams) {
+multiverse.controller('jetzt', function($scope, $route, $routeParams, $location) {
 
     $scope.room = $routeParams.room;
     var room = $scope.room
@@ -561,7 +562,10 @@ multiverse.controller('jetzt', function($scope, $route, $routeParams) {
                         if(channel === 'room') {
                           var newroom = message.slice(2);
                           //cl(newroom);
-                          sessionStorage.room = newroom
+                          sessionStorage.room = newroom;
+                          $scope.$apply( $location.path( "r/"+sessionStorage.room ) );
+
+
                         }
                         socket.emit(channel, { title: message, author: sessionStorage.username, time: getTime(), city: city, nid:nid, room:sessionStorage.room });
                     }
@@ -635,8 +639,6 @@ multiverse.directive('lastposts', function() {
     return function($scope, $element, $attrs, $location) {
         $scope.$watch('room', function(value){
           socket.emit('room', { title: "r "+ sessionStorage.room });
-          //cl(sessionStorage.room);
-          //$scope.$apply( $location.path( sessionStorage.room ) );
         });
     }
 });
