@@ -418,6 +418,19 @@ $(document).keydown(function(e){
 
 
 
+function getPostsApi($scope, $http, $location) {
+
+  var id = $location.$$path;
+  var last = id.substring(id.lastIndexOf("/") + 1, id.length);
+  last = String(last);
+  //cl(last);
+
+  $http({method: 'GET', url: '/api/p/'+last}).success(function(data) {
+    $scope.post = data;
+  });
+}
+
+
 
 
 var multiverse = angular.module('multiverse', ['ngRoute']);

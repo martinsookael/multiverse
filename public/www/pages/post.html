@@ -1,5 +1,19 @@
-<div id="window" lastposts>
-{{post}}
+<div id="window" lastposts ng-controller="getPostsApi">
+
+  <div class="message" id="{{post.nid}}">
+    <img src="images/users/muusa.jpg" class="avatar">
+    <div class="time">{{post.time}}</div>
+    <div class="place small">{{post.city}}</div>
+    <p class="name"><strong>{{post.author}}</strong></p>
+    <p>
+      {{post.title}}
+      <span class="gray">#{{post.room}}</span>
+      <span class="viewers gray small">
+        <span class="tick hidden">&nbsp;&nbsp;✓</span>
+      </span>
+    </p>
+  </div>
+
 </div>
 
 <!--
