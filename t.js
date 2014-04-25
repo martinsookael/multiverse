@@ -298,6 +298,23 @@ app.get('/', function(req, res){
     res.sendfile(__dirname + '/public/www/index.html');
 });
 
+app.get('/api/p/:id', function(req, res){
+    articleProvider.findOne(req.params.id, function(error,docs){
+      console.log(docs);
+
+        //res.render('index.jade', {
+          //  articles:docs,
+          //  conf: conf.general
+          //res.writeHead(200, {"Content-Type": "text/html"});
+          res.send(docs);
+        });
+
+    //res.end();
+
+    //53590604827e5c0200000021
+    //res.send({id:req.params.id, name: "The Name", description: "description"});
+});
+
 
 
 server.listen(app.get('port'), function(){

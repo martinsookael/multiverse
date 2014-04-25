@@ -58,6 +58,32 @@ ArticleProvider.prototype.findLast = function(room, callback) { //console.log(ro
     });
 };
 
+
+ArticleProvider.prototype.findOne = function(id, callback) { //console.log(room);
+    this.getCollection(function(error, article_collection) {
+      if( error ) callback(error)
+      else {
+        /*article_collection.find({_id: {"$oid": "53590604827e5c0200000021"}}).toArray(function(error, results) {
+          console.log(results);
+            if( error ) callback(error)
+          else callback(null, results.reverse())
+          //else callback(null, results)
+        });
+*/
+
+        article_collection.findOne({_id: article_collection.db.bson_serializer.ObjectID.createFromHexString(id)}, function(error, result) {
+          if( error ) callback(error)
+          else callback(null, result)
+        });
+
+
+
+      }
+    });
+};
+
+
+
 ArticleProvider.prototype.save = function(articles, callback) {
     this.getCollection(function(error, article_collection) {
       if( error ) callback(error)

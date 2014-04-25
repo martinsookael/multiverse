@@ -439,6 +439,18 @@ multiverse.config(function($routeProvider, $locationProvider) {
     templateUrl : 'pages/room.html',
     controller  : 'jetzt'
   })
+
+  .when('/p/:post', {
+    templateUrl : 'pages/post.html',
+    controller  : 'jetzt'
+  })
+
+
+/*
+  .otherwise({
+      redirectTo: '/'
+  })
+*/
 });
 
 // controller for main page
@@ -459,6 +471,10 @@ multiverse.controller('jetzt', function($scope, $route, $routeParams, $location)
     $scope.room = $routeParams.room;
     var room = $scope.room
     sessionStorage.room = room;
+
+    $scope.post = $routeParams.post;
+
+
     //socket.emit('room', { title: "r "+ room });
 /*    if($scope.room === undefined) {
       socket.emit('room', { title: "r multiverse" });
