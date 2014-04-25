@@ -265,7 +265,7 @@ $(document).ready(function() {
     function announcer(message) {
         message = message || '';
         $("#jetzt").before('<div class="message announce"><p>'+message+'</p>');
-    }
+    } 
 
     function paint(data) {
         title = data.title || ''; author = data.author || ''; time = data.time || ''; city = data.city || '';
@@ -317,7 +317,7 @@ $(document).ready(function() {
             else { // if no shortcut, send it to the wire
                 writer(data[i]);
             }
-        } 
+        }
         setTimeout(function(){scroll();}, 1000);
 
     }
