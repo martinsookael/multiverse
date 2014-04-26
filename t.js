@@ -187,6 +187,10 @@ io.sockets.on('connection', function (socket) {
         socket.emit('who', usernames);
     });
 
+    socket.on('logout', function () {
+        socket.emit('logout');
+    });
+
     socket.on('help', function () {
         socket.emit('help');
     });

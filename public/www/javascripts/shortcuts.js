@@ -134,6 +134,9 @@ shortcuts = {
     "m":{
         "channel":"meme"
     },
+    "logout":{
+        "channel":"logout"
+    },
     "w":{
         "channel":"who"
     },
