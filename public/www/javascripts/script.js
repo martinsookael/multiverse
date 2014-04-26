@@ -327,7 +327,7 @@ $(document).keydown(function(e){
 });
 
 
-
+/*
 function getPostsApi($scope, $http, $location) {
 
   var id = $location.$$path;
@@ -337,7 +337,7 @@ function getPostsApi($scope, $http, $location) {
   $http({method: 'GET', url: '/api/p/'+last}).success(function(data) {
     $scope.post = data;
   });
-}
+} */
 
 function logInIfUser() {
   if (localStorage.username != undefined) {
@@ -430,13 +430,18 @@ multiverse.controller('room', function($scope, $route, $routeParams, $location) 
 
 
 // controller for #/p/*****
-multiverse.controller('posts', function($scope, $route, $routeParams, $location) {
-/*
-    $scope.room = $routeParams.room;
-    var room = $scope.room
-    sessionStorage.room = room;
-cl(room);
-*/
+multiverse.controller('posts', function($scope, $route, $routeParams, $location, $http) {
+
+
+var id = $location.$$path;
+var last = id.substring(id.lastIndexOf("/") + 1, id.length);
+last = String(last);
+
+$http({method: 'GET', url: '/api/p/'+last}).success(function(data) {
+  $scope.post = data;
+});
+
+
 
     logInIfUser();
 
