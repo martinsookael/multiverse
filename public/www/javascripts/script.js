@@ -109,7 +109,7 @@ $(document).ready(function() {
         printHelp();
     });
 
-    socket.on('news', function (data) { cl("jead");
+    socket.on('news', function (data) {
         writer(data);
     });
 
@@ -339,8 +339,8 @@ function getPostsApi($scope, $http, $location) {
   });
 } */
 
-function logInIfUser(changeRoom) { cl("siin");
-  if (localStorage.username != undefined) {
+function logInIfUser(changeRoom) {
+  if (localStorage.username != undefined) {console.log("heiei");
     document.getElementById("chaut").removeAttribute("placeholder");
     //cl(localStorage.room);
     if(changeRoom === "true") { cl("siiiiiin");
