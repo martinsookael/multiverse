@@ -486,159 +486,17 @@ multiverse.controller('jetzt', function($scope, $route, $routeParams, $location)
     sessionStorage.room = room;
 
     $scope.post = $routeParams.post;
-
-
-    //socket.emit('room', { title: "r "+ room });
-/*    if($scope.room === undefined) {
-      socket.emit('room', { title: "r multiverse" });
-    }
-    else {
-      socket.emit('room', { title: "r "+ $scope.room });
-      //socket.emit('last');
-    }*/
-
+cl(sessionStorage.username);
     $scope.chatter = function(htmlForm) {
       var title = $scope.chat.chaut;
       var message = title;
       var username = sessionStorage.username;
 
-      // does not have a username yet
-      if (username === "false") {
-        var username = title;
-        name = String(username);
-        $("#pleaseWait").show();
-        socket.emit('adduser', { username: username, time: getTime(), room: sessionStorage.room });
-        sessionStorage.username = username; // this can be achieved just with using "name"
-        document.getElementById("chaut").removeAttribute("placeholder");
 
-      } else { // has a username
+//
+      analyzeEntry($scope, message, username);
+//
 
-          var rndNumb=Math.floor(Math.random()*1000000);
-          var nid = "p"+rndNumb;
-
-          var rndNumb=Math.floor(Math.random()*1000000);
-          var nid = "p"+rndNumb;
-
-          c.push({id:nid, message:title}); // add this to local command list
-
-          // get the first word
-          if (message === '') return false;
-          message = message.trim();
-          if(message.indexOf(" ") != -1) var firstWord = message.slice(0, message.indexOf(" "));
-          else var firstWord = message;
-
-          // get geoinfo
-          var city ='';
-          if (typeof(geoip_city) != "undefined") {
-              //city = geoip_city()+", "+geoip_region()+", "+geoip_country_name();
-              city = geoip_city();
-        }
-
-
-
-
-
-
-        // is it a shortcut?
-        if(firstWord in shortcuts) {
-
-            // is it a meme?
-            // is it a meme with a typo?
-            if(findMemeError(message) === "error") {
-                var data = new Array;
-                data.title = '<strong>'+message+'</strong> - no such meme here :(';
-                //input.val('');
-                data.name = "Server";
-                data.time = getTime();
-                writer(data);
-            } // it's no meme, pass it on
-            else if(findMemeError(message) === "noMeme"){
-                if(message === "m") {
-                    announcer("<strong>Meme it!</strong><br /><br /><strong>type: <br /></strong>m shortcut top caption/bottom caption<br />e.g:<br />m gf i know you're coming back to me/i have all your socks<br /><br />If a shortcut has either top or bottom line in brackets, it's pre­set, but can be changed.<br /><br /><strong>Shortcuts:</strong><br />m fwp<br>m fwp text to top / text to bottom<br>m fwp text to top<br>m fwp / text to bottom<br><br><strong>Available memes:</strong><br /><strong>m fwp</strong> - First World Problem<br><strong>m bru</strong> - bottom text: 'IMPOSSIBRU!!'<br /><strong>m baby</strong> - SuccessBaby<br /><strong>m yuno</strong> - Y U No?<br /><strong>m goodguy</strong> - Good Guy Greg<br /><strong>m man</strong> - Most interesting guy on earth<br /><strong>m simply</strong> - top text: 'One does not simply'<br /><strong>m whatif</strong> - top text: 'What if I told you?'<br /><strong>m scumb</strong> - Scumbag Steve<br /><strong>m scumg</strong> - Scumbag Stacy<br /><strong>m gf</strong> - Overly attached girlfriend<br /><strong>m fuckme</strong> - bottom text: 'Fuck me, right?' <br /><strong>m nobody</strong> - Bottom text: 'Ain&quot;t nobody got time for that'<br /><strong>m fa</strong> - Forever alone <br /><strong>m boat</strong> - I should buy a boat cat <br /><strong>m acc</strong> - top text: 'challegne accepted' <br /><strong>m notbad</strong> - bottom text: 'not bad' <br /><strong>m yoda</strong> - master yoda<br /><strong>m soclose</strong> - so close<br /><strong>m africa</strong> - top text: so you're telling me<br /><strong>m aliens</strong> - bottom text 'aliens'<br /><strong>m brian</strong> - bad luck Brian<br /><strong>m dawg</strong> - yo dawg, i heard...<br /><strong>m high</strong> - bottom text: 'is too damn high'<br /><strong>m isee</strong> - bottom text: i see what you did there<br /><strong>m notsure</strong> - not sure...<br /><strong>m bean</strong> - ...if you know what I meme<br /><strong>m evil</strong> - Dr. Evils one million dollars<br /><strong>m stoned</strong> - the stoned dude<br /><strong>m gusta</strong> - Me gusta<br /><strong>m parrot</strong> - Paranoid parrot<br /><strong>m social</strong> - Socially Awkward Penguin <br /><strong>m say</strong> - You don't say?<br /><strong>m kidding</strong> - Are you fucking kidding me?<br /><strong>m smth</strong> - It's something <br /><strong>m story</strong> - True strory<br /><strong>m yeah</strong> - Aww yeah <br /><strong>m please</strong> - Bitch please <br /><strong>m eyes</strong> - seductive eyes <br /><strong>m fu</strong> - fuck you <br />");
-                    scroll();
-                }
-
-                else {
-                    if(message === "r" || message === "r " || message === "soundon" || message === "soundoff"  ) { 	// put these also to shortcuts.js
-
-            switch(message) {
-
-              case "r": // r misfire
-              return false;
-              break;
-
-              case "r ": // r misfire
-              return false;
-              break;
-
-              case "soundon":
-              soundOn();
-              break;
-
-              case "soundoff":
-              soundOff();
-              break;
-
-              default:
-              return false;
-              break;
-            }
-
-          }
-                    else {
-                        var channel = shortcuts[firstWord].channel;
-                        //cl(channel);
-                        if(channel === 'room') {
-                          var newroom = message.slice(2);
-                          //cl(newroom);
-                          sessionStorage.room = newroom;
-                          $scope.$apply( $location.path( "r/"+sessionStorage.room ) );
-
-
-                        }
-                        socket.emit(channel, { title: message, author: sessionStorage.username, time: getTime(), city: city, nid:nid, room:sessionStorage.room });
-                    }
-                }
-            } // it's a meme!
-            else {
-                var data = new Array;
-                data.title = message;
-                data.author = "Server";
-                data.time = getTime();
-                socket.emit("meme", { title: message, author: sessionStorage.username, time: getTime(), city: city, nid: nid, room: sessionStorage.room });
-            }
-        }
-
-        else { // if no shortcut, send it to the wire
-            socket.emit('news', { text: message, author: sessionStorage.username, time: getTime(), city: city, nid: nid, room: sessionStorage.room}, function(feedBack) {
-                //console.log(feedBack); // fires when server has seen it
-            });
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //socket.emit('news', { text: message, author: sessionStorage.username, time: getTime(), city: city, nid: nid, room: sessionStorage.room}, function(feedBack) { });
-
-  /*
-        todos2.push({
-          price: price,
-          article: article,
-          repeat: repeat
-        });
-  */
-      }
       $scope.chat = "";
     }
 
@@ -696,6 +554,129 @@ socket.on('reload', function (data) {
     window.location = ("");
 });
 */
+
+
+
+
+
+
+
+function analyzeEntry($scope, message, username) {
+
+  // does not have a username yet
+  if (username === "false") {
+    var username = title;
+    name = String(username);
+    $("#pleaseWait").show();
+    socket.emit('adduser', { username: username, time: getTime(), room: sessionStorage.room });
+    sessionStorage.username = username; // this can be achieved just with using "name"
+    document.getElementById("chaut").removeAttribute("placeholder");
+
+  } else { // has a username
+
+      var rndNumb=Math.floor(Math.random()*1000000);
+      var nid = "p"+rndNumb;
+
+      var rndNumb=Math.floor(Math.random()*1000000);
+      var nid = "p"+rndNumb;
+
+      c.push({id:nid, message:title}); // add this to local command list
+
+      // get the first word
+      if (message === '') return false;
+      message = message.trim();
+      if(message.indexOf(" ") != -1) var firstWord = message.slice(0, message.indexOf(" "));
+      else var firstWord = message;
+
+      // get geoinfo
+      var city ='';
+      if (typeof(geoip_city) != "undefined") {
+          //city = geoip_city()+", "+geoip_region()+", "+geoip_country_name();
+          city = geoip_city();
+    }
+
+    // is it a shortcut?
+    if(firstWord in shortcuts) {
+
+        // is it a meme?
+        // is it a meme with a typo?
+        if(findMemeError(message) === "error") {
+            var data = new Array;
+            data.title = '<strong>'+message+'</strong> - no such meme here :(';
+            //input.val('');
+            data.name = "Server";
+            data.time = getTime();
+            writer(data);
+        } // it's no meme, pass it on
+        else if(findMemeError(message) === "noMeme"){
+            if(message === "m") {
+                announcer("<strong>Meme it!</strong><br /><br /><strong>type: <br /></strong>m shortcut top caption/bottom caption<br />e.g:<br />m gf i know you're coming back to me/i have all your socks<br /><br />If a shortcut has either top or bottom line in brackets, it's pre­set, but can be changed.<br /><br /><strong>Shortcuts:</strong><br />m fwp<br>m fwp text to top / text to bottom<br>m fwp text to top<br>m fwp / text to bottom<br><br><strong>Available memes:</strong><br /><strong>m fwp</strong> - First World Problem<br><strong>m bru</strong> - bottom text: 'IMPOSSIBRU!!'<br /><strong>m baby</strong> - SuccessBaby<br /><strong>m yuno</strong> - Y U No?<br /><strong>m goodguy</strong> - Good Guy Greg<br /><strong>m man</strong> - Most interesting guy on earth<br /><strong>m simply</strong> - top text: 'One does not simply'<br /><strong>m whatif</strong> - top text: 'What if I told you?'<br /><strong>m scumb</strong> - Scumbag Steve<br /><strong>m scumg</strong> - Scumbag Stacy<br /><strong>m gf</strong> - Overly attached girlfriend<br /><strong>m fuckme</strong> - bottom text: 'Fuck me, right?' <br /><strong>m nobody</strong> - Bottom text: 'Ain&quot;t nobody got time for that'<br /><strong>m fa</strong> - Forever alone <br /><strong>m boat</strong> - I should buy a boat cat <br /><strong>m acc</strong> - top text: 'challegne accepted' <br /><strong>m notbad</strong> - bottom text: 'not bad' <br /><strong>m yoda</strong> - master yoda<br /><strong>m soclose</strong> - so close<br /><strong>m africa</strong> - top text: so you're telling me<br /><strong>m aliens</strong> - bottom text 'aliens'<br /><strong>m brian</strong> - bad luck Brian<br /><strong>m dawg</strong> - yo dawg, i heard...<br /><strong>m high</strong> - bottom text: 'is too damn high'<br /><strong>m isee</strong> - bottom text: i see what you did there<br /><strong>m notsure</strong> - not sure...<br /><strong>m bean</strong> - ...if you know what I meme<br /><strong>m evil</strong> - Dr. Evils one million dollars<br /><strong>m stoned</strong> - the stoned dude<br /><strong>m gusta</strong> - Me gusta<br /><strong>m parrot</strong> - Paranoid parrot<br /><strong>m social</strong> - Socially Awkward Penguin <br /><strong>m say</strong> - You don't say?<br /><strong>m kidding</strong> - Are you fucking kidding me?<br /><strong>m smth</strong> - It's something <br /><strong>m story</strong> - True strory<br /><strong>m yeah</strong> - Aww yeah <br /><strong>m please</strong> - Bitch please <br /><strong>m eyes</strong> - seductive eyes <br /><strong>m fu</strong> - fuck you <br />");
+                scroll();
+            }
+
+            else {
+                if(message === "r" || message === "r " || message === "soundon" || message === "soundoff"  ) { 	// put these also to shortcuts.js
+
+        switch(message) {
+
+          case "r": // r misfire
+          return false;
+          break;
+
+          case "r ": // r misfire
+          return false;
+          break;
+
+          case "soundon":
+          soundOn();
+          break;
+
+          case "soundoff":
+          soundOff();
+          break;
+
+          default:
+          return false;
+          break;
+        }
+
+      }
+                else {
+                    var channel = shortcuts[firstWord].channel;
+                    //cl(channel);
+                    if(channel === 'room') {
+                      var newroom = message.slice(2);
+                      //cl(newroom);
+                      sessionStorage.room = newroom;
+                      $scope.$apply( $location.path( "r/"+sessionStorage.room ) );
+
+
+                    }
+                    socket.emit(channel, { title: message, author: sessionStorage.username, time: getTime(), city: city, nid:nid, room:sessionStorage.room });
+                }
+            }
+        } // it's a meme!
+        else {
+            var data = new Array;
+            data.title = message;
+            data.author = "Server";
+            data.time = getTime();
+            socket.emit("meme", { title: message, author: sessionStorage.username, time: getTime(), city: city, nid: nid, room: sessionStorage.room });
+        }
+    }
+
+    else { // if no shortcut, send it to the wire
+        socket.emit('news', { text: message, author: sessionStorage.username, time: getTime(), city: city, nid: nid, room: sessionStorage.room}, function(feedBack) {
+            //console.log(feedBack); // fires when server has seen it
+        });
+    }
+  }
+}
+
+
+
+
+
 
 function getAvatar(name){
     switch(name) {

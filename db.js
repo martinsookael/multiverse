@@ -44,12 +44,11 @@ ArticleProvider.prototype.getCollection= function(callback) {
   });
 };
 
-ArticleProvider.prototype.findLast = function(room, callback) { //console.log(room);
+ArticleProvider.prototype.findLast = function(room, callback) {
     this.getCollection(function(error, article_collection) {
       if( error ) callback(error)
       else {
         article_collection.find({ room: { $in: [room] }}).sort({$natural:-1}).limit(7).toArray(function(error, results) {
-          //console.log(results.reverse());
             if( error ) callback(error)
           else callback(null, results.reverse())
           //else callback(null, results)
@@ -59,12 +58,11 @@ ArticleProvider.prototype.findLast = function(room, callback) { //console.log(ro
 };
 
 
-ArticleProvider.prototype.findOne = function(id, callback) { //console.log(room);
+ArticleProvider.prototype.findOne = function(id, callback) {
     this.getCollection(function(error, article_collection) {
       if( error ) callback(error)
       else {
         /*article_collection.find({_id: {"$oid": "53590604827e5c0200000021"}}).toArray(function(error, results) {
-          console.log(results);
             if( error ) callback(error)
           else callback(null, results.reverse())
           //else callback(null, results)

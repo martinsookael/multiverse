@@ -84,7 +84,7 @@ function removeUser(username) {
 }
 
 function switchUserRoom(username,room) {
-    var index = findUserIndex(username); console.log(username);
+    var index = findUserIndex(username);
     if(username != undefined) {
       usernames[index].room = room;
     }
@@ -199,7 +199,7 @@ io.sockets.on('connection', function (socket) {
 
     });
 
-    socket.on('adduser', function(data){ console.log(data);
+    socket.on('adduser', function(data){
 
         socket.username = data.username; // store the username in the socket session for this client
 
@@ -300,7 +300,6 @@ app.get('/', function(req, res){
 
 app.get('/api/p/:id', function(req, res){
     articleProvider.findOne(req.params.id, function(error,docs){
-      console.log(docs);
 
         //res.render('index.jade', {
           //  articles:docs,
