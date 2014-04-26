@@ -2,8 +2,8 @@
 
 //localStorage.username = false;
 /*
-if(sessionStorage.room === undefined) {
-  sessionStorage.room = "multiverse";
+if(localStorage.room === undefined) {
+  localStorage.room = "multiverse";
 }
 */
 
@@ -20,12 +20,12 @@ $(document).ready(function() {
     function checkTyping(){
         var isWritten = $("#input").val();
         if(isWritten !== '' ){ // something is written
-            socket.emit('writing', {user: localStorage.username, writing: true, room: sessionStorage.room});
+            socket.emit('writing', {user: localStorage.username, writing: true, room: localStorage.room});
             sentFalse = false;
         }
         else { // is not written
             if(sentFalse === false) {  // send it only once
-                socket.emit('writing', {user: localStorage.username, writing: false, room: sessionStorage.room});
+                socket.emit('writing', {user: localStorage.username, writing: false, room: localStorage.room});
                 sentFalse = true;
             }
         }
@@ -127,7 +127,7 @@ $(document).ready(function() {
     socket.on('roomHeader', function (data) {
         //$("#roomName").show();
         $("#roomId").html("#"+data.room);
-        sessionStorage.room = data.room;
+        localStorage.room = data.room;
     });
 
     // let know if users have seen the message
@@ -206,7 +206,7 @@ $(document).ready(function() {
 
 
     function serialWriter(data) {
-        announcer('History for room #' +sessionStorage.room);
+        announcer('History for room #' +localStorage.room);
         //scroll();
 
         for (var i=0;i<data.length;i++) {
@@ -339,12 +339,14 @@ function getPostsApi($scope, $http, $location) {
   });
 } */
 
-function logInIfUser() {
+function logInIfUser(changeRoom) {
   if (localStorage.username != undefined) {
     document.getElementById("chaut").removeAttribute("placeholder");
-    cl(sessionStorage.room);
-    if(sessionStorage.room === 'undefined') {
-      socket.emit('room', { title: "r multiverse" });
+    cl(localStorage.room);
+    if(changeRoom === "true") { cl("siiiiiin");
+      if(localStorage.room === 'undefined') {
+        socket.emit('room', { title: "r multiverse" });
+      }
     }
     announcer2 ("You are logged in as "+localStorage.username);
     announcer2 ("write 'h'+enter for help");
@@ -397,9 +399,9 @@ multiverse.controller('room', function($scope, $route, $routeParams, $location) 
 
     $scope.room = $routeParams.room;
     var room = $scope.room
-    sessionStorage.room = room;
+    localStorage.room = room;
 
-    logInIfUser();
+    logInIfUser(true);
 
     //$scope.post = $routeParams.post;
 
@@ -410,7 +412,7 @@ multiverse.controller('room', function($scope, $route, $routeParams, $location) 
       var username = $scope.chat.chaut;
       name = String(username);
       $("#pleaseWait").show();
-      socket.emit('adduser', { username: username, time: getTime(), room: sessionStorage.room });
+      socket.emit('adduser', { username: username, time: getTime(), room: localStorage.room });
       localStorage.username = username; // this can be achieved just with using "name"
       document.getElementById("chaut").removeAttribute("placeholder");
       $scope.chat = "";
@@ -433,33 +435,31 @@ multiverse.controller('room', function($scope, $route, $routeParams, $location) 
 multiverse.controller('posts', function($scope, $route, $routeParams, $location, $http) {
 
 
-var id = $location.$$path;
-var last = id.substring(id.lastIndexOf("/") + 1, id.length);
-last = String(last);
+    // get the data for main post
+    var id = $location.$$path;
+    var last = id.substring(id.lastIndexOf("/") + 1, id.length);
+    last = String(last);
 
-$http({method: 'GET', url: '/api/p/'+last}).success(function(data) {
-  $scope.post = data;
-});
+    $http({method: 'GET', url: '/api/p/'+last}).success(function(data) {
+      $scope.post = data;
+    });
 
 
-
-    logInIfUser();
-
+    logInIfUser(false);
     $scope.post = $routeParams.post;
-
     $scope.chatter = function(htmlForm) {
 
-    // if not a registered user take first input as username
-    if (localStorage.username === undefined) {
-      var username = $scope.chat.chaut;
-      name = String(username);
-      $("#pleaseWait").show();
-      socket.emit('adduser', { username: username, time: getTime(), room: sessionStorage.room });
-      localStorage.username = username; // this can be achieved just with using "name"
-      document.getElementById("chaut").removeAttribute("placeholder");
-      $scope.chat = "";
-      return;
-    }
+      // if not a registered user take first input as username
+      if (localStorage.username === undefined) {
+        var username = $scope.chat.chaut;
+        name = String(username);
+        //$("#pleaseWait").show();
+        //socket.emit('adduser', { username: username, time: getTime(), room: localStorage.room });
+        localStorage.username = username; // this can be achieved just with using "name"
+        document.getElementById("chaut").removeAttribute("placeholder");
+        $scope.chat = "";
+        return;
+      }
 
       var title = $scope.chat.chaut;
       var message = title;
@@ -495,7 +495,7 @@ multiverse.directive('main', ['$timeout', function ($timeout) {
 multiverse.directive('lastposts', function() {
     return function($scope, $element, $attrs, $location) {
         $scope.$watch('room', function(value){
-          socket.emit('room', { title: "r "+ sessionStorage.room });
+          socket.emit('room', { title: "r "+ localStorage.room });
         });
     }
 });
@@ -548,7 +548,7 @@ function analyzeEntry($scope, $location, message, username) {
     var username = title;
     name = String(username);
     $("#pleaseWait").show();
-    socket.emit('adduser', { username: username, time: getTime(), room: sessionStorage.room });
+    socket.emit('adduser', { username: username, time: getTime(), room: localStorage.room });
     localStorage.username = username; // this can be achieved just with using "name"
     document.getElementById("chaut").removeAttribute("placeholder");
 
@@ -626,12 +626,12 @@ function analyzeEntry($scope, $location, message, username) {
                     var channel = shortcuts[firstWord].channel;
                     if(channel === 'room') {
                       var newroom = message.slice(2);
-                      sessionStorage.room = newroom;
-                      $scope.$apply( $location.path( "r/"+sessionStorage.room ) );
+                      localStorage.room = newroom;
+                      $scope.$apply( $location.path( "r/"+localStorage.room ) );
 
 
                     }
-                    socket.emit(channel, { title: message, author: localStorage.username, time: getTime(), city: city, nid:nid, room:sessionStorage.room });
+                    socket.emit(channel, { title: message, author: localStorage.username, time: getTime(), city: city, nid:nid, room:localStorage.room });
                 }
             }
         } // it's a meme!
@@ -640,12 +640,12 @@ function analyzeEntry($scope, $location, message, username) {
             data.title = message;
             data.author = "Server";
             data.time = getTime();
-            socket.emit("meme", { title: message, author: localStorage.username, time: getTime(), city: city, nid: nid, room: sessionStorage.room });
+            socket.emit("meme", { title: message, author: localStorage.username, time: getTime(), city: city, nid: nid, room: localStorage.room });
         }
     }
 
     else { // if no shortcut, send it to the wire
-        socket.emit('news', { text: message, author: localStorage.username, time: getTime(), city: city, nid: nid, room: sessionStorage.room}, function(feedBack) {
+        socket.emit('news', { text: message, author: localStorage.username, time: getTime(), city: city, nid: nid, room: localStorage.room}, function(feedBack) {
             //console.log(feedBack); // fires when server has seen it
         });
     }
