@@ -133,7 +133,7 @@ io.sockets.on('connection', function (socket) {
         })
     }
 
-    socket.on('news', function (data, pingBack) {
+    socket.on('news', function (data, pingBack) { console.log(data);
         // if the data doesn't know the room, ask from usernames
         if(data.room === null) {
             data.room = findUserRoom(socket.username);
@@ -149,7 +149,7 @@ io.sockets.on('connection', function (socket) {
         pingBack(data.nid);
     });
 
-    socket.on('paint', function (data) {
+    socket.on('paint', function (data) { //console.log(data.room);
         io.sockets.in(socket.room).emit('paint', { title: data.title, author: data.author, time: data.time, room: data.room, city: data.city, nid: data.nid });
         //socket.emit('paint', { title: data.title, author: data.author, time: data.time });
         //socket.broadcast.emit('paint', { title: data.title, author: data.author, time: data.time });
@@ -159,7 +159,7 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('meme', function (data) {
-        io.sockets.in(socket.room).emit('meme', { title: data.title, author: data.author, time: data.time, city: data.city, nid:data.nid });
+        io.sockets.in(socket.room).emit('meme', { title: data.title, author: data.author, time: data.time, city: data.city, nid:data.nid, room:data.room });
         //socket.emit('meme', { title: data.title, author: data.author, time: data.time });
         //socket.broadcast.emit('meme', { title: data.title, author: data.author, time: data.time });
         if(conf.db.usesDb === true) {
@@ -278,18 +278,15 @@ app.get('/', function(req, res){
 
 app.get('/api/p/:id', function(req, res){
     articleProvider.findOne(req.params.id, function(error,docs){
-
-        //res.render('index.jade', {
-          //  articles:docs,
-          //  conf: conf.general
-          //res.writeHead(200, {"Content-Type": "text/html"});
           res.send(docs);
-        });
+    });
+});
 
-    //res.end();
-
-    //53590604827e5c0200000021
-    //res.send({id:req.params.id, name: "The Name", description: "description"});
+app.get('/api/last/:room', function(req, res){
+  articleProvider.findLast(req.params.room, function(error,docs){
+    res.send(docs);
+    //socket.emit('last', docs);
+  })
 });
 
 

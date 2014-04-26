@@ -365,9 +365,9 @@ function memeIt(data) {
 
     var avatar = getAvatar(data.author);
     $("#isWriting").remove();
-
+//cl(data);
     //$("#jetzt").before("<div class='message'><p><canvas id='"+memeId+"' class='full'></canvas></p></div>");
-    $("#jetzt").before('<div class="message" id="'+data.nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+data.nid+'">'+data.time+'</a></div><div class="place small">'+data.city+'</div><p class="name"><strong>'+data.author+'</strong>&nbsp;&nbsp;<a class="gray nodecoration" href="#/r/'+room+'">#'+room+'</a></p><p><canvas id='+memeId+' class="full"></canvas><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div>');
+    $("#jetzt").before('<div class="message" id="'+data.nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+data.nid+'">'+data.time+'</a></div><div class="place small">'+data.city+'</div><p class="name"><strong>'+data.author+'</strong>&nbsp;&nbsp;<a class="gray nodecoration" href="#/r/'+data.room+'">#'+data.room+'</a></p><p><canvas id='+memeId+' class="full"></canvas><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div>');
 
     socket.emit('nsa', { nid: data.nid, name: sessionStorage.username, room: data.room });
 

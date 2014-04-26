@@ -1,6 +1,7 @@
 <!--<div id="window" lastposts ng-controller="getPostsApi">-->
-<div id="window" lastposts>
-
+<!--<div id="window" lastposts>-->
+<div id="window" >
+<!--
   <div class="message" id="{{post.nid}}" style="margin-top: 15px;">
     <img src="images/users/{{avatar}}" class="avatar">
     <div class="time">{{post.time}}</div>
@@ -8,12 +9,28 @@
     <p class="name"><strong>{{post.author}}</strong></p>
     <p>
       {{post.title}}
-      <span class="gray">#{{post.room}}</span>
+      <a href="#/r/{{post.room}}" class="gray nodecoration">#{{post.room}}</a>
       <span class="viewers gray small">
         <span class="tick hidden">&nbsp;&nbsp;✓</span>
       </span>
     </p>
   </div>
+-->
+<!--  <div ng-repeat="post in lastposts">
+    <div class="message" id="{{post.nid}}" style="margin-top: 15px;">
+      <img src="images/users/{{avatar}}" class="avatar">
+      <div class="time"><a href="#/p/{{post.nid}}" class="gray">{{post.time}}</a></div>
+      <div class="place small">{{post.city}}</div>
+      <p class="name"><strong>{{post.author}}</strong></p>
+      <p>
+        {{post.title}}
+        <a href="#/r/{{post.room}}" class="gray nodecoration">#{{post.room}}</a>
+        <span class="viewers gray small">
+          <span class="tick hidden">&nbsp;&nbsp;✓</span>
+        </span>
+      </p>
+    </div>
+  </div>-->
 
 </div>
 

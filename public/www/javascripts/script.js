@@ -109,7 +109,7 @@ $(document).ready(function() {
         printHelp();
     });
 
-    socket.on('news', function (data) {
+    socket.on('news', function (data) { cl("jead");
         writer(data);
     });
 
@@ -177,8 +177,8 @@ $(document).ready(function() {
         $("#jetzt").before('<div class="message announce"><p>'+message+'</p>');
     }
 
-    function paint(data) {
-        title = data.title || ''; author = data.author || ''; time = data.time || ''; city = data.city || '';
+    function paint(data) { cl()
+        title = data.title || ''; author = data.author || ''; time = data.time || ''; city = data.city || ''; nid = data.nid || '';
         var avatar = getAvatar(author);
 
         if(title.indexOf(" ") != -1) title = title.slice(0, title.indexOf(" "));
@@ -394,8 +394,8 @@ multiverse.controller('room', function($scope) {
 
 }); */
 
-// controller for #/r/*****
-multiverse.controller('room', function($scope, $route, $routeParams, $location) {
+// controller for input
+multiverse.controller('sendout', function($scope, $route, $routeParams, $location) {
 
     $scope.room = $routeParams.room;
     var room = $scope.room
@@ -431,6 +431,43 @@ multiverse.controller('room', function($scope, $route, $routeParams, $location) 
 });
 
 
+// controller for #/r/*****
+multiverse.controller('room', function($scope, $route, $routeParams, $location) {
+
+    $scope.room = $routeParams.room;
+    var room = $scope.room
+    localStorage.room = room;
+
+    logInIfUser(true);
+
+    //$scope.post = $routeParams.post;
+/*
+    $scope.chatter = function(htmlForm) {
+
+    // if not a registered user take first input as username
+    if (localStorage.username === undefined) {
+      var username = $scope.chat.chaut;
+      name = String(username);
+      $("#pleaseWait").show(); //console.log(localStorage.room+"aaaa");
+      socket.emit('adduser', { username: username, time: getTime(), room: localStorage.room });
+      localStorage.username = username; // this can be achieved just with using "name"
+      document.getElementById("chaut").removeAttribute("placeholder");
+      $scope.chat = "";
+      return;
+    }
+
+      var title = $scope.chat.chaut;
+      var message = title;
+      var username = localStorage.username;
+
+      analyzeEntry($scope, $location, message, username);
+
+      $scope.chat = "";
+    }
+*/
+});
+
+
 // controller for #/p/*****
 multiverse.controller('posts', function($scope, $route, $routeParams, $location, $http) {
 
@@ -439,22 +476,25 @@ multiverse.controller('posts', function($scope, $route, $routeParams, $location,
     var last = id.substring(id.lastIndexOf("/") + 1, id.length);
     last = String(last);
 
-    $http({method: 'GET', url: '/api/p/'+last}).success(function(data) {
-//cl(data);
-      localStorage.room = data.nid;
+    socket.emit('room', { title: "r "+ last });
 
+
+    $http({method: 'GET', url: '/api/p/'+last}).success(function(data) {
+      localStorage.room = data.nid;
       // create avatar if known user
       var avatar = getAvatar(data.author);
       $scope.avatar = avatar;
       $scope.post = data;
-
+      memeIt(data);
     });
 
-
-
+    $http({method: 'GET', url: '/api/last/'+last}).success(function(data) {
+      $scope.lastposts = data;
+    });
+/*
     logInIfUser(false);
     $scope.post = $routeParams.post;
-    $scope.chatter = function(htmlForm) {
+    $scope.chatter = function(htmlForm) { cl("vorm");
 
       // if not a registered user take first input as username
       if (localStorage.username === undefined) {
@@ -476,7 +516,7 @@ multiverse.controller('posts', function($scope, $route, $routeParams, $location,
 
       $scope.chat = "";
     }
-
+*/
 });
 
 
@@ -562,7 +602,6 @@ function analyzeEntry($scope, $location, message, username) {
 
   } else { // has a username
 */
-
       var rndNumb=Math.floor(Math.random()*1000000);
       var nid = "p"+rndNumb;
 
