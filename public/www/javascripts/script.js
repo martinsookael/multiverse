@@ -411,7 +411,7 @@ multiverse.controller('room', function($scope, $route, $routeParams, $location) 
     if (localStorage.username === undefined) {
       var username = $scope.chat.chaut;
       name = String(username);
-      $("#pleaseWait").show();
+      $("#pleaseWait").show(); //console.log(localStorage.room+"aaaa");
       socket.emit('adduser', { username: username, time: getTime(), room: localStorage.room });
       localStorage.username = username; // this can be achieved just with using "name"
       document.getElementById("chaut").removeAttribute("placeholder");
@@ -440,11 +440,14 @@ multiverse.controller('posts', function($scope, $route, $routeParams, $location,
     last = String(last);
 
     $http({method: 'GET', url: '/api/p/'+last}).success(function(data) {
+//cl(data);
+      localStorage.room = data.nid;
 
       // create avatar if known user
       var avatar = getAvatar(data.author);
       $scope.avatar = avatar;
       $scope.post = data;
+
     });
 
 
