@@ -458,7 +458,7 @@ multiverse.controller('posts', function($scope, $route, $routeParams, $location,
         var username = $scope.chat.chaut;
         name = String(username);
         //$("#pleaseWait").show();
-        //socket.emit('adduser', { username: username, time: getTime(), room: localStorage.room });
+        socket.emit('adduser', { username: username, time: getTime(), room: localStorage.room });
         localStorage.username = username; // this can be achieved just with using "name"
         document.getElementById("chaut").removeAttribute("placeholder");
         $scope.chat = "";
