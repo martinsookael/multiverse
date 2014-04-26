@@ -107,7 +107,7 @@ function saveToDb(message, author, time, room, city, nid) {
 // socket
 io.sockets.on('connection', function (socket) {
 
-    function changeRoom(data) {
+    function changeRoom(data) { //console.log("lalala");
             var newroom = data.title.slice(2); // remove "r" from beginning
             socket.leave(socket.room);
             socket.join(newroom);
@@ -260,41 +260,8 @@ io.sockets.on('connection', function (socket) {
         //socket.leave(socket.room); // turned that off, since other way started havocing
     });
 
-	/*socket.on('switchRoom', function(newroom){
-		socket.leave(socket.room);
-		socket.join(newroom);
-        socket.emit('news', { title: '! You are connected to #'+newroom, author: 'Server', time: data.time}); // echo to client they've connected
-		// sent message to OLD room
-		socket.broadcast.to(socket.room).emit('news', { title: socket.username+' has left this room', author: 'Server', time: data.time});
-		// update socket session room title
-		socket.room = newroom;
-		socket.broadcast.to(newroom).emit('news', { title: '<strong>'+socket.username + '</strong> has joined this room', author: 'Server', time: data.time});
-        socket.emit('roomHeader', { room: 'yolo'+newroom}); // echo to client they've connected
-
-		//socket.emit('roomHeader', {room: newroom});
-
-	});*/
 
 });
-/*
-app.get('/', function(req, res){
-    if(conf.db.usesDb === true) {
-        articleProvider.findLast( function(error,docs){
-            res.render('index.jade', {
-                articles:docs,
-                conf: conf.general
-            });
-        res.end();
-        })
-    }
-    else {
-        res.render('index.jade', {
-            conf: conf.general
-        });
-        //res.end();
-    }
-});
-*/
 
 app.get('/', function(req, res){
     //res.writeHead(200, {"Content-Type": "text/html"});

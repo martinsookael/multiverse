@@ -339,10 +339,10 @@ function getPostsApi($scope, $http, $location) {
   });
 } */
 
-function logInIfUser(changeRoom) {
+function logInIfUser(changeRoom) { cl("siin");
   if (localStorage.username != undefined) {
     document.getElementById("chaut").removeAttribute("placeholder");
-    cl(localStorage.room);
+    //cl(localStorage.room);
     if(changeRoom === "true") { cl("siiiiiin");
       if(localStorage.room === 'undefined') {
         socket.emit('room', { title: "r multiverse" });
@@ -434,7 +434,6 @@ multiverse.controller('room', function($scope, $route, $routeParams, $location) 
 // controller for #/p/*****
 multiverse.controller('posts', function($scope, $route, $routeParams, $location, $http) {
 
-
     // get the data for main post
     var id = $location.$$path;
     var last = id.substring(id.lastIndexOf("/") + 1, id.length);
@@ -443,7 +442,6 @@ multiverse.controller('posts', function($scope, $route, $routeParams, $location,
     $http({method: 'GET', url: '/api/p/'+last}).success(function(data) {
       $scope.post = data;
     });
-
 
     logInIfUser(false);
     $scope.post = $routeParams.post;
@@ -544,6 +542,7 @@ function announcer2(message) {
 function analyzeEntry($scope, $location, message, username) {
 
   // does not have a username yet
+  /*
   if (username === "false") {
     var username = title;
     name = String(username);
@@ -553,7 +552,7 @@ function analyzeEntry($scope, $location, message, username) {
     document.getElementById("chaut").removeAttribute("placeholder");
 
   } else { // has a username
-
+*/
 
       var rndNumb=Math.floor(Math.random()*1000000);
       var nid = "p"+rndNumb;
@@ -574,7 +573,7 @@ function analyzeEntry($scope, $location, message, username) {
       if (typeof(geoip_city) != "undefined") {
           //city = geoip_city()+", "+geoip_region()+", "+geoip_country_name();
           city = geoip_city();
-    }
+    //}
 
     // is it a shortcut?
     if(firstWord in shortcuts) {
