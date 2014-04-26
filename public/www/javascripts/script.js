@@ -156,7 +156,7 @@ $(document).ready(function() {
             $("#isWriting").remove();
         }
     });
- 
+
 
     function writer(data) {
         //if(localStorage.username != "false") { // hides news from non logged ins
@@ -342,7 +342,10 @@ function getPostsApi($scope, $http, $location) {
 function logInIfUser() {
   if (localStorage.username != undefined) {
     document.getElementById("chaut").removeAttribute("placeholder");
-    socket.emit('room', { title: "r "+ sessionStorage.room });
+    cl(sessionStorage.room);
+    if(sessionStorage.room === 'undefined') {
+      socket.emit('room', { title: "r multiverse" });
+    }
     announcer2 ("You are logged in as "+localStorage.username);
     announcer2 ("write 'h'+enter for help");
   }
@@ -398,7 +401,7 @@ multiverse.controller('room', function($scope, $route, $routeParams, $location) 
 
     logInIfUser();
 
-    $scope.post = $routeParams.post;
+    //$scope.post = $routeParams.post;
 
     $scope.chatter = function(htmlForm) {
 
@@ -428,10 +431,12 @@ multiverse.controller('room', function($scope, $route, $routeParams, $location) 
 
 // controller for #/p/*****
 multiverse.controller('posts', function($scope, $route, $routeParams, $location) {
-
+/*
     $scope.room = $routeParams.room;
     var room = $scope.room
     sessionStorage.room = room;
+cl(room);
+*/
 
     logInIfUser();
 
