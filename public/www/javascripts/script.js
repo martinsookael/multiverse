@@ -113,7 +113,7 @@ $(document).ready(function() {
         writer(data);
     });
 
-    socket.on('last', function (data) {
+    socket.on('last', function (data) { cl(data);
         serialWriter(data);
 
     });
@@ -205,7 +205,7 @@ $(document).ready(function() {
     }
 
 
-    function serialWriter(data) {
+    function serialWriter(data) { cl(data);
         announcer('History for room #' +localStorage.room);
         //scroll();
 
@@ -228,6 +228,7 @@ $(document).ready(function() {
                 writer(data[i]);
             }
         }
+        console.log(data.scroll);
         setTimeout(function(){scroll();}, 1000);
 
     }
@@ -493,7 +494,7 @@ multiverse.directive('main', ['$timeout', function ($timeout) {
 multiverse.directive('lastposts', function() {
     return function($scope, $element, $attrs, $location) {
         $scope.$watch('room', function(value){
-          socket.emit('room', { title: "r "+ localStorage.room });
+          socket.emit('room', { title: "r "+ localStorage.room, scroll: false });
         });
     }
 });
