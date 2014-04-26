@@ -22,7 +22,7 @@ body {
   position: relative;
 }
 .message {
-  padding: 5px 10px 0 10px;
+  padding: 5px 20px 0 10px;
   margin-left: 40px;
 }
 .announce {
@@ -57,7 +57,7 @@ body {
 color: #DDD;
 float: right;
 position: absolute;
-right: 55px;
+right: 65px;
 margin-top: 4px;
 }
 .avatar {
