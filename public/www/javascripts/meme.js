@@ -292,6 +292,10 @@ var memes = [
         "img" : "images/meme/biz.png",
         "desc": "The business baby in action. three more bites/and we're so done with this porridge"
     },{
+        "name": "sten",
+        "img" : "images/meme/sten.jpg",
+        "desc": "why Sten? Because why not!"
+    },{
         "name": "freud",
         "img" : "images/meme/freud.png",
         "desc": "You don't like bananas?/What about your dad?"
