@@ -200,7 +200,7 @@ $(document).ready(function() {
     }
 
     function printHelp() {
-        announcer('Write the following letter and press enter<br /> <strong>w</strong> - <strong>who</strong> is here<br><strong>h</strong> - show this <strong>help</strong>screen here<br><strong>c</strong> - <strong>curse</strong> in Italian <!--<br><strong>y</strong> - yes - success baby --><br><strong>m</strong> - create a <strong>meme</strong> <br><strong>soundon</strong> - turn  <strong>sound on</strong><br /> <strong>soundoff</strong> - turn <strong>sound off</strong><br /><br /><strong>Rooms:</strong><br /> r <strong>brasalona</strong> - Brasalona in Riga / @murphy is the master<br />r <strong>piens</strong> - Piens in Riga. Delisnacks and Valmiermuiza available<br />r <strong>multiverse</strong> - the main room<br />');
+        announcer('Write the following letter and press enter<br /> <strong>w</strong> - <strong>who</strong> is here<br><strong>h</strong> - show this <strong>help</strong>screen here<br><strong>c</strong> - <strong>curse</strong> in Italian <!--<br><strong>y</strong> - yes - success baby --><br><strong>m</strong> - create a <strong>meme</strong> <br><strong>soundon</strong> - turn  <strong>sound on</strong><br /> <strong>soundoff</strong> - turn <strong>sound off</strong><br /> <strong>logout</strong> - <strong>log out</strong><br /><br /><strong>Rooms:</strong><br /> r <strong>brasalona</strong> - Brasalona in Riga / @murphy is the master<br />r <strong>piens</strong> - Piens in Riga. Delisnacks and Valmiermuiza available<br />r <strong>multiverse</strong> - the main room<br />');
         scroll();
     }
 
@@ -339,7 +339,14 @@ function getPostsApi($scope, $http, $location) {
   });
 }
 
-
+function logInIfUser() {
+  if (localStorage.username != undefined) {
+    document.getElementById("chaut").removeAttribute("placeholder");
+    socket.emit('room', { title: "r "+ sessionStorage.room });
+    announcer2 ("You are logged in as "+localStorage.username);
+    announcer2 ("write 'h'+enter for help");
+  }
+}
 
 
 var multiverse = angular.module('multiverse', ['ngRoute']);
@@ -359,12 +366,12 @@ multiverse.config(function($routeProvider, $locationProvider) {
 
   .when('/r/:room', {
     templateUrl : 'pages/room.html',
-    controller  : 'jetzt'
+    controller  : 'room'
   })
 
   .when('/p/:post', {
     templateUrl : 'pages/post.html',
-    controller  : 'jetzt'
+    controller  : 'posts'
   })
 /*
   .otherwise({
@@ -377,31 +384,25 @@ multiverse.config(function($routeProvider, $locationProvider) {
 multiverse.controller('one', function($scope, $route, $routeParams) {
 
 });
-
+/*
 multiverse.controller('room', function($scope) {
 
-});
+}); */
 
-// controller for rooms
-multiverse.controller('jetzt', function($scope, $route, $routeParams, $location) {
-
-    if (localStorage.username != undefined) {
-      document.getElementById("chaut").removeAttribute("placeholder");
-
-      socket.emit('room', { title: "r "+ sessionStorage.room });
-      //$scope.$apply( $location.path( "r/"+sessionStorage.room ) );
-
-      announcer2 ("You are logged in as "+localStorage.username);
-    }
+// controller for #/r/*****
+multiverse.controller('room', function($scope, $route, $routeParams, $location) {
 
     $scope.room = $routeParams.room;
     var room = $scope.room
     sessionStorage.room = room;
 
+    logInIfUser();
+
     $scope.post = $routeParams.post;
 
     $scope.chatter = function(htmlForm) {
 
+    // if not a registered user take first input as username
     if (localStorage.username === undefined) {
       var username = $scope.chat.chaut;
       name = String(username);
@@ -417,10 +418,44 @@ multiverse.controller('jetzt', function($scope, $route, $routeParams, $location)
       var message = title;
       var username = localStorage.username;
 
-
-//
       analyzeEntry($scope, $location, message, username);
-//
+
+      $scope.chat = "";
+    }
+
+});
+
+
+// controller for #/p/*****
+multiverse.controller('posts', function($scope, $route, $routeParams, $location) {
+
+    $scope.room = $routeParams.room;
+    var room = $scope.room
+    sessionStorage.room = room;
+
+    logInIfUser();
+
+    $scope.post = $routeParams.post;
+
+    $scope.chatter = function(htmlForm) {
+
+    // if not a registered user take first input as username
+    if (localStorage.username === undefined) {
+      var username = $scope.chat.chaut;
+      name = String(username);
+      $("#pleaseWait").show();
+      socket.emit('adduser', { username: username, time: getTime(), room: sessionStorage.room });
+      localStorage.username = username; // this can be achieved just with using "name"
+      document.getElementById("chaut").removeAttribute("placeholder");
+      $scope.chat = "";
+      return;
+    }
+
+      var title = $scope.chat.chaut;
+      var message = title;
+      var username = localStorage.username;
+
+      analyzeEntry($scope, $location, message, username);
 
       $scope.chat = "";
     }
