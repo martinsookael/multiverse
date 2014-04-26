@@ -156,7 +156,7 @@ $(document).ready(function() {
             $("#isWriting").remove();
         }
     });
-
+ 
 
     function writer(data) {
         //if(localStorage.username != "false") { // hides news from non logged ins
