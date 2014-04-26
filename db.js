@@ -69,7 +69,9 @@ ArticleProvider.prototype.findOne = function(id, callback) {
         });
 */
 
-        article_collection.findOne({_id: article_collection.db.bson_serializer.ObjectID.createFromHexString(id)}, function(error, result) {
+        // thisone is for _id, sadly I could not figure out how to get the id just when saving. 
+        //article_collection.findOne({_id: article_collection.db.bson_serializer.ObjectID.createFromHexString(id)}, function(error, result) {
+        article_collection.findOne({nid: id}, function(error, result) {
           if( error ) callback(error)
           else callback(null, result)
         });
