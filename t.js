@@ -107,7 +107,7 @@ function saveToDb(message, author, time, room, city, nid) {
 // socket
 io.sockets.on('connection', function (socket) {
 
-    function changeRoom(data) { //console.log(data.scroll);
+    function changeRoom(data) {
             var newroom = data.title.slice(2); // remove "r" from beginning
             socket.leave(socket.room);
             socket.join(newroom);
@@ -122,15 +122,13 @@ io.sockets.on('connection', function (socket) {
               //socket.emit('room', {room:newroom});
               switchUserRoom(socket.username,newroom)
             }
-            printLast(data.scroll);
+            printLast();
     }
 
 
-    function printLast(scroll) {
+    function printLast() {
         var room = socket.room;
-        articleProvider.findLast(room, scroll, function(error,docs){
-            docs.scroll = scroll;
-            console.log(docs.scroll);
+        articleProvider.findLast(room, function(error,docs){
             socket.emit('last', docs);
         })
     }
@@ -170,7 +168,7 @@ io.sockets.on('connection', function (socket) {
         }
     });
 
-    socket.on('room', function(data) { console.log(data);
+    socket.on('room', function(data) { //cl(data);
         changeRoom(data)
     });
 
