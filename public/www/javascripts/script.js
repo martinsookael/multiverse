@@ -1,7 +1,11 @@
 // JavaScript Document
 
 //localStorage.username = false;
-sessionStorage.room = "multiverse";
+/*
+if(sessionStorage.room === undefined) {
+  sessionStorage.room = "multiverse";
+}
+*/
 
 if(localStorage.sound !== "off") {
   localStorage.sound = "on";
@@ -33,14 +37,10 @@ $(document).ready(function() {
         if(socket.socket.connected === true) {
          $("#connected").show();
          $("#disconnected").hide();
-        //cl(socket.socket);
-
         }
         else {
          $("#connected").hide();
          $("#disconnected").show();
-        //cl(socket.socket);
-
         }
     }
 
@@ -333,7 +333,6 @@ function getPostsApi($scope, $http, $location) {
   var id = $location.$$path;
   var last = id.substring(id.lastIndexOf("/") + 1, id.length);
   last = String(last);
-  //cl(last);
 
   $http({method: 'GET', url: '/api/p/'+last}).success(function(data) {
     $scope.post = data;
@@ -386,9 +385,12 @@ multiverse.controller('room', function($scope) {
 // controller for rooms
 multiverse.controller('jetzt', function($scope, $route, $routeParams, $location) {
 
-    cl(localStorage.username);
     if (localStorage.username != undefined) {
       document.getElementById("chaut").removeAttribute("placeholder");
+
+      socket.emit('room', { title: "r "+ sessionStorage.room });
+      //$scope.$apply( $location.path( "r/"+sessionStorage.room ) );
+
       announcer2 ("You are logged in as "+localStorage.username);
     }
 
@@ -409,12 +411,7 @@ multiverse.controller('jetzt', function($scope, $route, $routeParams, $location)
       document.getElementById("chaut").removeAttribute("placeholder");
       $scope.chat = "";
       return;
-    } else { cl("neljas");
-      //socket.emit('logout');
-
-      //document.getElementById("chaut").removeAttribute("placeholder");
     }
-
 
       var title = $scope.chat.chaut;
       var message = title;
@@ -422,7 +419,7 @@ multiverse.controller('jetzt', function($scope, $route, $routeParams, $location)
 
 
 //
-      analyzeEntry($scope, message, username);
+      analyzeEntry($scope, $location, message, username);
 //
 
       $scope.chat = "";
@@ -499,7 +496,7 @@ function announcer2(message) {
 
 
 
-function analyzeEntry($scope, message, username) {
+function analyzeEntry($scope, $location, message, username) {
 
   // does not have a username yet
   if (username === "false") {
@@ -582,10 +579,8 @@ function analyzeEntry($scope, message, username) {
       }
                 else {
                     var channel = shortcuts[firstWord].channel;
-                    //cl(channel);
                     if(channel === 'room') {
                       var newroom = message.slice(2);
-                      //cl(newroom);
                       sessionStorage.room = newroom;
                       $scope.$apply( $location.path( "r/"+sessionStorage.room ) );
 

@@ -119,6 +119,7 @@ io.sockets.on('connection', function (socket) {
               socket.room = newroom;
               socket.broadcast.to(newroom).emit('news', { title: '<strong>'+socket.username + '</strong> has joined this room', author: 'Server', time: data.time});
               socket.emit('roomHeader', { room: newroom}); // echo to client they've connected
+              //socket.emit('room', {room:newroom});
               switchUserRoom(socket.username,newroom)
             }
             printLast();
@@ -167,7 +168,7 @@ io.sockets.on('connection', function (socket) {
         }
     });
 
-    socket.on('room', function(data) {
+    socket.on('room', function(data) { //cl(data);
         changeRoom(data)
     });
 
