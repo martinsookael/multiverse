@@ -440,8 +440,14 @@ multiverse.controller('posts', function($scope, $route, $routeParams, $location,
     last = String(last);
 
     $http({method: 'GET', url: '/api/p/'+last}).success(function(data) {
+
+      // create avatar if known user
+      var avatar = getAvatar(data.author);
+      $scope.avatar = avatar;
       $scope.post = data;
     });
+
+
 
     logInIfUser(false);
     $scope.post = $routeParams.post;
