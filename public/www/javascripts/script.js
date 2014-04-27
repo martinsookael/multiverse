@@ -1,6 +1,6 @@
 // JavaScript Document
 
-//localStorage.username = false;
+sessionStorage.mv_username = false;
 /*
 if(localStorage.room === undefined) {
   localStorage.room = "multiverse";
@@ -20,12 +20,12 @@ $(document).ready(function() {
     function checkTyping(){
         var isWritten = $("#input").val();
         if(isWritten !== '' ){ // something is written
-            socket.emit('writing', {user: localStorage.username, writing: true, room: localStorage.room});
+            socket.emit('writing', {user: sessionStorage.mv_username, writing: true, room: localStorage.room});
             sentFalse = false;
         }
         else { // is not written
             if(sentFalse === false) {  // send it only once
-                socket.emit('writing', {user: localStorage.username, writing: false, room: localStorage.room});
+                socket.emit('writing', {user: sessionStorage.mv_username, writing: false, room: localStorage.room});
                 sentFalse = true;
             }
         }
@@ -121,7 +121,7 @@ $(document).ready(function() {
     });
 
     socket.on('logout', function () {
-        localStorage.removeItem("username");
+        sessionStorage.removeItem("username");
         announcer ("You are logged out");
         $("#jetzt").addClass("hidden");
     });
@@ -138,7 +138,7 @@ $(document).ready(function() {
         var thePost = "#"+data.nid;
         var author = $(thePost).find(".name").find("strong").html();
 
-        if(localStorage.username != data.name && data.name != author) {
+        if(sessionStorage.mv_username != data.name && data.name != author) {
             //$(thePost).find(".content").append("<span class='gray small'> &#10003;"+data.name+"</div>");
             $(thePost).find(".viewers").find(".tick").show();
             $(thePost).find(".viewers").append("&nbsp;"+data.name+",");
@@ -149,7 +149,7 @@ $(document).ready(function() {
     // let know if a user is writing
     socket.on('writing', function (data) {
         if(data.writing === true) {
-            if(data.user !== localStorage.username) {
+            if(data.user !== sessionStorage.mv_username) {
                 $("#isWriting").remove();
                 $("#jetzt").before('<span id="isWriting" class="gray small">'+data.user+' is writing</span>');
             }
@@ -161,7 +161,7 @@ $(document).ready(function() {
 
 
     function writer(data) {
-        //if(localStorage.username != "false") { // hides news from non logged ins
+        //if(sessionStorage.mv_username != "false") { // hides news from non logged ins
             message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; room = data.room || '';
             message = findLinksAndImages(message); // find links and images
             var avatar = getAvatar(name);
@@ -169,7 +169,7 @@ $(document).ready(function() {
             $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+nid+'">'+time+'</a></div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+' <a href="#/r/'+room+'" class="gray nodecoration">#'+room+'</a><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div></a>');
             scrollAndBeep(data);
 
-            socket.emit('nsa', { nid: data.nid, name: localStorage.username, room: data.room });
+            socket.emit('nsa', { nid: data.nid, name: sessionStorage.mv_username, room: data.room });
         //}
     }
 
@@ -187,7 +187,7 @@ $(document).ready(function() {
         $("#isWriting").remove();
         $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+nid+'">'+time+'</a></div><div class="place small">'+city+'</div><p class="name"><strong>'+author+'</strong>&nbsp;&nbsp;<a class="gray nodecoration" href="#/r/'+room+'">#'+room+'</a></p><img class="full" src="images/shortcuts/'+shortcuts[title].img+'" /><span class="viewers"></span></div>');
         scrollAndBeep(data);
-        socket.emit('nsa', { nid: data.nid, name: localStorage.username, room: data.room });
+        socket.emit('nsa', { nid: data.nid, name: sessionStorage.mv_username, room: data.room });
     }
 
     function printWho(data){
@@ -271,7 +271,7 @@ $(document).ready(function() {
 
     // scroll and beep on command
     function scrollAndBeep(data) {
-        if (localStorage.username != data.author) {
+        if (sessionStorage.mv_username != data.author) {
 			//cl (localStorage.sound);
 			if(localStorage.sound === "on") {
 				document.getElementById('ping1').play();
@@ -377,23 +377,23 @@ multiverse.controller('room', function($scope) {
 // controller for input
 multiverse.controller('sendout', function($scope, $route, $routeParams, $location) {
 
-    $scope.room = $routeParams.room;
-    var room = $scope.room
-    localStorage.room = room;
-
-    logInIfUser(true);
+//    $scope.room = $routeParams.room;
+//    var room = $scope.room
+//    localStorage.room = room;
+      localStorage.room = $routeParams.room;
+    //logInIfUser(true);
 
     //$scope.post = $routeParams.post;
 
     $scope.chatter = function(htmlForm) {
 
     // if not a registered user take first input as username
-    if (localStorage.username === undefined) {
+    if (sessionStorage.mv_username === "false") {
       var username = $scope.chat.chaut;
       name = String(username);
       $("#pleaseWait").show(); //console.log(localStorage.room+"aaaa");
       socket.emit('adduser', { username: username, time: getTime(), room: localStorage.room });
-      localStorage.username = username; // this can be achieved just with using "name"
+      sessionStorage.mv_username = username; // this can be achieved just with using "name"
       document.getElementById("chaut").removeAttribute("placeholder");
       $scope.chat = "";
       return;
@@ -401,7 +401,7 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
 
       var title = $scope.chat.chaut;
       var message = title;
-      var username = localStorage.username;
+      var username = sessionStorage.mv_username;
 
       analyzeEntry($scope, $location, message, username);
 
@@ -418,7 +418,7 @@ multiverse.controller('room', function($scope, $route, $routeParams, $location) 
     var room = $scope.room
     localStorage.room = room;
 
-    logInIfUser(true);
+    //logInIfUser(true);
 
 });
 

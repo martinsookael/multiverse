@@ -73,7 +73,7 @@ function cl(data) {
 }
 
 function logInIfUser(changeRoom) {
-  if (localStorage.username != undefined) {
+  if (sessionStorage.mv_username != undefined) {
     document.getElementById("chaut").removeAttribute("placeholder");
     //cl(localStorage.room);
     if(changeRoom === "true") { cl("siiiiiin");
@@ -81,7 +81,7 @@ function logInIfUser(changeRoom) {
         socket.emit('room', { title: "r multiverse" });
       }
     }
-    announcer2 ("You are logged in as "+localStorage.username);
+    announcer2 ("You are logged in as "+sessionStorage.mv_username);
     announcer2 ("write 'h'+enter for help");
   }
 }
@@ -101,7 +101,7 @@ function getPostsApi($scope, $http, $location) {
 } */
 
 
-function analyzeEntry($scope, $location, message, username) {
+function analyzeEntry($scope, $location, message, username) { 
 
       var rndNumb=Math.floor(Math.random()*1000000);
       var nid = "p"+rndNumb;
@@ -179,7 +179,7 @@ function analyzeEntry($scope, $location, message, username) {
 
 
                     }
-                    socket.emit(channel, { title: message, author: localStorage.username, time: getTime(), city: city, nid:nid, room:localStorage.room });
+                    socket.emit(channel, { title: message, author: sessionStorage.mv_username, time: getTime(), city: city, nid:nid, room:localStorage.room });
                 }
             }
         } // it's a meme!
@@ -188,12 +188,12 @@ function analyzeEntry($scope, $location, message, username) {
             data.title = message;
             data.author = "Server";
             data.time = getTime();
-            socket.emit("meme", { title: message, author: localStorage.username, time: getTime(), city: city, nid: nid, room: localStorage.room });
+            socket.emit("meme", { title: message, author: sessionStorage.mv_username, time: getTime(), city: city, nid: nid, room: localStorage.room });
         }
     }
 
     else { // if no shortcut, send it to the wire
-        socket.emit('news', { text: message, author: localStorage.username, time: getTime(), city: city, nid: nid, room: localStorage.room}, function(feedBack) {
+        socket.emit('news', { text: message, author: sessionStorage.mv_username, time: getTime(), city: city, nid: nid, room: localStorage.room}, function(feedBack) {
             //console.log(feedBack); // fires when server has seen it
         });
     }
