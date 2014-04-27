@@ -193,13 +193,13 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('logout', function () {
-      removeUser(socket.username);
+      /*removeUser(socket.username);
 
       // echo globally that this client has left
       // remove disconnected because remove disconnected
       io.sockets.emit('news', { title: '<strong>'+socket.username + '</strong> has disconnected', author: 'Server', time: 'bye'});
       socket.leave(socket.room); // turned that off, since other way started havocing
-      socket.emit('logout');
+      socket.emit('logout');*/
     });
 
     socket.on('help', function () {
