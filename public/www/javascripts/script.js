@@ -32,6 +32,7 @@ $(document).ready(function() {
     }
 
     // are we online?
+    /*
     setInterval(checkOnline, 3000);
     function checkOnline() {
         if(socket.socket.connected === true) {
@@ -43,6 +44,7 @@ $(document).ready(function() {
          $("#disconnected").show();
         }
     }
+    */
 
 
     socket.on('reconnect_failed', function () {cl("reconnect failed!");})
@@ -440,31 +442,6 @@ multiverse.controller('room', function($scope, $route, $routeParams, $location) 
 
     logInIfUser(true);
 
-    //$scope.post = $routeParams.post;
-/*
-    $scope.chatter = function(htmlForm) {
-
-    // if not a registered user take first input as username
-    if (localStorage.username === undefined) {
-      var username = $scope.chat.chaut;
-      name = String(username);
-      $("#pleaseWait").show(); //console.log(localStorage.room+"aaaa");
-      socket.emit('adduser', { username: username, time: getTime(), room: localStorage.room });
-      localStorage.username = username; // this can be achieved just with using "name"
-      document.getElementById("chaut").removeAttribute("placeholder");
-      $scope.chat = "";
-      return;
-    }
-
-      var title = $scope.chat.chaut;
-      var message = title;
-      var username = localStorage.username;
-
-      analyzeEntry($scope, $location, message, username);
-
-      $scope.chat = "";
-    }
-*/
 });
 
 
@@ -491,35 +468,8 @@ multiverse.controller('posts', function($scope, $route, $routeParams, $location,
     $http({method: 'GET', url: '/api/last/'+last}).success(function(data) {
       $scope.lastposts = data;
     });
-/*
-    logInIfUser(false);
-    $scope.post = $routeParams.post;
-    $scope.chatter = function(htmlForm) { cl("vorm");
 
-      // if not a registered user take first input as username
-      if (localStorage.username === undefined) {
-        var username = $scope.chat.chaut;
-        name = String(username);
-        //$("#pleaseWait").show();
-        socket.emit('adduser', { username: username, time: getTime(), room: localStorage.room });
-        localStorage.username = username; // this can be achieved just with using "name"
-        document.getElementById("chaut").removeAttribute("placeholder");
-        $scope.chat = "";
-        return;
-      }
-
-      var title = $scope.chat.chaut;
-      var message = title;
-      var username = localStorage.username;
-
-      analyzeEntry($scope, $location, message, username);
-
-      $scope.chat = "";
-    }
-*/
 });
-
-
 
 
 // should clear caching. Noone knows if it does it.
@@ -590,18 +540,6 @@ function announcer2(message) {
 
 function analyzeEntry($scope, $location, message, username) {
 
-  // does not have a username yet
-  /*
-  if (username === "false") {
-    var username = title;
-    name = String(username);
-    $("#pleaseWait").show();
-    socket.emit('adduser', { username: username, time: getTime(), room: localStorage.room });
-    localStorage.username = username; // this can be achieved just with using "name"
-    document.getElementById("chaut").removeAttribute("placeholder");
-
-  } else { // has a username
-*/
       var rndNumb=Math.floor(Math.random()*1000000);
       var nid = "p"+rndNumb;
 
