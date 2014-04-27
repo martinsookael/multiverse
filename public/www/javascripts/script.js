@@ -25,13 +25,11 @@ $(document).ready(function() {
     function checkTyping(){
         var isWritten = $("#chaut").val();
         if(isWritten !== '' ){ // something is written
-          cl("siin");
             socket.emit('writing', {user: sessionStorage.mv_username, writing: true, room: localStorage.room});
             sentFalse = false;
         }
         else { // is not written
             if(sentFalse === false) {  // send it only once
-              cl("seal");
                 socket.emit('writing', {user: sessionStorage.mv_username, writing: false, room: localStorage.room});
                 sentFalse = true;
             }
