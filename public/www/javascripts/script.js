@@ -7,9 +7,14 @@ if(localStorage.room === undefined) {
 }
 */
 
+
+/*
 if(localStorage.sound !== "off") {
   localStorage.sound = "on";
 }
+*/
+localStorage.sound = "off";
+
 
 $(document).ready(function() {
 
