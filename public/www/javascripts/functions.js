@@ -105,6 +105,22 @@ function memeHelp() {
   console.log(memes);
 }
 
+function soundOn() {
+  localStorage.sound = "on";
+  var soundOn = {};
+  soundOn.title="sound is now on"; soundOn.author="Server"; soundOn.room="multiverse";
+  //writer(soundOn);
+  announcer2(soundOn.title);
+}
+
+function soundOff() {
+  localStorage.sound = "off";
+  var soundOff = {};
+  soundOff.title="sound is now off"; soundOff.author="Server"; soundOff.room="multiverse";
+  //writer(soundOff);
+  announcer2(soundOff.title);
+}
+
 
 function analyzeEntry($scope, $location, message, username) {
 

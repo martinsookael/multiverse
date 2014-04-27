@@ -8,12 +8,12 @@ if(localStorage.room === undefined) {
 */
 
 
-/*
+
 if(localStorage.sound !== "off") {
   localStorage.sound = "on";
 }
-*/
-localStorage.sound = "off";
+
+//localStorage.sound = "off";
 
 
 $(document).ready(function() {
@@ -299,21 +299,6 @@ $(document).ready(function() {
             return false;
         }
     });
-
-	function soundOn() {
-		localStorage.sound = "on";
-		var soundOn = {};
-		soundOn.title="sound is now on"; soundOn.author="Server"; soundOn.room="multiverse";
-		writer(soundOn);
-	}
-
-	function soundOff() {
-		localStorage.sound = "off";
-		var soundOff = {};
-		soundOff.title="sound is now off"; soundOff.author="Server"; soundOff.room="multiverse";
-		writer(soundOff);
-	}
-
 });
 
 
