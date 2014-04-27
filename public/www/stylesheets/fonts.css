@@ -26,7 +26,12 @@
 body
     font-family: avenir, arial, helvetica, sans-serif
 
-strong, b 
+strong, b
     font-family: avenirBold, Helvetica, Arial, sans-serif
 
 */
+
+@font-face {
+	font-family: Impact;
+	src: url('../fonts/Impact.ttf');
+}

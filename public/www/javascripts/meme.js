@@ -424,8 +424,8 @@ function memeIt(data) {
         }
     });
 
-    cl(message1);
-    cl(message2);
+    //cl(message1);
+    //cl(message2);
 
     //$("#jetzt").before("<div class='message'><p><canvas id='meme' class='full'></canvas></p></div>");
 
@@ -449,14 +449,14 @@ function memeIt(data) {
 
 
     };
-    imageObj.src = memeImg;
+    imageObj.src = "images/meme/"+memeImg;
 
     function drawText( message1, message2, username ){
         message1 = message1.toUpperCase();
         message2 = message2.toUpperCase();
 
 
-        context.font = '40px Impact';
+        context.font = '32pt Impact';
         context.textAlign = 'center';
         context.fillStyle = 'rgba(255, 255, 255, 1)';
         context.lineWidth = 2;
