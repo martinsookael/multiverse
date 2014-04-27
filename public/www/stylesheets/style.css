@@ -98,6 +98,10 @@ div.message>p.name {
   border: 1px solid #fff;
   font-size: 11pt;
 }
+.twitter-typeahead {
+width: 100%;
+max-width: 490px;
+}
 #input:focus {
   outline: 0;
 }

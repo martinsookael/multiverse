@@ -1,4 +1,16 @@
 
+var memes2 = {
+  "fwp":{
+    "img" : "1stwp.jpg",
+    "desc": "first world problem"
+  },
+  "baby":{
+    "img" : "successbaby.jpg",
+    "desc": "Success kid"
+  }
+}
+
+
 var memes = [
     {
         "name": "fwp",
