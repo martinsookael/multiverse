@@ -346,7 +346,7 @@ multiverse.config(function($routeProvider, $locationProvider) {
   // route for the home page
   .when('/', {
     templateUrl : 'pages/main_container.html',
-    controller  : 'one'
+    controller  : 'room'
   })
 
   .when('/r/:room', {
