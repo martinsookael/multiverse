@@ -134,10 +134,16 @@ shortcuts = {
     "m":{
         "channel":"meme"
     },
+    "M":{
+        "channel":"meme"
+    },
     "logout":{
         "channel":"logout"
     },
     "w":{
+        "channel":"who"
+    },
+    "W":{
         "channel":"who"
     },
     "h":{
