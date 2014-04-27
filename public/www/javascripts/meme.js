@@ -296,6 +296,10 @@ var memes = [
         "img" : "images/meme/sten.jpg",
         "desc": "why Sten? Because why not!"
     },{
+        "name": "martin2",
+        "img" : "images/meme/martin2.jpg",
+        "desc": "git push aww phat?"
+    },{
         "name": "freud",
         "img" : "images/meme/freud.png",
         "desc": "You don't like bananas?/What about your dad?"
