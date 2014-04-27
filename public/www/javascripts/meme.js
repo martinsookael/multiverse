@@ -300,6 +300,10 @@ var memes = [
         "img" : "images/meme/martin2.jpg",
         "desc": "git push aww phat?"
     },{
+        "name": "priority",
+        "img" : "images/meme/priority.jpg",
+        "desc": "The ladies came for tan, but Priority Peter will teach them sin."
+    },{
         "name": "freud",
         "img" : "images/meme/freud.png",
         "desc": "You don't like bananas?/What about your dad?"
