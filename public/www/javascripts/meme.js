@@ -2,338 +2,338 @@
 var memes = [
     {
         "name": "fwp",
-        "img" : "images/meme/1stwp.jpg",
+        "img" : "1stwp.jpg",
         "desc": "first world problem"
     },{
         "name": "baby",
-        "img" : "images/meme/successbaby.jpg",
+        "img" : "successbaby.jpg",
         "desc": "Success kid"
     },{
         "name": "bru",
-        "img" : "images/meme/impossibru.jpg",
+        "img" : "impossibru.jpg",
         "message2" : "IMPOSSIBRU!",
         "desc": "(.../impossibru!)"
     },{
         "name": "yuno",
-        "img" : "images/meme/yuno.gif",
+        "img" : "yuno.gif",
         "desc": "y u no/use this meme?!"
     },{
         "name": "goodguy",
-        "img" : "images/meme/goodguy.jpg",
+        "img" : "goodguy.jpg",
         "desc": "sees you stuck with memes/doesn't make fun of you"
     },{
         "name": "man",
-        "img" : "images/meme/mostinteresting.jpg",
+        "img" : "mostinteresting.jpg",
         "desc": "The most interesting man on Earth"
     },{
         "name": "simply",
-        "img" : "images/meme/onedoesnotsimply.jpg",
+        "img" : "onedoesnotsimply.jpg",
         "message1" : "One does not simply",
         "desc": "Boromir (one does not simply/...)"
     },{
         "name": "whatif",
-        "img" : "images/meme/morpheus.jpg",
+        "img" : "morpheus.jpg",
         "message1" : "What if I told you",
         "desc": "(what if I told you/...)"
     },{
         "name": "scumg",
-        "img" : "images/meme/stacy.jpg",
+        "img" : "stacy.jpg",
         "desc": "Scumgirl Stacy"
     },{
         "name": "scumb",
-        "img" : "images/meme/steve.jpg",
+        "img" : "steve.jpg",
         "desc": "Scumbbag Steve"
     },{
         "name": "gf",
-        "img" : "images/meme/overly_attached.jpg",
+        "img" : "overly_attached.jpg",
         "desc": " I'm the only overly attached girlfriend/you will ever have. Ever."
     },{
         "name": "451",
-        "img" : "images/meme/451.jpg",
+        "img" : "451.jpg",
         "desc": "Silver Meikar"
     },{
         "name": "fuckme",
-        "img" : "images/meme/fuckme.jpg",
+        "img" : "fuckme.jpg",
         "message2" : "fuck me, right?",
         "desc": "(.../fuck me, right?)"
     },{
         "name": "fa",
-        "img" : "images/meme/fa.jpg",
+        "img" : "fa.jpg",
         "desc": "The infamous Forevel Alone"
     },{
         "name": "nobody",
-        "img" : "images/meme/aintnobody.jpg",
+        "img" : "aintnobody.jpg",
         "message2" : "Ain't nobody got time for that!",
         "desc": "(.../ain't nobody got time for that!)"
     },{
         "name": "boat",
-        "img" : "images/meme/boat.jpg",
+        "img" : "boat.jpg",
         "desc": "The Contemplative Cat"
     },{
         "name": "science",
-        "img" : "images/meme/science.jpg",
+        "img" : "science.jpg",
         "message1" : "yeah!",
         "message2" : "science, bitch!",
         "desc": "Breaking Bad (yeah!/science, bitch!)"
     },{
         "name": "acc",
-        "img" : "images/meme/challengeaccepted.gif",
+        "img" : "challengeaccepted.gif",
         "message1" : "challenge accepted",
         "desc": "Challenge accepted"
     },{
         "name": "default",
-        "img" : "images/meme/noSuchMeme.gif",
+        "img" : "noSuchMeme.gif",
     },{
         "name": "jorpa",
-        "img" : "images/meme/jorpa.png",
+        "img" : "jorpa.png",
         "desc": "Üllar Jörberg"
     },{
         "name": "yoda",
-        "img" : "images/meme/yoda.jpg",
+        "img" : "yoda.jpg",
         "desc": "no words needed/there are"
     },{
         "name": "doge",
-        "img" : "images/meme/doge.jpg",
+        "img" : "doge.jpg",
         "desc": "Such meme. Many laugh. Wow."
     },{
         "name": "nohomo",
-        "img" : "images/meme/nohomo.jpg",
+        "img" : "nohomo.jpg",
         "desc": "No homo"
     },{
         "name": "notbad",
-        "img" : "images/meme/notbad.jpg",
+        "img" : "notbad.jpg",
         "message2" : "not bad",
         "desc": "Obama is impressed (.../not bad)"
     },{
         "name": "what",
-        "img" : "images/meme/what.jpg",
+        "img" : "what.jpg",
         "message1" : "what?",
         "desc": "Seriously, WHAT are you looking at? (what?/...)"
     },{
         "name": "soclose",
-        "img" : "images/meme/soclose.gif",
+        "img" : "soclose.gif",
         "desc": "Freddie Mercury is so close!"
     },{
         "name": "you",
-        "img" : "images/meme/you.jpg",
+        "img" : "you.jpg",
         "desc": "You, yeah, you! You're awesome!"
     },{
         "name": "africa",
-        "img" : "images/meme/africa.jpg",
+        "img" : "africa.jpg",
         "message1" : "so you're telling me",
         "desc": "Third World sceptical kid (so you're telling me/...)"
     },{
         "name": "aliens",
-        "img" : "images/meme/aliens.jpg",
+        "img" : "aliens.jpg",
         "message1" : "Aliens",
         "desc": "(aliens/...)"
     },{
         "name": "live",
-        "img" : "images/meme/live.jpg",
+        "img" : "live.jpg",
         "message2" : "I also like to live dangerously",
         "desc": "Austin Powers also likes to live  dangerously (.../i also like to live dangerously)"
 
     },{
         "name": "brian",
-        "img" : "images/meme/brian.jpg",
+        "img" : "brian.jpg",
         "desc": "Bad luck Brian"
     },{
         "name": "dawg",
-        "img" : "images/meme/dawg.jpg",
+        "img" : "dawg.jpg",
         "desc": "Yo, dawg, I heard you like to exhibit your inner Xzibit"
     },{
         "name": "wizard",
-        "img" : "images/meme/wizard.jpg",
+        "img" : "wizard.jpg",
         "desc": "This wizard will now download your software"
     },{
         "name": "high",
-        "img" : "images/meme/high.jpg",
+        "img" : "high.jpg",
         "message2" : "is too damn high",
         "desc": "the number of memes here/is too damn high (.../is too damn high)"
     },{
         "name": "isee",
-        "img" : "images/meme/isee.gif",
+        "img" : "isee.gif",
         "message2" : "i see what you did there",
         "desc": "(.../i see what you did there)"
     },{
         "name": "notsure",
-        "img" : "images/meme/notsure.jpg",
+        "img" : "notsure.jpg",
         "desc": "Fry is not sure/if you should use this meme"
     },{
         "name": "bean",
-        "img" : "images/meme/bean.png",
+        "img" : "bean.png",
         "desc": "You can use me anytime/if you know what I mean (.../if you know what i mean)"
     },{
         "name": "stoned",
-        "img" : "images/meme/stoned.png",
+        "img" : "stoned.png",
         "desc": "The stoned guy"
     },{
         "name": "gusta",
-        "img" : "images/meme/gusta.png",
+        "img" : "gusta.png",
         "desc": "Me-gusta-face"
     },{
         "name": "parrot",
-        "img" : "images/meme/parrot.jpg",
+        "img" : "parrot.jpg",
         "desc": "Paranoid parrot. blanket not covering foot/foot not safe"
     },{
         "name": "social",
-        "img" : "images/meme/social.jpg",
+        "img" : "social.jpg",
         "desc": "Socially awkward penguin. Tries to hold back a burp/farts instead"
     },{
         "name": "say",
-        "img" : "images/meme/say.png",
+        "img" : "say.png",
         "desc": "Sarcastic Nicholas Cage (you don't say?/...)"
     },{
         "name": "kidding",
-        "img" : "images/meme/kidding.jpg",
+        "img" : "kidding.jpg",
         "desc": "Are you fucking kidding me?"
     },{
         "name": "smth",
-        "img" : "images/meme/smth.jpg",
+        "img" : "smth.jpg",
         "desc": "Hey, it's something!..."
     },{
         "name": "story",
-        "img" : "images/meme/story.png",
+        "img" : "story.png",
         "desc": "Barney swears it's true story, bro"
     },{
         "name": "yeah",
-        "img" : "images/meme/yeah.jpg",
+        "img" : "yeah.jpg",
         "desc": "Aaaaaawwwww yeaaaahhhh!"
     },{
         "name": "please",
-        "img" : "images/meme/please.png",
+        "img" : "please.png",
         "desc": "You think you have all those memes memorized? Bitch please!"
     },{
         "name": "evil",
-        "img" : "images/meme/evil.jpg",
+        "img" : "evil.jpg",
         "desc": "I dare you/to give me 1 million dollars"
     },{
         "name": "evil2",
-        "img" : "images/meme/evil2.gif",
+        "img" : "evil2.gif",
         "desc": "I want this money/to ''make love, not war''"
     },{
         "name": "eyes",
-        "img" : "images/meme/eyes.jpg",
+        "img" : "eyes.jpg",
         "desc": "Really seductive eyes for all you lonely hearts out here"
     },{
         "name": "martin",
-        "img" : "images/meme/martin.jpg",
+        "img" : "martin.jpg",
         "desc": "The unnaturally happy CEO"
     },{
         "name": "fu",
-        "img" : "images/meme/fu.gif",
+        "img" : "fu.gif",
         "desc": "Straight up middle finger in your face"
     },{
         "name": "sauli",
-        "img" : "images/meme/sauli.jpg",
+        "img" : "sauli.jpg",
         "desc": "The amazing Finn"
     },{
         "name": "sparta",
-        "img" : "images/meme/sparta.jpg",
+        "img" : "sparta.jpg",
         "desc": "THIS! IS! the Sparta meme"
     },{
         "name": "merka1",
-        "img" : "images/meme/merka1.jpg",
+        "img" : "merka1.jpg",
         "desc": "The community manager is sceptical"
     },{
         "name": "merka2",
-        "img" : "images/meme/merka2.jpg",
+        "img" : "merka2.jpg",
         "desc": "The community manager gets it"
     },{
         "name": "malev",
-        "img" : "images/meme/malev.jpg",
+        "img" : "malev.jpg",
         "desc": "A typical Estonian"
     },{
         "name": "grumpy",
-        "img" : "images/meme/grumpy.jpg",
+        "img" : "grumpy.jpg",
         "desc": "You hate our memes?/good."
     },{
         "name": "parts",
-        "img" : "images/meme/parts.jpg",
+        "img" : "parts.jpg",
         "desc": "Juhan Parts"
     },{
         "name": "manly",
-        "img" : "images/meme/manly.jpg",
+        "img" : "manly.jpg",
         "desc": "The overly manly man"
     },{
         "name": "stop",
-        "img" : "images/meme/stop.png",
+        "img" : "stop.png",
         "desc": "Oh, stop it, you!"
     },{
         "name": "badass",
-        "img" : "images/meme/badass.jpg",
+        "img" : "badass.jpg",
         "desc": "Watch out guys, we're dealing with a badass over here"
     },{
         "name": "90",
-        "img" : "images/meme/90.jpg",
+        "img" : "90.jpg",
         "desc": "Sad 90s. i want to surf the internet/but my mom is waiting for a call"
     },{
         "name": "ojuland",
-        "img" : "images/meme/ojuland.jpg",
+        "img" : "ojuland.jpg",
         "desc": "Kristiina Ojuland"
     },{
         "name": "all",
-        "img" : "images/meme/all.jpg",
+        "img" : "all.jpg",
         "desc": "'Clean all the house!' meme"
     },{
         "name": "cleese",
-        "img" : "images/meme/cleese.png",
+        "img" : "cleese.png",
         "desc": "A surprised John Cleese"
     },{
         "name": "cleese2",
-        "img" : "images/meme/cleese2.png",
+        "img" : "cleese2.png",
         "desc": "A very surprised John Cleese"
     },{
         "name": "joker",
-        "img" : "images/meme/joker.png",
+        "img" : "joker.png",
         "desc": "Why such long/meme-list?"
     },{
         "name": "biz",
-        "img" : "images/meme/biz.png",
+        "img" : "biz.png",
         "desc": "The business baby in action. three more bites/and we're so done with this porridge"
     },{
         "name": "sten",
-        "img" : "images/meme/sten.jpg",
+        "img" : "sten.jpg",
         "desc": "why Sten? Because why not!"
     },{
         "name": "martin2",
-        "img" : "images/meme/martin2.jpg",
+        "img" : "martin2.jpg",
         "desc": "git push aww phat?"
     },{
         "name": "priority",
-        "img" : "images/meme/priority.jpg",
+        "img" : "priority.jpg",
         "desc": "The ladies came for tan, but Priority Peter will teach them sin."
     },{
         "name": "freud",
-        "img" : "images/meme/freud.png",
+        "img" : "freud.png",
         "desc": "You don't like bananas?/What about your dad?"
     },{
         "name": "mog",
-        "img" : "images/meme/mog.jpg",
+        "img" : "mog.jpg",
         "desc": "(.../mother of god)"
     },{
         "name": "punked",
-        "img" : "images/meme/punked.jpg",
+        "img" : "punked.jpg",
         "desc": "You've been punked by Mila Kunis's future husband!"
     },{
         "name": "valmiermuiza",
-        "img" : "images/meme/valmiermuiza.jpg",
+        "img" : "valmiermuiza.jpg",
         "desc": "You've been punked by Mila Kunis's future husband!"
     },{
         "name": "evil3",
-        "img" : "images/meme/evil3.png",
+        "img" : "evil3.png",
         "desc": "Evil and his minions laughing"
     },{
         "name": "tulnukas",
-        "img" : "images/meme/tulnukas.jpg",
+        "img" : "tulnukas.jpg",
         "desc": "no tee mis tahad"
     },{
         "name": "cowboy1",
-        "img" : "images/meme/cowboy1.jpg",
+        "img" : "cowboy1.jpg",
         "desc": "As cowboy as Clint Eastwood can be"
     },{
         "name": "cowboy2",
-        "img" : "images/meme/cowboy2.png",
+        "img" : "cowboy2.png",
         "desc": "Not satisfied with cowboy1? Try cowboy2 with more background"
     }
 ]
@@ -411,7 +411,7 @@ function memeIt(data) {
         message1 = message.slice(0, split).trim();
         message2 = message.slice(split+1).trim();
     }
-    //var memeImg = "images/meme/noSuchMeme.gif";
+    //var memeImg = "noSuchMeme.gif";
     $.each(memes, function(key, value) {
         if(memeName === value.name) {
             memeImg = value.img;

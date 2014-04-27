@@ -101,7 +101,12 @@ function getPostsApi($scope, $http, $location) {
 } */
 
 
-function analyzeEntry($scope, $location, message, username) { 
+function memeHelp() {
+  console.log(memes);
+}
+
+
+function analyzeEntry($scope, $location, message, username) {
 
       var rndNumb=Math.floor(Math.random()*1000000);
       var nid = "p"+rndNumb;

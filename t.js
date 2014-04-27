@@ -50,6 +50,10 @@ io.set('transports', [
 ]);
 
 
+function cl(data) {
+  console.log(data);
+}
+
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
@@ -179,7 +183,7 @@ io.sockets.on('connection', function (socket) {
     });
 
 
-    socket.on('writing', function (data) {
+    socket.on('writing', function (data) { //cl(data);
         io.sockets.in(data.room).emit('writing', { user: data.user, writing: data.writing});
     });
 
