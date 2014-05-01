@@ -345,7 +345,7 @@ var memes = [
         "desc": "Sasha and the cats"
     },{
         "name": "boss",
-        "img" : "boss.jpg",
+        "img" : "boss.png",
         "desc": "Like a boss"
     },{
         "name": "no1",
