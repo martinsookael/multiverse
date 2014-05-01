@@ -340,6 +340,22 @@ var memes = [
         "img" : "tulnukas.jpg",
         "desc": "no tee mis tahad"
     },{
+        "name": "sasha",
+        "img" : "sasha.jpg",
+        "desc": "Sasha and the cats"
+    },{
+        "name": "boss",
+        "img" : "boss.jpg",
+        "desc": "Like a boss"
+    },{
+        "name": "no1",
+        "img" : "no.jpg",
+        "desc": "No!"
+    },{
+        "name": "no2",
+        "img" : "no2.jpg",
+        "desc": "No again!"
+    },{
         "name": "cowboy1",
         "img" : "cowboy1.jpg",
         "desc": "As cowboy as Clint Eastwood can be"

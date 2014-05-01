@@ -131,6 +131,10 @@ shortcuts = {
         "img" : "okeiko1.gif",
         "channel": "paint",
     },
+    "chuck":{
+        "img" : "chuck.gif",
+        "channel": "paint",
+    },
     "m":{
         "channel":"meme"
     },
