@@ -167,6 +167,10 @@ $(document).ready(function() {
         printHelp();
     });
 
+    socket.on('memehelp', function (data) {
+        printMemeHelp();
+    });
+
     socket.on('news', function (data) {
         writer(data);
     });
@@ -262,6 +266,17 @@ $(document).ready(function() {
         scroll();
     }
 
+    function printMemeHelp() {
+        //announcer('Write the following letter and press enter<br /> <strong>w</strong> - <strong>who</strong> is here<br><strong>h</strong> - show this <strong>help</strong>screen here<br><strong>c</strong> - <strong>curse</strong> in Italian <!--<br><strong>y</strong> - yes - success baby --><br><strong>m</strong> - create a <strong>meme</strong> <br><strong>soundon</strong> - turn  <strong>sound on</strong><br /> <strong>soundoff</strong> - turn <strong>sound off</strong><br /> <strong>logout</strong> - <strong>log out</strong><br /><br /><strong>Rooms:</strong><br /> r <strong>brasalona</strong> - Brasalona in Riga / @murphy is the master<br />r <strong>piens</strong> - Piens in Riga. Delisnacks and Valmiermuiza available<br />r <strong>multiverse</strong> - the main room<br />');
+      announcer("<strong>Meme it!</strong><br /><br /><strong>type: <br /></strong>m shortcut top caption/bottom caption<br />e.g:<br />m gf i know you're coming back to me/i have all your socks<br /><br />If a shortcut has either top or bottom line in brackets, it's pre­set, but can be changed.<br /><br /><strong>Shortcuts:</strong><br />m fwp<br>m fwp text to top / text to bottom<br>m fwp text to top<br>m fwp / text to bottom<br><br><strong>Available memes:</strong><br />");
+      $.each(memes, function(key, value) {
+        var s = value.img;
+        s = s.substring(0, s.lastIndexOf("."));
+        announcer("<img class='memeThumb' src='images/meme_thumb/"+s+".jpg' /><strong>"+value.name+"</strong> "+value.desc+"  ");
+        //cl(value);
+      });
+      scroll();
+    }
 
     function serialWriter(data) {
         announcer('History for room #' +localStorage.room);

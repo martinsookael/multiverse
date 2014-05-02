@@ -206,6 +206,10 @@ io.sockets.on('connection', function (socket) {
         socket.emit('help');
     });
 
+    socket.on('memehelp', function () {
+        socket.emit('memehelp');
+    });
+
     socket.on('last', function () {
         if(conf.db.usesDb === true) {
             printLast();
