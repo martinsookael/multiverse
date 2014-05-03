@@ -135,6 +135,10 @@ shortcuts = {
         "img" : "chuck.gif",
         "channel": "paint",
     },
+    "amazing":{
+        "img" : "amazing.gif",
+        "channel": "paint",
+    },
     "m":{
         "channel":"meme"
     },
