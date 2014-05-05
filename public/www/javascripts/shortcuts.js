@@ -147,8 +147,8 @@ shortcuts = {
         "img" : "awesome.jpg",
         "channel": "paint",
     },
-    "haha":{
-        "img" : "haha.gif",
+    "surprise":{
+        "img" : "surprise.gif",
         "channel": "paint",
     },
     "ups":{
