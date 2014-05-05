@@ -137,12 +137,14 @@ io.sockets.on('connection', function (socket) {
         })
     }
 
-    socket.on('news', function (data, pingBack) { console.log(data);
+    socket.on('news', function (data, pingBack) {
         // if the data doesn't know the room, ask from usernames
         if(data.room === null) {
             data.room = findUserRoom(socket.username);
         }
         console.log("t:news:room: "+data.room);
+
+        socket.join(data.room);
 
         // send it to all
         io.sockets.in(data.room).emit('news', { title: data.text, author: data.author, time: data.time, city: data.city, nid: data.nid, room: data.room });
@@ -157,6 +159,9 @@ io.sockets.on('connection', function (socket) {
         io.sockets.in(socket.room).emit('paint', { title: data.title, author: data.author, time: data.time, room: data.room, city: data.city, nid: data.nid });
         //socket.emit('paint', { title: data.title, author: data.author, time: data.time });
         //socket.broadcast.emit('paint', { title: data.title, author: data.author, time: data.time });
+
+        socket.join(data.room);
+
         if(conf.db.usesDb === true) {
             saveToDb(data.title, data.author, data.time, data.room, data.city, data.nid, data.room);
         }
@@ -166,6 +171,9 @@ io.sockets.on('connection', function (socket) {
         io.sockets.in(socket.room).emit('meme', { title: data.title, author: data.author, time: data.time, city: data.city, nid:data.nid, room:data.room });
         //socket.emit('meme', { title: data.title, author: data.author, time: data.time });
         //socket.broadcast.emit('meme', { title: data.title, author: data.author, time: data.time });
+
+        socket.join(data.room);
+
         if(conf.db.usesDb === true) {
             saveToDb(data.title, data.author, data.time, data.room, data.city, data.nid );
 
