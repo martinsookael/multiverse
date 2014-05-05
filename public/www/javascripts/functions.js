@@ -6,6 +6,10 @@ function getAvatar(name){
         var avatar = "4m4t3ur.jpeg";
         break;
 
+        case "m":
+        var avatar = "4m4t3ur.jpeg";
+        break;
+
         case "muusa":
         var avatar = "muusa.jpg";
         break;
