@@ -94,6 +94,21 @@ function switchUserRoom(username,room) {
     }
 }
 
+// get's username for "tell". Originaly same used to get meme name
+function getUserName(message) {
+    message = message.slice(2); // remove "m " from beginning
+
+    if(message.indexOf(" ") != -1) var memeName = message.slice(0, message.indexOf(" ")); // get the meme name (if the text fields are not empty)
+
+    message = message.slice(message.indexOf(" ")+1); // remove the meme name
+    if(memeName === undefined) var memeName = message; // that's in case "m fwp", but messes up "m fwp tere".
+
+    var processedMessage = new Array();
+    processedMessage['username'] = memeName;
+    processedMessage['message'] = message;
+    return processedMessage;
+}
+
 
 function saveToDb(message, author, time, room, city, nid) {
     articleProvider.save({
@@ -182,6 +197,21 @@ io.sockets.on('connection', function (socket) {
 
     socket.on('room', function(data) { //cl(data);
         changeRoom(data)
+    });
+
+    socket.on('tell', function(data) { //cl(data);
+        cl(data);
+        var recipient = getUserName(data.title);
+        cl (recipient.username + recipient.message );
+
+        var userroom = findUserRoom(recipient.username);
+        io.sockets.in(userroom).emit('tell', { title: recipient.message, author: data.author, time: data.time, city: data.city, nid: data.nid, room: data.room, recipient: recipient.username });
+        socket.emit('tell_sent', { title: recipient.message, author: data.author, time: data.time, city: data.city, nid: data.nid, room: data.room, recipient: recipient.username });
+        //cl(usernames);
+        //cl(socket.manager.settings.store);
+        //socket.in(recipient.username).emit('news', socket.username + '-> ' + recipient.message);
+        //recipient.username.emit('news', socket.username + '-> ' + recipient.message);
+
     });
 
 

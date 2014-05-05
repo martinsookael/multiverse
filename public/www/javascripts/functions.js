@@ -168,28 +168,28 @@ function analyzeEntry($scope, $location, message, username) {
             else {
                 if(message === "r" || message === "r " || message === "soundon" || message === "soundoff"  ) { 	// put these also to shortcuts.js
 
-        switch(message) {
+              switch(message) {
 
-          case "r": // r misfire
-          return false;
-          break;
+                case "r": // r misfire
+                return false;
+                break;
 
-          case "r ": // r misfire
-          return false;
-          break;
+                case "r ": // r misfire
+                return false;
+                break;
 
-          case "soundon":
-          soundOn();
-          break;
+                case "soundon":
+                soundOn();
+                break;
 
-          case "soundoff":
-          soundOff();
-          break;
+                case "soundoff":
+                soundOff();
+                break;
 
-          default:
-          return false;
-          break;
-        }
+                default:
+                return false;
+                break;
+              }
 
       }
                 else {

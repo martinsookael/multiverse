@@ -154,6 +154,14 @@ $(document).ready(function() {
         paint(data);
     });
 
+    socket.on('tell', function (data) {
+        tell(data);
+    });
+
+    socket.on('tell_sent', function (data) {
+        tell_sent(data);
+    });
+
     socket.on('meme', function (data) {
         memeIt(data);
         scrollAndBeep(data);
@@ -245,10 +253,33 @@ $(document).ready(function() {
 
         if(title.indexOf(" ") != -1) title = title.slice(0, title.indexOf(" "));
         $("#isWriting").remove();
-        $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+nid+'">'+time+'</a></div><div class="place small">'+city+'</div><p class="name"><strong>'+author+'</strong>&nbsp;&nbsp;<a class="gray nodecoration" href="#/r/'+room+'">#'+room+'</a></p><img class="full" src="images/shortcuts/'+shortcuts[title].img+'" /><span class="viewers"></span></div>');
+        $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><span class="gray" >'+time+'</span></div><div class="place small">'+city+'</div><p class="name"><strong>'+author+'</strong>&nbsp;&nbsp;<a class="gray nodecoration" href="#/r/'+room+'">#'+room+'</a></p><img class="full" src="images/shortcuts/'+shortcuts[title].img+'" /><span class="viewers"></span></div>');
         scrollAndBeep(data);
         socket.emit('nsa', { nid: data.nid, name: sessionStorage.mv_username, room: data.room });
     }
+
+    function tell(data) {
+      if (data.recipient === sessionStorage.mv_username) {
+        message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; room = data.room || '';
+        message = findLinksAndImages(message); // find links and images
+        var avatar = getAvatar(name);
+        $("#isWriting").remove(); // <a href="#kala" class="nodecoration" style="color: inherit;">
+        $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+nid+'">'+time+'</a></div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong> sent private message:</p><p>'+message+' <a href="#/r/'+room+'" class="gray nodecoration">#'+room+'</a><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div></a>');
+        scrollAndBeep(data);
+
+        socket.emit('nsa', { nid: data.nid, name: sessionStorage.mv_username, room: data.room });
+      }
+    }
+
+    function tell_sent(data) {
+      message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; room = data.room || ''; recipient = data.recipient || '';
+      message = findLinksAndImages(message); // find links and images
+      var avatar = getAvatar(name);
+      $("#isWriting").remove(); // <a href="#kala" class="nodecoration" style="color: inherit;">
+      $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+nid+'">'+time+'</a></div><div class="place small">'+city+'</div><p class="name"><strong>You</strong> told privately to '+recipient+':</p><p>'+message+' <a href="#/r/'+room+'" class="gray nodecoration">#'+room+'</a><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div></a>');
+      scrollAndBeep(data);
+    }
+
 
     function printWho(data){
         var allUsers = [];

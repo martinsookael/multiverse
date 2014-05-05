@@ -180,6 +180,9 @@ shortcuts = {
     "l":{
         "channel":"last"
     },
+    "t":{
+        "channel":"tell"
+    },
     "r":{
         "channel":"room"
     },
