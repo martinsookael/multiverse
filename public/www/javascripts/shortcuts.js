@@ -143,6 +143,22 @@ shortcuts = {
         "img" : "tongue.gif",
         "channel": "paint",
     },
+    "awesome":{
+        "img" : "awesome.jpg",
+        "channel": "paint",
+    },
+    "haha":{
+        "img" : "haha.gif",
+        "channel": "paint",
+    },
+    "ups":{
+        "img" : "ups.gif",
+        "channel": "paint",
+    },
+    "thanks":{
+        "img" : "thanks.gif",
+        "channel": "paint",
+    },
     "m":{
         "channel":"meme"
     },
