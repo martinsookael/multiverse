@@ -21,6 +21,12 @@ body {
   margin-right: auto;
   position: relative;
 }
+
+h1 {
+  font-weight: bold;
+  font-size: 2em;
+
+}
 .message {
   padding: 5px 20px 0 10px;
   margin-left: 40px;
