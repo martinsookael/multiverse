@@ -159,6 +159,10 @@ shortcuts = {
         "img" : "thanks.gif",
         "channel": "paint",
     },
+    "(y)":{
+        "img" : "y.jpg",
+        "channel": "paint",
+    },
     "m":{
         "channel":"meme"
     },
