@@ -26,12 +26,6 @@ $(document).ready(function() {
 
 //$.noConflict();
 
-  if(window.webkitNotifications.checkPermission() != 0) {
-    $('requestNotifications').html('<div style="height: 50px; text-align: center;"><br /><input type="button" onclick="requestNotifications()" value ="Enable desktop notifications"></div>');
-  }
-
-
-
 
   var substringMatcher = function(strs) {
     return function findMatches(q, cb) {
@@ -239,7 +233,7 @@ $(document).ready(function() {
         }
     });
 
-    function notifier(avatar, name, message) { cl(name);
+    function notifier(avatar, name, message) {
       if (window.webkitNotifications.checkPermission() == 0) {
         if (name != sessionStorage.mv_username ) {
           if (name != "Server" ) {
@@ -494,6 +488,11 @@ multiverse.controller('room', function($scope) {
 
 // controller for input
 multiverse.controller('sendout', function($scope, $route, $routeParams, $location) {
+
+    // hides add desktop notif button
+    if(window.webkitNotifications.checkPermission() === 0) {
+      $('#requestNotifications').hide();
+    }
 
 //    $scope.room = $routeParams.room;
 //    var room = $scope.room
