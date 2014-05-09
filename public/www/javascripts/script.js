@@ -242,7 +242,7 @@ $(document).ready(function() {
             notification.show();
             setTimeout(function(){
               notification.cancel();
-            },2000);
+            },4000);
           }
         }
       } else {
