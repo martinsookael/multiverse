@@ -16,6 +16,7 @@ if(localStorage.sound !== "off") {
 
 function requestNotifications() {
   window.webkitNotifications.requestPermission();
+  $('#requestNotifications').hide();
 }
 
 
