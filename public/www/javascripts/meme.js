@@ -421,6 +421,7 @@ function memeIt(data) {
 
     var message = data.title;
 
+
     var processedMessage = getMemeName(message);
     message = processedMessage['message'];
     memeName = processedMessage['memeName'];

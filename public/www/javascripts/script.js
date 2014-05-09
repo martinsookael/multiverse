@@ -8,17 +8,29 @@ if(localStorage.room === undefined) {
 */
 
 
-
 if(localStorage.sound !== "off") {
   localStorage.sound = "on";
 }
 
 //localStorage.sound = "off";
 
+function requestNotifications() {
+  window.webkitNotifications.requestPermission();
+}
+
+
+/*
+*/
 
 $(document).ready(function() {
 
 //$.noConflict();
+
+  if(window.webkitNotifications.checkPermission() != 0) {
+    $('requestNotifications').html('<div style="height: 50px; text-align: center;"><br /><input type="button" onclick="requestNotifications()" value ="Enable desktop notifications"></div>');
+  }
+
+
 
 
   var substringMatcher = function(strs) {
@@ -227,6 +239,21 @@ $(document).ready(function() {
         }
     });
 
+    function notifier(avatar, name, message) { cl(name);
+      if (window.webkitNotifications.checkPermission() == 0) {
+        if (name != sessionStorage.mv_username ) {
+          if (name != "Server" ) {
+            var notification = window.webkitNotifications.createNotification("images/users/"+avatar, name, message);
+            notification.show();
+            setTimeout(function(){
+              notification.cancel();
+            },2000);
+          }
+        }
+      } else {
+        window.webkitNotifications.requestPermission();
+      }
+    }
 
     function writer(data) {
         //if(sessionStorage.mv_username != "false") { // hides news from non logged ins
@@ -236,7 +263,7 @@ $(document).ready(function() {
             $("#isWriting").remove(); // <a href="#kala" class="nodecoration" style="color: inherit;">
             $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+nid+'">'+time+'</a></div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+' <a href="#/r/'+room+'" class="gray nodecoration">#'+room+'</a><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div></a>');
             scrollAndBeep(data);
-
+            notifier(avatar, name, message);
             socket.emit('nsa', { nid: data.nid, name: sessionStorage.mv_username, room: data.room });
         //}
     }
@@ -255,6 +282,7 @@ $(document).ready(function() {
         $("#isWriting").remove();
         $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><span class="gray" >'+time+'</span></div><div class="place small">'+city+'</div><p class="name"><strong>'+author+'</strong>&nbsp;&nbsp;<a class="gray nodecoration" href="#/r/'+room+'">#'+room+'</a></p><img class="full" src="images/shortcuts/'+shortcuts[title].img+'" /><span class="viewers"></span></div>');
         scrollAndBeep(data);
+        notifier(avatar, author, title);
         socket.emit('nsa', { nid: data.nid, name: sessionStorage.mv_username, room: data.room });
     }
 
@@ -266,7 +294,8 @@ $(document).ready(function() {
         $("#isWriting").remove(); // <a href="#kala" class="nodecoration" style="color: inherit;">
         $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+nid+'">'+time+'</a></div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong> sent private message:</p><p>'+message+' <a href="#/r/'+room+'" class="gray nodecoration">#'+room+'</a><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div></a>');
         scrollAndBeep(data);
-
+        var itsPrivate = name+" privately:";
+        notifier(avatar, itsPrivate, message);
         socket.emit('nsa', { nid: data.nid, name: sessionStorage.mv_username, room: data.room });
       }
     }
