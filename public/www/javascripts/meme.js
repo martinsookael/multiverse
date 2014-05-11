@@ -356,6 +356,10 @@ var memes = [
         "img" : "no2.jpg",
         "desc": "No again!"
     },{
+        "name": "nool",
+        "img" : "nool.jpg",
+        "desc": "Estonian champion athlete Erki Nool. Also a fighter against homosexuality."
+    },{
         "name": "cowboy1",
         "img" : "cowboy1.jpg",
         "desc": "As cowboy as Clint Eastwood can be"
