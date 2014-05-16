@@ -163,6 +163,22 @@ shortcuts = {
         "img" : "y.jpg",
         "channel": "paint",
     },
+    ":PP":{
+        "img" : "tongue2.gif",
+        "channel": "paint",
+    },
+    ";)":{
+        "img" : "wink.gif",
+        "channel": "paint",
+    },
+    "kitt":{
+        "img" : "kitt.gif",
+        "channel": "paint",
+    },
+    "clockworkorange":{
+        "img" : "clockworkorange.gif",
+        "channel": "paint",
+    },
     "m":{
         "channel":"meme"
     },
