@@ -360,10 +360,13 @@ var memes = [
         "img" : "nool.jpg",
         "desc": "Estonian champion athlete Erki Nool. Also a fighter against homosexuality."
     },{
-    },{
         "name": "saskia",
         "img" : "saskia.jpg",
         "desc": "Meet Saskia."
+    },{
+        "name": "sherif",
+        "img" : "sherif.png",
+        "desc": "Meet Sherif."
     },{
         "name": "cowboy1",
         "img" : "cowboy1.jpg",
