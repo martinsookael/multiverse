@@ -235,18 +235,21 @@ $(document).ready(function() {
     });
 
     function notifier(avatar, name, message) {
-      if (window.webkitNotifications.checkPermission() == 0) {
-        if (name != sessionStorage.mv_username ) {
-          if (name != "Server" ) {
-            var notification = window.webkitNotifications.createNotification("images/users/"+avatar, name, message);
-            notification.show();
-            setTimeout(function(){
-              notification.cancel();
-            },4000);
+
+      if(window.webkitNotifications) {
+        if (window.webkitNotifications.checkPermission() == 0) {
+          if (name != sessionStorage.mv_username ) {
+            if (name != "Server" ) {
+              var notification = window.webkitNotifications.createNotification("images/users/"+avatar, name, message);
+              notification.show();
+              setTimeout(function(){
+                notification.cancel();
+              },4000);
+            }
           }
+        } else {
+          window.webkitNotifications.requestPermission();
         }
-      } else {
-        window.webkitNotifications.requestPermission();
       }
     }
 
@@ -491,8 +494,10 @@ multiverse.controller('room', function($scope) {
 multiverse.controller('sendout', function($scope, $route, $routeParams, $location) {
 
     // hides add desktop notif button
-    if(window.webkitNotifications.checkPermission() === 0) {
-      $('#requestNotifications').hide();
+    if(window.webkitNotifications) {
+      if(window.webkitNotifications.checkPermission() === 0) {
+        $('#requestNotifications').hide();
+      }
     }
 
 //    $scope.room = $routeParams.room;
@@ -503,7 +508,7 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
 
     //$scope.post = $routeParams.post;
 
-    $scope.chatter = function(htmlForm) {
+    $scope.chatter = function(htmlForm) { 
 
     // if not a registered user take first input as username
     if (sessionStorage.mv_username === "false") {

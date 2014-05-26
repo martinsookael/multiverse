@@ -322,6 +322,12 @@ app.get('/', function(req, res){
     res.sendfile(__dirname + '/public/www/index.html');
 });
 
+app.post('/', function(req, res) {
+//res.writeHead(200, {"Content-Type": "text/html"});
+  res.sendfile(__dirname + '/public/www/index.html');
+});
+
+
 app.get('/api/p/:id', function(req, res){
     articleProvider.findOne(req.params.id, function(error,docs){
           res.send(docs);
