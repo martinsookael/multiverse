@@ -179,6 +179,26 @@ shortcuts = {
         "img" : "clockworkorange.gif",
         "channel": "paint",
     },
+    "creepy":{
+        "img" : "creepy.gif",
+        "channel": "paint",
+    },
+    "really?":{
+        "img" : "really.gif",
+        "channel": "paint",
+    },
+    "stupid":{
+        "img" : "stupid.gif",
+        "channel": "paint",
+    },
+    "wow":{
+        "img" : "wow.gif",
+        "channel": "paint",
+    },
+    "monty":{
+        "img" : "monty.gif",
+        "channel": "paint",
+    },
     "m":{
         "channel":"meme"
     },

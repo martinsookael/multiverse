@@ -368,6 +368,14 @@ var memes = [
         "img" : "sherif.png",
         "desc": "Meet Sherif."
     },{
+        "name": "pegasus",
+        "img" : "pegasus.png",
+        "desc": "Meet Pegasus."
+    },{
+        "name": "selfie",
+        "img" : "selfie.jpg",
+        "desc": "A selfish selfie."
+    },{
         "name": "cowboy1",
         "img" : "cowboy1.jpg",
         "desc": "As cowboy as Clint Eastwood can be"
