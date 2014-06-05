@@ -199,6 +199,50 @@ shortcuts = {
         "img" : "monty.gif",
         "channel": "paint",
     },
+    "fuckyou":{
+        "img" : "fuckyou.gif",
+        "channel": "paint",
+    },
+    "fuckyou2":{
+        "img" : "fuckyou2.gif",
+        "channel": "paint",
+    },
+    "busy":{
+        "img" : "busy.gif",
+        "channel": "paint",
+    },
+    "gotcha":{
+        "img" : "gotcha.gif",
+        "channel": "paint",
+    },
+    "joker":{
+        "img" : "joker.gif",
+        "channel": "paint",
+    },
+    "allgood":{
+        "img" : "allgood.gif",
+        "channel": "paint",
+    },
+    "disco":{
+        "img" : "disco.gif",
+        "channel": "paint",
+    },
+    "getlucky":{
+        "img" : "getlucky.gif",
+        "channel": "paint",
+    },
+    "wow2":{
+        "img" : "wow2.gif",
+        "channel": "paint",
+    },
+    "itoldyouso":{
+        "img" : "itoldyouso.gif",
+        "channel": "paint",
+    },
+    "facepalm3":{
+        "img" : "facepalm3.gif",
+        "channel": "paint",
+    },
     "m":{
         "channel":"meme"
     },

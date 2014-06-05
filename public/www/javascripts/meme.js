@@ -340,8 +340,8 @@ var memes = [
         "img" : "tulnukas.jpg",
         "desc": "no tee mis tahad"
     },{
-        "name": "sasha",
-        "img" : "sasha.jpg",
+        "name": "sasha2",
+        "img" : "sasha2.jpg",
         "desc": "Sasha and the cats"
     },{
         "name": "boss",
@@ -349,7 +349,7 @@ var memes = [
         "desc": "Like a boss"
     },{
         "name": "no1",
-        "img" : "no.jpg",
+        "img" : "no1.jpg",
         "desc": "No!"
     },{
         "name": "no2",
@@ -375,6 +375,14 @@ var memes = [
         "name": "selfie",
         "img" : "selfie.jpg",
         "desc": "A selfish selfie."
+    },{
+        "name": "no",
+        "img" : "no.jpg",
+        "desc": "No!"
+    },{
+        "name": "sasha",
+        "img" : "sasha.jpg",
+        "desc": "Sasha Baron approves this message."
     },{
         "name": "cowboy1",
         "img" : "cowboy1.jpg",
