@@ -130,13 +130,14 @@ io.sockets.on('connection', function (socket) {
             var newroom = data.title.slice(2); // remove "r" from beginning
             socket.leave(socket.room);
             socket.join(newroom);
-            if(socket.username != "undefined") {
+            if(socket.username != "undefined") { console.log(socket.username);
               socket.emit('news', { title: 'You are connected to #'+newroom, author: 'Server', time: data.time}); // echo to client they've connected
-              // sent message to OLD room
-              socket.broadcast.to(socket.room).emit('news', { title: '<strong>'+socket.username+'</strong> has left this room', author: 'Server', time: data.time});
-              // update socket session room title
               socket.room = newroom;
-              socket.broadcast.to(newroom).emit('news', { title: '<strong>'+socket.username + '</strong> has joined this room', author: 'Server', time: data.time});
+              // sent message to OLD room
+              if (socket.username != undefined) {
+                socket.broadcast.to(socket.room).emit('news', { title: '<strong>'+socket.username+'</strong> has left this room', author: 'Server', time: data.time});
+                socket.broadcast.to(newroom).emit('news', { title: '<strong>'+socket.username + '</strong> has joined this room', author: 'Server', time: data.time});
+              }
               socket.emit('roomHeader', { room: newroom}); // echo to client they've connected
               //socket.emit('room', {room:newroom});
               switchUserRoom(socket.username,newroom)
