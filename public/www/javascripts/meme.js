@@ -380,6 +380,34 @@ var memes = [
         "img" : "no.jpg",
         "desc": "No!"
     },{
+        "name": "np1",
+        "img" : "np1.jpg",
+        "desc": "#nullpunkt 1"
+    },{
+        "name": "np2",
+        "img" : "np2.jpg",
+        "desc": "#nullpunkt 2"
+    },{
+        "name": "np3",
+        "img" : "np3.jpg",
+        "desc": "#nullpunkt 3"
+    },{
+        "name": "np4",
+        "img" : "np4.jpg",
+        "desc": "#nullpunkt 4"
+    },{
+        "name": "np5",
+        "img" : "np5.jpg",
+        "desc": "#nullpunkt 5"
+    },{
+        "name": "np6",
+        "img" : "np6.jpg",
+        "desc": "#nullpunkt 6"
+    },{
+        "name": "np7",
+        "img" : "np7.jpg",
+        "desc": "#nullpunkt 7"
+    },{
         "name": "sasha",
         "img" : "sasha.jpg",
         "desc": "Sasha Baron approves this message."
