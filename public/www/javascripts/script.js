@@ -15,7 +15,7 @@ if(localStorage.sound !== "off") {
 //localStorage.sound = "off";
 
 function requestNotifications() {
-  window.webkitNotifications.requestPermission();
+  Notification.requestPermission();
   $('#requestNotifications').hide();
 }
 
@@ -235,20 +235,20 @@ $(document).ready(function() {
     });
 
     function notifier(avatar, name, message) {
-
-      if(window.webkitNotifications) {
-        if (window.webkitNotifications.checkPermission() == 0) {
+      if (!("Notification" in window)) {
+        cl("this browser does not support notifications");
+      } else {
+        if (Notification.permission === "granted") {
           if (name != sessionStorage.mv_username ) {
             if (name != "Server" ) {
-              var notification = window.webkitNotifications.createNotification("images/users/"+avatar, name, message);
-              notification.show();
+              var notification = new Notification(name, {icon: "images/users/"+avatar, body: message});
               setTimeout(function(){
-                notification.cancel();
+                notification.close();
               },4000);
             }
           }
         } else {
-          window.webkitNotifications.requestPermission();
+          Notification.requestPermission();
         }
       }
     }
@@ -494,8 +494,8 @@ multiverse.controller('room', function($scope) {
 multiverse.controller('sendout', function($scope, $route, $routeParams, $location) {
 
     // hides add desktop notif button
-    if(window.webkitNotifications) {
-      if(window.webkitNotifications.checkPermission() === 0) {
+    if ("Notification" in window) {
+      if(Notification.permission == "granted") {
         $('#requestNotifications').hide();
       }
     }
@@ -508,7 +508,7 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
 
     //$scope.post = $routeParams.post;
 
-    $scope.chatter = function(htmlForm) { 
+    $scope.chatter = function(htmlForm) {
 
     // if not a registered user take first input as username
     if (sessionStorage.mv_username === "false") {
