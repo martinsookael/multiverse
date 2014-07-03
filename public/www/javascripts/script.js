@@ -253,7 +253,7 @@ $(document).ready(function() {
       }
     }
 
-    function writer(data) {
+    function writer(data, quiet) {
         //if(sessionStorage.mv_username != "false") { // hides news from non logged ins
             message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; room = data.room || '';
             message = findLinksAndImages(message); // find links and images
@@ -261,7 +261,9 @@ $(document).ready(function() {
             $("#isWriting").remove(); // <a href="#kala" class="nodecoration" style="color: inherit;">
             $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+nid+'">'+time+'</a></div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+' <a href="#/r/'+room+'" class="gray nodecoration">#'+room+'</a><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div></a>');
             scrollAndBeep(data);
-            notifier(avatar, name, message);
+            if(quiet != true) {
+              notifier(avatar, name, message);
+            }
             socket.emit('nsa', { nid: data.nid, name: sessionStorage.mv_username, room: data.room });
         //}
     }
@@ -272,7 +274,7 @@ $(document).ready(function() {
         $("#jetzt").before('<div class="message announce"><p>'+message+'</p>');
     }
 
-    function paint(data) { cl()
+    function paint(data, quiet) { cl()
         title = data.title || ''; author = data.author || ''; time = data.time || ''; city = data.city || ''; nid = data.nid || '';
         var avatar = getAvatar(author);
 
@@ -280,7 +282,9 @@ $(document).ready(function() {
         $("#isWriting").remove();
         $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><span class="gray" >'+time+'</span></div><div class="place small">'+city+'</div><p class="name"><strong>'+author+'</strong>&nbsp;&nbsp;<a class="gray nodecoration" href="#/r/'+room+'">#'+room+'</a></p><img class="full" src="images/shortcuts/'+shortcuts[title].img+'" /><span class="viewers"></span></div>');
         scrollAndBeep(data);
-        notifier(avatar, author, title);
+        if(quiet != true) {
+          notifier(avatar, author, title);
+        }
         socket.emit('nsa', { nid: data.nid, name: sessionStorage.mv_username, room: data.room });
     }
 
@@ -349,14 +353,14 @@ $(document).ready(function() {
                   if(findMemeError(data[i].title) === "noMeme" || findMemeError(data[i].title) === "error"){
                       // well hello there
                       // hardcode often?
-                      paint(data[i]);
+                      paint(data[i], true);
                   } // it's a meme!
                   else {
                       memeIt(data[i]);
                   }
               }
               else { // if no shortcut, send it to the wire
-                  writer(data[i]);
+                  writer(data[i], true);
               }
           }
           setTimeout(function(){scroll();}, 1000);
