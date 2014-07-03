@@ -213,7 +213,7 @@ $(document).ready(function() {
         var thePost = "#"+data.nid;
         var author = $(thePost).find(".name").find("strong").html();
 
-        if(sessionStorage.mv_username != data.name && data.name != author) {
+        if(sessionStorage.mv_username != data.name && data.name != author && data.name != "false") {
             //$(thePost).find(".content").append("<span class='gray small'> &#10003;"+data.name+"</div>");
             $(thePost).find(".viewers").find(".tick").show();
             $(thePost).find(".viewers").append("&nbsp;"+data.name+",");
