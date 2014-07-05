@@ -1,3 +1,5 @@
+var dbName = process.env.DB;
+
 module.exports = {
     general: {
         host: '127.0.0.1' // notice the missing "http://"
@@ -8,20 +10,11 @@ module.exports = {
     }
   , db: {
         usesDb: true // true - uses db, false - uses not. // IF TALKER WON'T START, START DEBUGGING FROM HERE
-      , host: 'ds051368.mongolab.com' // notice the missing "http://"
-      , port: 51368
-      , dbName: 'heroku_app18775261'
-      , collectionName: 'chat'
-      , username: 'multiverseuser'
-      , password: 'OHYFjuhdfshy876920470479239yhfdsjsdfhs87s'
+      , host: process.env.HOST // notice the missing "http://"
+      , port: process.env.PORT
+      , dbName: process.env.DB
+      , collectionName: process.env.COLLECTION
+      , username: process.env.USER
+      , password: process.env.PASS
     }
-  /*, db: {
-        usesDb: true // true - uses db, false - uses not. // IF TALKER WON'T START, START DEBUGGING FROM HERE
-      , host: '127.0.0.1' // notice the missing "http://"
-      , port: 27017
-      , dbName: 'talker'
-      , collectionName: 'chat3'
-     // , username: 'heroku_app18775261'
-    //  , password: 'qfhs9bftk5k41of30q0i2oa0ot'
-    }*/
 };
