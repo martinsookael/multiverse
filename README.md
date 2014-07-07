@@ -1,12 +1,10 @@
 From: https://github.com/martinsookael/multiverse
 Try it out: https://www.multiverse.im
 
-
-=======
-multiverse
+Multiverse
 ==========
 
-command line based open source web chatroom
+Command line based open source web chatroom
 
 
 WAS IST DAS?
@@ -31,60 +29,35 @@ or
 4. I tend to get "node-gyp rebuild 2> builderror.log" but nevertheless the stuff seams to work
 5. go to yourdomain:3001
 
-INSTALLATION 2:
------------------
-0. $ npm install forever -g
-1. $ forever start t.js
-2. $ crontab -u YOURUSERNAME -e
-3. in the file write:
-3.1 @reboot /usr/local/bin/forever start /your/path/to/your/app.js
-4. $ mongod --fork --logpath PATHTOYOURMONGOLOG/mongod.log // thisone starts mongo independently
-
 
 SETUP
 -------------
 
-1. basic configuration is in conf.js
+1. basic configuration and database is in conf.js
 2. /public/stylesheets/fonts.styl - I use it to keep several installations with different fonts.
 
 HEROKU:
 heroku labs:enable websockets
-heroku addons:add mongolab
+heroku addons:add mongolab  
 
-CURRENT STATUS
--------------
-
-Uses:
-Express, Jade and Stylus - as the base back- and frontend.
-socket.io - for connecting people.
-mongo - for database
-
-//No database is currently attached.
-//I kind of like the idea of a talker without a database + it makes development faster.
-
-Usable on all screen sizes.
-Little HTML+CSS.
-
-
-PRIORITIES
---------
-
-* lightweight on traffic
-* lightweight
-* works on every screen
-
-TODO
---------
-
-Current tasklist is here:
-https://app.asana.com/-/share?s=7719476021228-pxHKCllHXsiHL17Dbn8QlqCeedhtgmC3TW8kWlUPShS-1888846333398
+DATABASE:
+Either start with:  
+USER='xxx' PASS='xxx' HOST='xxx' DB='xxx' DBPORT=xxx COLLECTION='xxx' node t.js
+or edit conf.js with accurate database credidentials.
 
 
 UPDATES
 --------
 
+05th July 2014 - Code now being re-opensourced.
+
+25 - 26 Apr 2014 Garage48 Health and Wellness hackathlon:
+Added: Angular support, First API, routing, meme help and other stuff
+
 22nd Oct 2013
 Android App + Heroku hosting + www.multiverse.im
+Since the Android app was together with the web app so the code got really messy.
+Stoped keeping it open sourced.
 
 12th of Oct 2013
 Now works with MongoDb.
@@ -111,40 +84,13 @@ added express.
 <a href="http://jsx.ms/wp-content/uploads/2013/01/its-something.jpg">Node.js now used to display statical page.</a>
 Old mockup still there in in public/mockup.html
 
+Spring 2013
+Humble beginnings:
+https://github.com/451ee/t
+
 
 WHY?
 ----
 + I think the text based user interface deserves another go.
 + "Rooms" could be used for group chatting.
 + I started talking with two friends from a telnet talker I used to visit more than 10 years ago and it felt good to talk with them.
-
-
-FIRST VERSION
--------------
-/*
-THIS INFO IS OUTDATED - I'M JUST KEEPING IT HERE TO REMIND ME OF THE BEGEINNING
-*/
-
-In case we should build it then the first version ought to be very basic,
-but doing those basic things very good.
-
-Users:
-+ Ability to log in and out.
-+ Twitter+FB+??? connect.
-+ Name, profile pic.
-+ Perhaps some profile info, just text is fine.
-+ Users can change names of other users for their view.
-Administration+moderation are out of scope for the first version.
-
-Rooms:
-+ Room has a name (& perhaps a topic).
-+ Every user can create public rooms.
-+ Public room can be accessed by everyone.
-+ Every user can create private rooms for only these people they allow.
-
-Communication:
-+ 3 basic ways for communication:
-+ Just chatting = everyone in the same room gets your messages.
-+ .t = .tell <user> <message> - send a private message.
-+ .e = .emote would also be nice.
-+ Hubot http://hubot.github.com

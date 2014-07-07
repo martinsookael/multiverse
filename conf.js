@@ -5,7 +5,7 @@ module.exports = {
 //      , url: 'http://127.0.0.1:3001'
     }
   , db: {
-        usesDb: true // true - uses db, false - uses not. // IF TALKER WON'T START, START DEBUGGING FROM HERE
+        usesDb: true // true - uses db, false - uses not. 
       , host: process.env.HOST // notice the missing "http://"
       , port: process.env.DBPORT
       , dbName: process.env.DB
