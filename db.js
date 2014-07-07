@@ -20,13 +20,8 @@ if (os.hostname() === "α") {
 
 
 ArticleProvider = function(host, port) {
-  this.db= new Db(conf.db.dbName, new Server(host, port, {auto_reconnect: true}, {}));
-  /*this.db.open(function(){
-      this.db.authenticate(conf.db.username, conf.db.password, function(err, res) {
-      // callback
-      });
-  });*/
-
+  if(conf.db.dbName) {
+    this.db= new Db(conf.db.dbName, new Server(host, port, {auto_reconnect: true}, {}));
     this.db.open(function(err, db) {
       if(!err) {
         db.authenticate(conf.db.username, conf.db.password, function(err){
@@ -34,14 +29,17 @@ ArticleProvider = function(host, port) {
         })
       }
     });
+  }
 };
 
 
 ArticleProvider.prototype.getCollection= function(callback) {
-  this.db.collection(conf.db.collectionName, function(error, article_collection) {
-    if( error ) callback(error);
-    else callback(null, article_collection);
-  });
+  if(conf.db.collectionName) {
+    this.db.collection(conf.db.collectionName, function(error, article_collection) {
+      if( error ) callback(error);
+      else callback(null, article_collection);
+    });
+  }
 };
 
 ArticleProvider.prototype.findLast = function(room, callback) {
@@ -62,22 +60,10 @@ ArticleProvider.prototype.findOne = function(id, callback) {
     this.getCollection(function(error, article_collection) {
       if( error ) callback(error)
       else {
-        /*article_collection.find({_id: {"$oid": "53590604827e5c0200000021"}}).toArray(function(error, results) {
-            if( error ) callback(error)
-          else callback(null, results.reverse())
-          //else callback(null, results)
-        });
-*/
-
-        // thisone is for _id, sadly I could not figure out how to get the id just when saving. 
-        //article_collection.findOne({_id: article_collection.db.bson_serializer.ObjectID.createFromHexString(id)}, function(error, result) {
         article_collection.findOne({nid: id}, function(error, result) {
           if( error ) callback(error)
           else callback(null, result)
         });
-
-
-
       }
     });
 };
