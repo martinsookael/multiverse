@@ -487,7 +487,17 @@ multiverse.config(function($routeProvider, $locationProvider) {
 });
 
 // controller for main page
-multiverse.controller('one', function($scope, $route, $routeParams) {
+multiverse.controller('one', function($scope, $route, $routeParams, $location) {
+
+  // This helps people on front page to go to a room
+  $scope.roomer = function(htmlForm) { cl($scope);
+    var room = $scope.roomer.number;
+    room = String(room);
+    var goToRoom = "/r/"+room;
+    //$scope.$apply( $location.path( goToRoom ) );
+    $location.path( goToRoom );
+    return;
+  }
 
 });
 /*
@@ -495,19 +505,6 @@ multiverse.controller('room', function($scope) {
 
 }); */
 
-
-// This helps people on front page to go to a room
-multiverse.controller('goRoom', function($scope, $route, $routeParams, $location, $apply) {
-
-  $scope.roomer = function(htmlForm) {
-    var room = $scope.room.number;
-    room = String(room);
-    //$scope.$apply( "http://www.multiverse.im/r/"+room );
-    $location.path( "http://www.multiverse.im/r/"+room );
-    return;
-  }
-
-});
 
 
 
@@ -521,13 +518,7 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
       }
     }
 
-//    $scope.room = $routeParams.room;
-//    var room = $scope.room
-//    localStorage.room = room;
-      localStorage.room = $routeParams.room;
-    //logInIfUser(true);
-
-    //$scope.post = $routeParams.post;
+    localStorage.room = $routeParams.room;
 
     $scope.chatter = function(htmlForm) {
 
