@@ -42,7 +42,8 @@ heroku addons:add mongolab
 
 DATABASE:
 Either start with:  
-USER='xxx' PASS='xxx' HOST='xxx' DB='xxx' DBPORT=xxx COLLECTION='xxx' node t.js
+"USER='xxx' PASS='xxx' HOST='xxx' DB='xxx' DBPORT=xxx COLLECTION='xxx' node t.js"  
+
 or edit conf.js with accurate database credidentials.
 
 
