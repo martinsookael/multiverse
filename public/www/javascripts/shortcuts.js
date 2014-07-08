@@ -270,6 +270,9 @@ shortcuts = {
     "r":{
         "channel":"room"
     },
+    "sc": {
+      "channel":"shortcuthelp"
+    },
     "soundon":{
         "channel":"room"
     },

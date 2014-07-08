@@ -186,6 +186,10 @@ $(document).ready(function() {
         printMemeHelp();
     });
 
+    socket.on('shortcuthelp', function (data) { cl("jou");
+        printShortcuts();
+    });
+
     socket.on('news', function (data) {
         writer(data);
     });
@@ -341,6 +345,14 @@ $(document).ready(function() {
       scroll();
     }
 
+    function printShortcuts() {
+      announcer("<strong>Shortcuts!</strong>");
+      $.each(shortcuts, function(key, value) {
+        announcer(key);
+      });
+      scroll();
+    }
+
     function serialWriter(data) {
         announcer('History for room #' +localStorage.room);
         //scroll();
@@ -484,6 +496,13 @@ multiverse.config(function($routeProvider, $locationProvider) {
       redirectTo: '/'
   })
 */
+
+/*
+  if(window.history && window.history.pushState){
+    $locationProvider.html5Mode(true);
+  }
+*/
+
 });
 
 // controller for main page
