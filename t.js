@@ -130,7 +130,7 @@ io.sockets.on('connection', function (socket) {
             var newroom = data.title.slice(2); // remove "r" from beginning
             socket.leave(socket.room);
             socket.join(newroom);
-            if(socket.username != "undefined") { console.log(socket.username);
+            if(socket.username != "undefined") {
               socket.emit('news', { title: 'You are connected to #'+newroom, author: 'Server', time: data.time}); // echo to client they've connected
               socket.room = newroom;
               // sent message to OLD room
@@ -248,6 +248,11 @@ io.sockets.on('connection', function (socket) {
     socket.on('memehelp', function () {
         socket.emit('memehelp');
     });
+
+    socket.on('shortcuthelp', function () {
+        socket.emit('shortcuthelp');
+    });
+
 
     socket.on('last', function () {
         if(conf.db.usesDb === true) {
