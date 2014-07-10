@@ -42,7 +42,7 @@ function getAvatar(name){
         var avatar = "marisjonovs.jpg";
         break;
 
-        case "4t4y4u"
+        case "4t4y4u":
         var avatar = "4t4y4u.jpg";
         break;
 
