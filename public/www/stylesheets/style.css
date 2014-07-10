@@ -115,6 +115,7 @@ max-width: 490px;
 }
 #jetzt {
   margin-bottom: 20px;
+  position: relative;
 }
 canvas#meme {
   -webkit-transition: 1s;
@@ -183,13 +184,19 @@ code, kbd, pre, samp {
   font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
 }
 
-
 #preview {
-  bottom: 109px;
-  opacity: 0.8;
-  width: 200px;
-  margin-left: 130px;
-  margin-right: auto;
+  opacity: 0.90;
+  filter: alpha(opacity=80); 
   position: absolute;
-  margin-top: -30px;
+  bottom: 85px;
+  width: 95%;
+}
+
+#previewTop {
+  margin-top: -29px;
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  color: #fff;
+  font-size: 90%;
 }

@@ -1,17 +1,20 @@
-<div id="jetzt" class="message">
-    <img src="images/users/drm.jpg" class="avatar">
-    <form method="post" id="jetztChat" autocomplete="off" ng-submit="chatter()" ng-controller="sendout" novalidate >
-        <img ng-show="showPreview" src="{{previewImage}}" title="{{previewName}}" class="full" id="preview">
-        <input type="text" id="chaut" class="typeahead" name="chaut" ng-model="chat.chaut" autofocus="autofocus" placeholder="Select your username" ng-change="onTextInput()">
-        <div>
-        </div>
-    <!--</form>-->
+<div id="jetzt" class="message" ng-controller="sendout">
+  <div ng-show="showPreview" id="preview">
+    <div id="previewTop">Preview</div>
+    <img src="{{previewImage}}" title="{{previewName}}" class="full">
+  </div>
+  <img src="images/users/drm.jpg" class="avatar">
+  <form method="post" id="jetztChat" autocomplete="off" ng-submit="chatter()" novalidate >
+    <input type="text" id="chaut" class="typeahead" name="chaut" ng-model="chat.chaut" autofocus="autofocus" placeholder="Select your username" ng-change="onTextInput()">
     <div id="requestNotifications" style="height: 50px; text-align: center;"><br /><input type="button" onclick="requestNotifications()" value ="Enable desktop notifications"></div>
   </form>
 </div>
-
         <script>
-/*          $(document).ready(function() {
+/*
+  This was a failed attempt to start using Typehead
+
+
+       $(document).ready(function() {
             var substringMatcher = function(strs) {
               return function findMatches(q, cb) {
                 var matches, substringRegex;
