@@ -19,7 +19,7 @@ if (os.hostname() === "α") {
 }
 
 
-ArticleProvider = function(host, port) {
+ArticleProvider = function(host, port) { 
   if(conf.db.dbName) {
     this.db= new Db(conf.db.dbName, new Server(host, port, {auto_reconnect: true}, {}));
     this.db.open(function(err, db) {

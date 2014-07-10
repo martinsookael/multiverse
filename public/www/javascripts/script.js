@@ -508,12 +508,6 @@ multiverse.controller('one', function($scope, $route, $routeParams, $location) {
     return;
   }
 
-  if($location.$$path === "/") {
-    $scope.isFront = true;
-  } else {
-    $scope.isFront = false;
-  }
-
 });
 
 

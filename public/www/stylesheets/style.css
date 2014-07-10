@@ -173,3 +173,7 @@ canvas#meme {
 :-ms-input-placeholder {
    color: #06c;
 }
+
+code, kbd, pre, samp {
+  font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
+}
