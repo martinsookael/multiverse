@@ -194,7 +194,7 @@ $(document).ready(function() {
         writer(data);
     });
 
-    socket.on('last', function (data) { 
+    socket.on('last', function (data) {
         serialWriter(data);
     });
 
@@ -229,7 +229,9 @@ $(document).ready(function() {
         if(data.writing === true) {
             if(data.user !== sessionStorage.mv_username) {
                 $("#isWriting").remove();
-                $("#jetzt").before('<span id="isWriting" class="gray small">'+data.user+' is writing</span>');
+                if (data.user != false) {
+                  $("#jetzt").before('<span id="isWriting" class="gray small">'+data.user+' is writing</span>');
+                }
             }
         }
         else {
