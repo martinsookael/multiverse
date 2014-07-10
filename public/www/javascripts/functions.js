@@ -80,7 +80,7 @@ function logInIfUser(changeRoom) {
   if (sessionStorage.mv_username != undefined) {
     document.getElementById("chaut").removeAttribute("placeholder");
     //cl(localStorage.room);
-    if(changeRoom === "true") { cl("siiiiiin");
+    if(changeRoom === "true") { 
       if(localStorage.room === 'undefined') {
         socket.emit('room', { title: "r multiverse" });
       }

@@ -464,16 +464,10 @@ $(document).keydown(function(e){
 
 
 
-
-
-
 var multiverse = angular.module('multiverse', ['ngRoute']);
-
-//angular.module('project', ['ngRoute', 'firebase'])
 
 // Routes
 multiverse.config(function($routeProvider, $locationProvider) {
-  $locationProvider.html5Mode(false);
   $routeProvider
 
   // route for the home page
@@ -497,11 +491,7 @@ multiverse.config(function($routeProvider, $locationProvider) {
   })
 */
 
-
-  if(window.history && window.history.pushState){
-    $locationProvider.html5Mode(true);
-  }
-
+  $locationProvider.html5Mode(false);
 
 });
 
@@ -509,7 +499,7 @@ multiverse.config(function($routeProvider, $locationProvider) {
 multiverse.controller('one', function($scope, $route, $routeParams, $location) {
 
   // This helps people on front page to go to a room
-  $scope.roomer = function(htmlForm) { cl($scope);
+  $scope.roomer = function(htmlForm) {
     var room = $scope.roomer.number;
     room = String(room);
     var goToRoom = "/r/"+room;
@@ -518,13 +508,13 @@ multiverse.controller('one', function($scope, $route, $routeParams, $location) {
     return;
   }
 
+  if($location.$$path === "/") {
+    $scope.isFront = true;
+  } else {
+    $scope.isFront = false;
+  }
+
 });
-/*
-multiverse.controller('room', function($scope) {
-
-}); */
-
-
 
 
 // controller for input
@@ -611,16 +601,6 @@ multiverse.run(function($rootScope, $templateCache) {
    });
 });
 
-/*
-multiverse.directive('main', ['$timeout', function ($timeout) {
-    return {
-        restrict: 'A',
-        scope: false,
-        templateUrl: 'pages/main.html',
-    }
-}]);
-*/
-
 multiverse.directive('lastposts', function() {
     return function($scope, $element, $attrs, $location) {
         $scope.$watch('room', function(value){
@@ -628,14 +608,3 @@ multiverse.directive('lastposts', function() {
         });
     }
 });
-
-
-
-
-
-/*
-socket.on('reload', function (data) {
-    console.log("REEEEEFRESH");
-    window.location = ("");
-});
-*/
