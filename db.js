@@ -19,7 +19,7 @@ if (os.hostname() === "α") {
 }
 
 
-ArticleProvider = function(host, port) { 
+ArticleProvider = function(host, port) {
   if(conf.db.dbName) {
     this.db= new Db(conf.db.dbName, new Server(host, port, {auto_reconnect: true}, {}));
     this.db.open(function(err, db) {
@@ -45,7 +45,7 @@ ArticleProvider.prototype.getCollection= function(callback) {
 ArticleProvider.prototype.findLast = function(room, callback) {
     this.getCollection(function(error, article_collection) {
       if( error ) callback(error)
-      else {
+      else { console.log("yo");
         article_collection.find({ room: { $in: [room] }}).sort({$natural:-1}).limit(7).toArray(function(error, results) {
             if( error ) callback(error)
           else callback(null, results.reverse())

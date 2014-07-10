@@ -502,8 +502,8 @@ multiverse.controller('one', function($scope, $route, $routeParams, $location) {
   $scope.roomer = function(htmlForm) {
     var room = $scope.roomer.number;
     room = String(room);
-    var goToRoom = "http://www.multiverse.im/#/r/"+room;
-    //var goToRoom = "http://localhost:3001/#/r/"+room;
+    //var goToRoom = "http://www.multiverse.im/#/r/"+room;
+    var goToRoom = "http://localhost:3001/#/r/"+room;
     //$scope.$apply( $location.path( goToRoom ) );
     //$location.path( goToRoom );
     window.location.href = goToRoom;
@@ -552,13 +552,20 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
 
 
 // controller for #/r/*****
-multiverse.controller('room', function($scope, $route, $routeParams, $location) {
+multiverse.controller('room', function($scope, $route, $routeParams, $location, $http) {
 
-    $scope.room = $routeParams.room;
-    var room = $scope.room
-    localStorage.room = room;
+    //$scope.room = $routeParams.room;
+    //var room = $scope.room
+    //localStorage.room = room;
 
-    //logInIfUser(true);
+
+    var room = $routeParams.room;
+
+
+    $http({method: 'GET', url: '/api/last/'+room}).success(function(data) {
+      $scope.lastposts = data;
+    });
+
 
 });
 
