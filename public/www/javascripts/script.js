@@ -558,10 +558,11 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
 // controller for #/r/*****
 multiverse.controller('room', function($scope, $route, $routeParams, $location, $http) {
 
-    $scope.room = $routeParams.room;
-    var room = $scope.room
-    localStorage.room = room;
-
+    if(document.readyState == 'complete') {
+      $scope.room = $routeParams.room;
+      var room = $scope.room
+      localStorage.room = room;
+    }
 /*
     var room = $routeParams.room;
 
