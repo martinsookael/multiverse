@@ -502,9 +502,10 @@ multiverse.controller('one', function($scope, $route, $routeParams, $location) {
   $scope.roomer = function(htmlForm) {
     var room = $scope.roomer.number;
     room = String(room);
-    var goToRoom = "/r/"+room;
-    $scope.$apply( $location.path( goToRoom ) );
+    var goToRoom = "http://www.multiverse.im/#/r/"+room;
+    //$scope.$apply( $location.path( goToRoom ) );
     //$location.path( goToRoom );
+    window.location = goToRoom;
     return;
   }
 
