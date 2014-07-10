@@ -510,7 +510,7 @@ multiverse.controller('one', function($scope, $route, $routeParams, $location) {
 
     //window.location.href = goToRoom;
     $location.path( goToRoom );
-    $route.reload();
+    //$route.reload();
     return;
   }
 
@@ -558,18 +558,17 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
 // controller for #/r/*****
 multiverse.controller('room', function($scope, $route, $routeParams, $location, $http) {
 
-    //$scope.room = $routeParams.room;
-    //var room = $scope.room
-    //localStorage.room = room;
+    $scope.room = $routeParams.room;
+    var room = $scope.room
+    localStorage.room = room;
 
-
+/*
     var room = $routeParams.room;
-
 
     $http({method: 'GET', url: '/api/last/'+room}).success(function(data) {
       $scope.lastposts = data;
     });
-
+*/
 
 });
 
@@ -591,9 +590,9 @@ multiverse.controller('posts', function($scope, $route, $routeParams, $location,
       var avatar = getAvatar(data.author);
       $scope.avatar = avatar;
       $scope.post = data;
-      if(data) {
+/*      if(data) {
         memeIt(data);
-      }
+      } */
     });
 
     $http({method: 'GET', url: '/api/last/'+last}).success(function(data) {

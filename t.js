@@ -148,7 +148,7 @@ io.sockets.on('connection', function (socket) {
 
     function printLast() {
         var room = socket.room;
-        articleProvider.findLast(room, function(error,docs){ cl("siin");
+        articleProvider.findLast(room, function(error,docs){
             socket.emit('last', docs);
         })
     }
@@ -201,9 +201,9 @@ io.sockets.on('connection', function (socket) {
     });
 
     socket.on('tell', function(data) { //cl(data);
-        cl(data);
+        //cl(data);
         var recipient = getUserName(data.title);
-        cl (recipient.username + recipient.message );
+        //cl (recipient.username + recipient.message );
 
         var userroom = findUserRoom(recipient.username);
         io.sockets.in(userroom).emit('tell', { title: recipient.message, author: data.author, time: data.time, city: data.city, nid: data.nid, room: data.room, recipient: recipient.username });
@@ -262,7 +262,7 @@ io.sockets.on('connection', function (socket) {
 
     });
 
-    socket.on('adduser', function(data){ console.log(data);
+    socket.on('adduser', function(data){
 
         socket.username = data.username; // store the username in the socket session for this client
 
