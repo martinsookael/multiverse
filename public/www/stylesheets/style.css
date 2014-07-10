@@ -155,7 +155,12 @@ canvas#meme {
   #smallFork {
     display: inline;
   }
+  #angellist {
+    display: none;
+  }
+
 }
+
 
 
 ::-webkit-input-placeholder {
