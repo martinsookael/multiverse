@@ -515,25 +515,28 @@ function memeIt(data) {
     //$("#jetzt").before("<div class='message'><p><canvas id='meme' class='full'></canvas></p></div>");
 
     var canvas = document.getElementById(memeId);
-    var context = canvas.getContext('2d');
+    if(canvas != 0) {
+      var context = canvas.getContext('2d');
 
-    var imageObj = new Image();
+      var imageObj = new Image();
 
-    imageObj.onload = function() {
-        var memeWidth = this.width;
-        var memeHeight = this.height;
-        canvas.width  = memeWidth;
-        canvas.height = memeHeight;
-        //context.drawImage(imageObj, 0, 0, memeWidth, memeHeight);
-        context.drawImage(imageObj, 0, 0);
-        drawText(message1, message2, data.name); // <----
-        var img    = canvas.toDataURL("image/png");
-        //$("#jetzt").before('<div class="message"><img src="images/drm.jpg" class="avatar" /><div class="time">'+data.time+'</div><p class="name"><strong>'+data.author+'</strong></p><p><img class="full" src="'+img+'" /></p></div>');
-        //window.scroll();
-        //setTimeout( scroll(), 1000 );
+      imageObj.onload = function() {
+          var memeWidth = this.width;
+          var memeHeight = this.height;
+          canvas.width  = memeWidth;
+          canvas.height = memeHeight;
+          //context.drawImage(imageObj, 0, 0, memeWidth, memeHeight);
+          context.drawImage(imageObj, 0, 0);
+          drawText(message1, message2, data.name); // <----
+          var img    = canvas.toDataURL("image/png");
+          //$("#jetzt").before('<div class="message"><img src="images/drm.jpg" class="avatar" /><div class="time">'+data.time+'</div><p class="name"><strong>'+data.author+'</strong></p><p><img class="full" src="'+img+'" /></p></div>');
+          //window.scroll();
+          //setTimeout( scroll(), 1000 );
 
 
-    };
+      };
+    }
+    
     imageObj.src = "images/meme/"+memeImg;
 
     function drawText( message1, message2, username ){
