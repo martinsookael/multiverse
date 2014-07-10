@@ -554,27 +554,45 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
       analyzeEntry($scope, $location, message, username);
 
       $scope.chat = "";
+      $scope.showPreview = false;
     }
 
     $scope.onTextInput = function(){
       var message = $scope.chat.chaut;
       var chunks = message.split(" ");
-      var memeToShow = null;
-      //only if we have two bits
+      //var memeToShow = null;
+      //var sh = window.shortcuts;
+
+      // Show preview for shortcuts
+      if(chunks.length == 1){
+        var needle = chunks[0];
+        if(needle in window.shortcuts) {
+          var scSuggestion = shortcuts[needle];
+          if(scSuggestion.img){ // some shortcuts don't have images
+            $scope.showPreview = true;
+            $scope.previewImage = "images/shortcuts/" + scSuggestion.img;
+            $scope.previewName = scSuggestion.img; // couldn't figure out how to get the key #rookie
+          }
+          return; //exit early
+        }
+      }
+
+      //only if we have two bits = it might be a meme
       if(chunks.length == 2){
         var needle = chunks[1];
         var found = window.memes.filter(function(item) { return item.name == needle; });
         if(found.length >= 1){
+          $scope.showPreview = true;
           var memeSuggestion = found[0];
-          angular.element('#preview').show();
-          $scope.memeImage = "images/meme/" + memeSuggestion.img;
-          $scope.memeName = memeSuggestion.name;
+          $scope.previewImage = "images/meme/" + memeSuggestion.img;
+          $scope.previewName = memeSuggestion.name;
           return; //exit early
         }
       }
       //needs a better blank
-      angular.element('#preview').hide();
-      $scope.memeImage = "blank";
+      //$scope.previewImage = "blank";
+      $scope.showPreview = false;
+
     }
 
 });

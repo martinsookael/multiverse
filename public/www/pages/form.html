@@ -1,7 +1,7 @@
 <div id="jetzt" class="message">
     <img src="images/users/drm.jpg" class="avatar">
     <form method="post" id="jetztChat" autocomplete="off" ng-submit="chatter()" ng-controller="sendout" novalidate >
-        <img src="{{memeImage}}" title="{{memeName}}" class="full" id="preview">
+        <img ng-show="showPreview" src="{{previewImage}}" title="{{previewName}}" class="full" id="preview">
         <input type="text" id="chaut" class="typeahead" name="chaut" ng-model="chat.chaut" autofocus="autofocus" placeholder="Select your username" ng-change="onTextInput()">
         <div>
         </div>
