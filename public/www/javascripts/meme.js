@@ -515,7 +515,7 @@ function memeIt(data) {
     //$("#jetzt").before("<div class='message'><p><canvas id='meme' class='full'></canvas></p></div>");
 
     var canvas = document.getElementById(memeId);
-    if(canvas != 0) {
+    if(canvas.getContext('2d') != null) {
       var context = canvas.getContext('2d');
 
       var imageObj = new Image();
@@ -536,7 +536,7 @@ function memeIt(data) {
 
       };
     }
-    
+
     imageObj.src = "images/meme/"+memeImg;
 
     function drawText( message1, message2, username ){
