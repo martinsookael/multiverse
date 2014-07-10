@@ -182,3 +182,15 @@ canvas#meme {
 code, kbd, pre, samp {
   font-family: Menlo,Monaco,Consolas,"Courier New",monospace;
 }
+
+
+#preview {
+  bottom: 109px;
+  opacity: 0.8;
+  width: 200px;
+  margin-left: 130px;
+  margin-right: auto;
+  position: absolute;
+  margin-top: -30px;
+  display: none;
+}

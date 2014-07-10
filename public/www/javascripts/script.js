@@ -529,7 +529,7 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
     }
 
     localStorage.room = $routeParams.room;
-    
+
     $scope.memeImage = "blank";
     $scope.memeName = "blank";
 
@@ -566,12 +566,14 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
         var found = window.memes.filter(function(item) { return item.name == needle; });
         if(found.length >= 1){
           var memeSuggestion = found[0];
+          angular.element('#preview').show();
           $scope.memeImage = "images/meme/" + memeSuggestion.img;
           $scope.memeName = memeSuggestion.name;
           return; //exit early
         }
       }
       //needs a better blank
+      angular.element('#preview').hide();
       $scope.memeImage = "blank";
     }
 
