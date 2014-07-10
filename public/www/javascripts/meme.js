@@ -536,9 +536,11 @@ function memeIt(data) {
 
 
       };
-    }
 
     imageObj.src = "images/meme/"+memeImg;
+
+  }
+
 
     function drawText( message1, message2, username ){
         message1 = message1.toUpperCase();
