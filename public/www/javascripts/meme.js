@@ -516,7 +516,7 @@ function memeIt(data) {
 
     var canvas = document.getElementById(memeId);
     cl(canvas);
-    if(canvas.getContext('2d') != null) {
+    if(canvas != null) {
       var context = canvas.getContext('2d');
 
       var imageObj = new Image();
