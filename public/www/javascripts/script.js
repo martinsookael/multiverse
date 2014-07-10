@@ -194,9 +194,8 @@ $(document).ready(function() {
         writer(data);
     });
 
-    socket.on('last', function (data) {
+    socket.on('last', function (data) { cl("siiin"); cl(data);
         serialWriter(data);
-
     });
 
     socket.on('logout', function () {
@@ -593,7 +592,7 @@ multiverse.controller('posts', function($scope, $route, $routeParams, $location,
       $scope.post = data;
       if(data) {
         memeIt(data);
-      } 
+      }
     });
 
     $http({method: 'GET', url: '/api/last/'+last}).success(function(data) {
