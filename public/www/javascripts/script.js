@@ -529,6 +529,9 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
     }
 
     localStorage.room = $routeParams.room;
+    
+    $scope.memeImage = "blank";
+    $scope.memeName = "blank";
 
     $scope.chatter = function(htmlForm) {
 
@@ -551,6 +554,25 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
       analyzeEntry($scope, $location, message, username);
 
       $scope.chat = "";
+    }
+
+    $scope.onTextInput = function(){
+      var message = $scope.chat.chaut;
+      var chunks = message.split(" ");
+      var memeToShow = null;
+      //only if we have two bits
+      if(chunks.length == 2){
+        var needle = chunks[1];
+        var found = window.memes.filter(function(item) { return item.name == needle; });
+        if(found.length >= 1){
+          var memeSuggestion = found[0];
+          $scope.memeImage = "images/meme/" + memeSuggestion.img;
+          $scope.memeName = memeSuggestion.name;
+          return; //exit early
+        }
+      }
+      //needs a better blank
+      $scope.memeImage = "blank";
     }
 
 });
