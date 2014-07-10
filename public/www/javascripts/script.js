@@ -229,7 +229,7 @@ $(document).ready(function() {
         if(data.writing === true) {
             if(data.user !== sessionStorage.mv_username) {
                 $("#isWriting").remove();
-                if (data.user != false) {
+                if (data.user != "false") {
                   $("#jetzt").before('<span id="isWriting" class="gray small">'+data.user+' is writing</span>');
                 }
             }
