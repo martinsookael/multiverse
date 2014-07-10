@@ -186,7 +186,7 @@ $(document).ready(function() {
         printMemeHelp();
     });
 
-    socket.on('shortcuthelp', function (data) { cl("jou");
+    socket.on('shortcuthelp', function (data) {
         printShortcuts();
     });
 
@@ -194,7 +194,7 @@ $(document).ready(function() {
         writer(data);
     });
 
-    socket.on('last', function (data) { cl(data);
+    socket.on('last', function (data) { 
         serialWriter(data);
     });
 
