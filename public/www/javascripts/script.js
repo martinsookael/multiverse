@@ -503,9 +503,10 @@ multiverse.controller('one', function($scope, $route, $routeParams, $location) {
     var room = $scope.roomer.number;
     room = String(room);
     var goToRoom = "http://www.multiverse.im/#/r/"+room;
+    //var goToRoom = "http://localhost:3001/#/r/"+room;
     //$scope.$apply( $location.path( goToRoom ) );
     //$location.path( goToRoom );
-    window.location = goToRoom;
+    window.location.href = goToRoom;
     return;
   }
 

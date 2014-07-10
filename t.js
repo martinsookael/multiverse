@@ -165,7 +165,7 @@ io.sockets.on('connection', function (socket) {
         // send it to all
         io.sockets.in(data.room).emit('news', { title: data.text, author: data.author, time: data.time, city: data.city, nid: data.nid, room: data.room });
         // write it to db
-        if(conf.db.usesDb === true) {
+        if(conf.db.usesDb === true) { 
             saveToDb(data.text, data.author, data.time, data.room, data.city, data.nid);
         }
         pingBack(data.nid);
