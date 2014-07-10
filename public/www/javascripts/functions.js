@@ -42,6 +42,10 @@ function getAvatar(name){
         var avatar = "marisjonovs.jpg";
         break;
 
+        case "4t4y4u"
+        var avatar = "4t4y4u.jpg";
+        break;
+
         default:
         var avatar = "drm.jpg";
         break;
@@ -80,7 +84,7 @@ function logInIfUser(changeRoom) {
   if (sessionStorage.mv_username != undefined) {
     document.getElementById("chaut").removeAttribute("placeholder");
     //cl(localStorage.room);
-    if(changeRoom === "true") { 
+    if(changeRoom === "true") {
       if(localStorage.room === 'undefined') {
         socket.emit('room', { title: "r multiverse" });
       }
