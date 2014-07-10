@@ -503,8 +503,8 @@ multiverse.controller('one', function($scope, $route, $routeParams, $location) {
     var room = $scope.roomer.number;
     room = String(room);
     var goToRoom = "/r/"+room;
-    //$scope.$apply( $location.path( goToRoom ) );
-    $location.path( goToRoom );
+    $scope.$apply( $location.path( goToRoom ) );
+    //$location.path( goToRoom );
     return;
   }
 
