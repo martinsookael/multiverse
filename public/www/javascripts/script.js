@@ -194,7 +194,7 @@ $(document).ready(function() {
         writer(data);
     });
 
-    socket.on('last', function (data) { cl("siiin"); cl(data);
+    socket.on('last', function (data) {
         serialWriter(data);
     });
 
@@ -367,7 +367,7 @@ $(document).ready(function() {
                       // hardcode often?
                       paint(data[i], true);
                   } // it's a meme!
-                  else {
+                  else { 
                       memeIt(data[i]);
                   }
               }

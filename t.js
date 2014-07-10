@@ -149,6 +149,7 @@ io.sockets.on('connection', function (socket) {
     function printLast() {
         var room = socket.room;
         articleProvider.findLast(room, function(error,docs){
+          cl(docs);
             socket.emit('last', docs);
         })
     }
