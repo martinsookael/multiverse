@@ -279,7 +279,7 @@ $(document).ready(function() {
         $("#jetzt").before('<div class="message announce"><p>'+message+'</p>');
     }
 
-    function paint(data, quiet) { cl()
+    function paint(data, quiet) {
         title = data.title || ''; author = data.author || ''; time = data.time || ''; city = data.city || ''; nid = data.nid || '';
         var avatar = getAvatar(author);
 
@@ -340,7 +340,7 @@ $(document).ready(function() {
       $.each(memes, function(key, value) {
         var s = value.img;
         s = s.substring(0, s.lastIndexOf("."));
-        announcer("<img class='memeThumb' src='images/meme_thumb/"+s+".jpg' /><strong>"+value.name+"</strong> "+value.desc+"  ");
+        announcer("<img class='memeThumb' style='margin-top: 2px;' src='images/meme_thumb_2/"+s+".jpg' /><strong>"+value.name+"</strong> "+value.desc+"  ");
         //cl(value);
       });
       scroll();
