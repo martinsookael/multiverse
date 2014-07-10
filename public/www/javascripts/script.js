@@ -587,7 +587,9 @@ multiverse.controller('posts', function($scope, $route, $routeParams, $location,
       var avatar = getAvatar(data.author);
       $scope.avatar = avatar;
       $scope.post = data;
-      memeIt(data);
+      if(data) {
+        memeIt(data);
+      }
     });
 
     $http({method: 'GET', url: '/api/last/'+last}).success(function(data) {
