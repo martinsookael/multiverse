@@ -17,6 +17,7 @@
     "angular-route": "1.2.14",
     "socket.io-client": "0.9.16",
     "jquery": "1.10.0",
-    "bootstrap": "3.2.0"
+    "bootstrap": "3.2.0",
+    "headjs": "~1.0.3"
   }
 }
