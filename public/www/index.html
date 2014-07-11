@@ -56,9 +56,9 @@
         fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));</script>
       <div id="top">
-        <img src="images/mv.gif" style="width: 24px; height: auto; margin-top: -4px; margin-left: 10px; float: left;" />
-        αlpha
-        <div id="social" style="float: right; margin: -2px 20px 0 10px;">
+        <img src="images/mv.gif" style="width: 24px; height: auto; margin-top: -2px; margin-left: 10px; float: left;" />
+        multiverse αlpha
+        <div id="social" ng-hide="iframe" style="float: right; margin: -2px 20px 0 10px;">
           <div id="facebook" style="float: right;">
             <div class="fb-like" data-href="https://www.facebook.com/multiverse.im" data-layout="button_count" data-action="like" data-show-faces="false" data-share="false"></div>
           </div>
@@ -71,7 +71,7 @@
           </div>
       </div>
       <a href="http://github.com/martinsookael/multiverse">
-        <img src="images/forkme.png" style="z-index: 1; right: 0; position: absolute; top: 27px;" />
+        <img ng-hide="iframe" src="images/forkme.png" style="z-index: 1; right: 0; position: absolute; top: 27px;" />
       </a>
       <div id="window">
         <div ng-controller="one">

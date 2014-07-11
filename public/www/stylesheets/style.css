@@ -132,7 +132,7 @@ canvas#meme {
   margin-right: 15px;
   margin-bottom: -5px;
 }
-
+/*
 #bigFork {
     display: inline;
 }
@@ -140,7 +140,7 @@ canvas#meme {
 #smallFork {
     display: none;
 }
-
+*/
 #roomName {
     position:fixed; top: 0; height: 40px; background: #000; color: #fff; font-size: 20pt; padding-left: 20px; padding-top: 15px; width: 100%; max-width: 550px; display: none; z-index: 10;
 }
@@ -150,16 +150,9 @@ canvas#meme {
 }
 
 @media all and (max-width:400px) {
-  #bigFork {
-    display: none;
-  }
-  #smallFork {
-    display: inline;
-  }
   #angellist {
     display: none;
   }
-
 }
 
 
@@ -186,7 +179,7 @@ code, kbd, pre, samp {
 
 #preview {
   opacity: 0.90;
-  filter: alpha(opacity=80); 
+  filter: alpha(opacity=80);
   position: absolute;
   bottom: 85px;
   width: 95%;
