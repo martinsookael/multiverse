@@ -3,7 +3,7 @@ module.exports = {
       port: 3001
     }
   , db: {
-        usesDb: true // true - uses db, false - uses not.
+        usesDb: false // true - uses db, false - uses not.
       , host: process.env.HOST // notice the missing "http://"
       , port: process.env.DBPORT
       , dbName: process.env.DB

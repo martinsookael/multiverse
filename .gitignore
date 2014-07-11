@@ -2,7 +2,6 @@
 npm-debug.log
 
 # Don't get the conf files:
-conf.js
 
 # Don't get the phonegap files:
 public/.cordova
@@ -13,4 +12,3 @@ public/www/config.xml
 public/www/icon.png
 
 # Don't get heroku files:
-
