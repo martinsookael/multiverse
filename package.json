@@ -3,8 +3,7 @@
   "version": "0.1.79",
   "private": true,
   "scripts": {
-    "start": "node t.js",
-    "postinstall": "./node_modules/bower/bin/bower install"
+    "start": "node t.js"
   },
   "dependencies": {
     "express": "3.2.5",
