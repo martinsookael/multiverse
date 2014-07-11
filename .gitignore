@@ -12,5 +12,6 @@ public/merges
 public/www/config.xml
 public/www/icon.png
 public/www/bower_components
+node_modules
 
 # Don't get heroku files:
