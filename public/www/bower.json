@@ -1,0 +1,22 @@
+{
+  "name": "Multiverse frontend",
+  "version": "0.0.1",
+  "homepage": "https://github.com/enzuguri/multiverse",
+  "authors": [
+    "enzuguri"
+  ],
+  "description": "Chat client",
+  "keywords": [
+    "angular",
+    "socket.io"
+  ],
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "angular": "1.2.16",
+    "angular-route": "1.2.14",
+    "socket.io-client": "0.9.16",
+    "jquery": "1.10.0",
+    "bootstrap": "3.2.0"
+  }
+}
