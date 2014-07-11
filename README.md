@@ -27,6 +27,7 @@ or
 2. git clone git@github.com:451ee/t.git .
 3. sudo npm install
 4. I tend to get "node-gyp rebuild 2> builderror.log" but nevertheless the stuff seams to work
+5. go to conf.js and set "usesDb" to "false" if you don't plan to use database. Also the port can be set from there.
 5. go to yourdomain:3001
 
 
@@ -46,9 +47,13 @@ Either start with:
 
 or edit conf.js with accurate database credidentials.
 
+![A second meme sample](https://raw.github.com/martinsookael/multiverse/master/public/www/images/memeSample2.png)
+
 
 UPDATES
 --------
+
+10th July 2014 - 4m4t3ur cakeday in Reddit. We made a post and got a bunch of awesome feedback.
 
 05th July 2014 - Code now being re-opensourced.
 
