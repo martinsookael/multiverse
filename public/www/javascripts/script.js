@@ -431,18 +431,6 @@ $(document).ready(function() {
         }
         scroll();
     }
-
-/*
-    $(document).keydown(function(e){
-        if (e.keyCode == 40) {
-            cIndex++;
-            var command = $(c).get(cIndex);
-            $("#input").val(command.message);
-            //c.pop();
-            return false;
-        }
-    });
-  */
 });
 
 
@@ -453,15 +441,26 @@ c.push({id:"", message:""});
 var cIndex = 0;
 
 $(document).keydown(function(e){
-    if (e.keyCode == 38) {
-        cIndex--;
-        var command = $(c).get(cIndex);
-        $("#input").val(command.message);
-        //c.pop();
-        return false;
-    }
-});
+  if (e.keyCode == 38) {
+      cIndex--;
+      var command = $(c).get(cIndex);
+      $("#chaut").val(command.message);
+      return false;
+  }
 
+  if (e.keyCode == 40) {
+      cIndex++;
+      var command = $(c).get(cIndex);
+      $("#chaut").val(command.message);
+      return false;
+    }
+    cl(cIndex);
+    cl(c.length);
+  if(cIndex = c.length) { cl("nüüd");
+    cIndex = 0;
+  }
+
+});
 
 
 
