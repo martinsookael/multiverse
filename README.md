@@ -93,10 +93,3 @@ Old mockup still there in in public/mockup.html
 Spring 2013
 Humble beginnings:
 https://github.com/451ee/t
-
-
-WHY?
-----
-+ I think the text based user interface deserves another go.
-+ "Rooms" could be used for group chatting.
-+ I started talking with two friends from a telnet talker I used to visit more than 10 years ago and it felt good to talk with them.
