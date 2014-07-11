@@ -454,11 +454,6 @@ $(document).keydown(function(e){
       $("#chaut").val(command.message);
       return false;
     }
-    cl(cIndex);
-    cl(c.length);
-  if(cIndex = c.length) { cl("nüüd");
-    cIndex = 0;
-  }
 
 });
 
