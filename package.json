@@ -3,14 +3,13 @@
   "version": "0.1.79",
   "private": true,
   "scripts": {
-    "start": "node t.js"
+    "start": "node t.js",
   },
   "dependencies": {
     "express": "3.2.5",
     "jade": "*",
     "socket.io": "0.9.16",
     "stylus": "*",
-    "mongodb": ">= 0.9.6-7",
-    "bower": "1.3.7"
+    "mongodb": ">= 0.9.6-7"
   }
 }
