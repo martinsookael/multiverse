@@ -6,6 +6,8 @@ Multiverse
 
 Command line based open source web chatroom
 
+![A meme sample](https://raw.github.com/martinsookael/multiverse/master/public/www/images/memeSample1.png)
+
 
 WAS IST DAS?
 -------------
