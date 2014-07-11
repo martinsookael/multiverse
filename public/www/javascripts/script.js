@@ -587,7 +587,17 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
       //$scope.previewImage = "blank";
       $scope.showPreview = false;
 
+      // if "re " is typed, make it a reply to the last person u talked
+cl($scope.chat.chaut);
+      if($scope.chat.chaut.match(/re\W/i)) {
+        cl("ja");
+        $scope.chat.chaut = "yolo"
+      }
+
+
     }
+
+
 
 });
 
