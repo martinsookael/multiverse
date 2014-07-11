@@ -28,7 +28,8 @@ or
 3. sudo npm install
 4. I tend to get "node-gyp rebuild 2> builderror.log" but nevertheless the stuff seams to work
 5. go to conf.js and set "usesDb" to "false" if you don't plan to use database. Also the port can be set from there.
-5. go to yourdomain:3001
+6. node t.js
+5. go to yourdomain:3001 or however you configured it.
 
 
 SETUP
