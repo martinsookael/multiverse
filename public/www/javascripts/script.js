@@ -304,6 +304,12 @@ $(document).ready(function() {
         var itsPrivate = name+" privately:";
         notifier(avatar, itsPrivate, message);
         socket.emit('nsa', { nid: data.nid, name: sessionStorage.mv_username, room: data.room });
+
+        //save last private messenger name
+        var scope = angular.element($("#jetzt")).scope();
+        scope.$apply(function(){
+          scope.lastPMAuthor = name;
+        })
       }
     }
 
@@ -583,22 +589,14 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
           return; //exit early
         }
       }
-      //needs a better blank
-      //$scope.previewImage = "blank";
       $scope.showPreview = false;
 
-      // if "re " is typed, make it a reply to the last person u talked
-cl($scope.chat.chaut);
-      if($scope.chat.chaut.match(/re\W/i)) {
-        cl("ja");
-        $scope.chat.chaut = "yolo"
+      // if input is "re ", replace it with "t lastPMAuthor"
+      if ($scope.chat.chaut.length === 3 && $scope.lastPMAuthor != undefined && /re\s$/ig.test($scope.chat.chaut)) {
+        $scope.chat.chaut = "t " + $scope.lastPMAuthor + " ";
       }
 
-
     }
-
-
-
 });
 
 
