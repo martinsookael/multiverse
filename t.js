@@ -148,9 +148,11 @@ io.sockets.on('connection', function (socket) {
 
     function printLast() {
         var room = socket.room;
-        articleProvider.findLast(room, function(error,docs){
-            socket.emit('last', docs);
-        })
+        if(conf.db.usesDb === true) {
+          articleProvider.findLast(room, function(error,docs){
+              socket.emit('last', docs);
+          });
+        }
     }
 
     socket.on('news', function (data, pingBack) {

@@ -4,21 +4,19 @@ Try it out: https://www.multiverse.im
 Multiverse
 ==========
 
-Command line based open source web chatroom
+The most dynamic chat meets the
+world’s fastest meme-generator*
 
 ![A meme sample](https://raw.github.com/martinsookael/multiverse/master/public/www/images/memeSample1.png)
 
+Command line based chat, use commands to bring out gif-s and create memes.
 
-WAS IST DAS?
--------------
+It's currently pretty hackable.
+I'd love to find the equilibrium between hackable and secure.
 
-An idea to combine:
-+ command line (telnet talker) interface
-+ Node.js
-+ HTML5
-
-The big idea is to work on a interface for webapp where all the commands are insterted via keyboard.
-This enables fast creation of functionality without being stuck in the design and user implementation phase.
+Using command line enables fast creation of functionality without being stuck in the design and user implementation phase.
+It's easy - you don't have to use any buttons, you use commands.
+Espesialy good for tiny screens - like mobile for example.
 
 INSTALLATION
 -------------
