@@ -1,8 +1,9 @@
 {
   "name": "Multiverse frontend",
   "version": "0.0.1",
-  "homepage": "https://github.com/enzuguri/multiverse",
+  "homepage": "https://github.com/martinsookael/multiverse",
   "authors": [
+    "martinsookael",
     "enzuguri"
   ],
   "description": "Chat client",
