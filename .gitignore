@@ -14,6 +14,7 @@ public/www/icon.png
 
 # Don't get npm and bower files:
 public/www/bower_components
+public/www/b
 node_modules
 
 # Don't get heroku files:
