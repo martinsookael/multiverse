@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node t.js",
-    "postinstall": "bower install /public/www/bowser.json"
+    "postinstall": "cd public/www/; bower install"
   },
   "dependencies": {
     "express": "3.2.5",
