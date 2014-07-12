@@ -13,7 +13,7 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "angular": "1.2.16",
+    "angular": "1.2.14",
     "angular-route": "1.2.14",
     "socket.io-client": "0.9.16",
     "jquery": "1.10.0",
