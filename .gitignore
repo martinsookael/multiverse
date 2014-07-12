@@ -11,7 +11,12 @@ public/platforms
 public/merges
 public/www/config.xml
 public/www/icon.png
+
+# Don't get npm and bower files:
 public/www/bower_components
 node_modules
 
 # Don't get heroku files:
+
+# Don't get .DS_Store
+.DS_Store
