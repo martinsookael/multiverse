@@ -139,6 +139,7 @@ $(document).ready(function() {
 
     // Sends desktop notifications
     function notifier(avatar, name, message) {
+      var Username = angular.injector(['ng', 'multiverse']).get("User").get();
       if (!("Notification" in window)) {
         cl("this browser does not support notifications");
       } else {
