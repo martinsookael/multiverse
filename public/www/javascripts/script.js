@@ -267,7 +267,7 @@ $(document).ready(function() {
       $.each(memes, function(key, value) {
         var s = value.img;
         s = s.substring(0, s.lastIndexOf("."));
-        announcer("<img class='memeThumb' style='margin-top: 2px;' src='images/meme_thumb_2/"+s+".jpg' /><strong>"+value.name+"</strong> "+value.desc+"  ");
+        announcer("<img class='memeThumb' style='margin-top: 2px; width: 35px; height: 35px;' src='images/meme_thumb_2/"+s+".jpg' /><strong>"+value.name+"</strong> "+value.desc+"  ");
         //cl(value);
       });
       scroll();
