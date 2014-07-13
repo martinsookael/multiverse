@@ -421,19 +421,11 @@ multiverse.config(function($routeProvider, $locationProvider) {
 multiverse.controller('one', function($scope, $route, $routeParams, $location) {
 
   // This helps people on front page to go to a room
-  // sometimes.
   $scope.roomer = function(htmlForm) {
     var room = $scope.roomer.number;
     room = String(room);
     var goToRoom = "/r/"+room;
-    // there's a lot of commented stuff here to remind me of something :)
-    //var goToRoom = "http://www.multiverse.im/#/r/"+room;
-    //var goToRoom = "http://localhost:3001/#/r/"+room;
-    //$scope.$apply( $location.path( goToRoom ) );
-    //$location.path( goToRoom );
-    //window.location.href = goToRoom;
     $location.path( goToRoom );
-    //$route.reload();
     return;
   }
 
