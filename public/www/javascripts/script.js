@@ -565,7 +565,7 @@ multiverse.run(function($rootScope, $templateCache) {
    });
 });
 
-multiverse.factory('Room', ['$rootScope', function ($rootScope) {
+multiverse.factory('Room', function () {
   return new function () {
     if(window['room'] === undefined) {
       room = "one";
@@ -579,4 +579,4 @@ multiverse.factory('Room', ['$rootScope', function ($rootScope) {
       return;
     }
   }
-}]);
+});
