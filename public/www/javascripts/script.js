@@ -1,33 +1,18 @@
 // JavaScript Document
 
-sessionStorage.mv_username = false;
-/*
-if(localStorage.room === undefined) {
-  localStorage.room = "multiverse";
-}
-*/
 
+sessionStorage.mv_username = false;
 
 if(localStorage.sound !== "off") {
   localStorage.sound = "on";
 }
-
-//localStorage.sound = "off";
 
 function requestNotifications() {
   Notification.requestPermission();
   $('#requestNotifications').hide();
 }
 
-
-/*
-*/
-
 $(document).ready(function() {
-
-//$.noConflict();
-
-
 
     // check weather user is writing
     var sentFalse = true;
@@ -46,22 +31,6 @@ $(document).ready(function() {
         }
     }
 
-    // are we online?
-    /*
-    setInterval(checkOnline, 3000);
-    function checkOnline() {
-        if(socket.socket.connected === true) {
-         $("#connected").show();
-         $("#disconnected").hide();
-        }
-        else {
-         $("#connected").hide();
-         $("#disconnected").show();
-        }
-    }
-    */
-
-
     socket.on('reconnect_failed', function () {cl("reconnect failed!");})
 
     socket.on('reconnect_error', function (data) {cl("reconnect error!"+data);})
@@ -72,7 +41,6 @@ $(document).ready(function() {
 	});
 	socket.on("connect", function(){
 		cl("client connected");
-		//if(end){end(ioclient);}
 	});
 	socket.on("connect_failed", function(){
 		cl("client connect_failed");
@@ -88,21 +56,18 @@ $(document).ready(function() {
 	});
 	socket.on('message', function(message){
 		cl(message);
-		//playerName[message.shift()].send(message);
 	});
 	socket.on('disconnect', function(){
 		cl("client disconnected");
 	});
 	socket.on('error', function(err){ // server not started
 		cl("client error\n"+err);
-		//setTimeout(function(){connectClient(url,end);}, 5000);
 	});
 
 
 
 
     /* PROCESS SERVER RESPONSES */
-
     socket.on('getUp', function () {
         $('#jetzt').show();
         $("#input").focus();
@@ -157,19 +122,16 @@ $(document).ready(function() {
     });
 
     socket.on('roomHeader', function (data) {
-        //$("#roomName").show();
         $("#roomId").html("#"+data.room);
         localStorage.room = data.room;
     });
 
     // let know if users have seen the message
     socket.on('nsa', function (data) {
-        //serialWriter(data);
         var thePost = "#"+data.nid;
         var author = $(thePost).find(".name").find("strong").html();
 
         if(sessionStorage.mv_username != data.name && data.name != author && data.name != "false") {
-            //$(thePost).find(".content").append("<span class='gray small'> &#10003;"+data.name+"</div>");
             $(thePost).find(".viewers").find(".tick").show();
             $(thePost).find(".viewers").append("&nbsp;"+data.name+",");
         }
@@ -191,6 +153,7 @@ $(document).ready(function() {
         }
     });
 
+    // Sends desktop notifications
     function notifier(avatar, name, message) {
       if (!("Notification" in window)) {
         cl("this browser does not support notifications");
@@ -210,6 +173,7 @@ $(document).ready(function() {
       }
     }
 
+    // posts news
     function writer(data, quiet) {
         //if(sessionStorage.mv_username != "false") { // hides news from non logged ins
             message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; room = data.room || '';
@@ -231,6 +195,7 @@ $(document).ready(function() {
         $("#jetzt").before('<div class="message announce"><p>'+message+'</p>');
     }
 
+    // Prints shortcuts
     function paint(data, quiet) {
         title = data.title || ''; author = data.author || ''; time = data.time || ''; city = data.city || ''; nid = data.nid || '';
         var avatar = getAvatar(author);
@@ -245,6 +210,7 @@ $(document).ready(function() {
         socket.emit('nsa', { nid: data.nid, name: sessionStorage.mv_username, room: data.room });
     }
 
+    // Prints private messages
     function tell(data) {
       if (data.recipient === sessionStorage.mv_username) {
         message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; room = data.room || '';
@@ -257,7 +223,7 @@ $(document).ready(function() {
         notifier(avatar, itsPrivate, message);
         socket.emit('nsa', { nid: data.nid, name: sessionStorage.mv_username, room: data.room });
 
-        //save last private messenger name
+        //save last private messenger name for "re "
         var scope = angular.element($("#jetzt")).scope();
         scope.$apply(function(){
           scope.lastPMAuthor = name;
@@ -265,6 +231,7 @@ $(document).ready(function() {
       }
     }
 
+    // print private message to sender
     function tell_sent(data) {
       message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; room = data.room || ''; recipient = data.recipient || '';
       message = findLinksAndImages(message); // find links and images
@@ -274,16 +241,16 @@ $(document).ready(function() {
       scrollAndBeep(data);
     }
 
-
+    // Who is online
     function printWho(data){
-        var allUsers = [];
-        $.each(data, function(key, value) {
-            if(allUsers != 'undefined'){
-                //allUsers = key + ', ' + allUsers; // old
-                allUsers = value.name + ', ' + allUsers;
-            }
-        });
-        $("#jetzt").before('<div class="message announce"><div class="time">'+getTime()+'</div><p class="name"><strong>Online users:</strong></p>'+allUsers+'<p></p></div>');
+      var allUsers = [];
+      $.each(data, function(key, value) {
+        if(allUsers != 'undefined'){
+          //allUsers = key + ', ' + allUsers; // old
+          allUsers = value.name + ', ' + allUsers;
+        }
+      });
+      $("#jetzt").before('<div class="message announce"><div class="time">'+getTime()+'</div><p class="name"><strong>Online users:</strong></p>'+allUsers+'<p></p></div>');
     }
 
     function printHelp() {
