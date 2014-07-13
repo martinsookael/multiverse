@@ -1,7 +1,5 @@
 // JavaScript Document
 
-sessionStorage.mv_username = false;
-
 if(localStorage.sound !== "off") {
   localStorage.sound = "on";
 }
@@ -13,56 +11,63 @@ function requestNotifications() {
 
 $(document).ready(function() {
 
+
+
     // check weather user is writing
     var sentFalse = true;
+
     var room = angular.injector(['ng', 'multiverse']).get("Room").get();
-    setInterval(checkTyping, 3000);
+    var Username = angular.injector(['ng', 'multiverse']).get("User").get();
+
+    /*setInterval(checkTyping, 3000);
     function checkTyping(){
-        var isWritten = $("#chaut").val();
-        if(isWritten !== '' ){ // something is written
-            socket.emit('writing', {user: sessionStorage.mv_username, writing: true, room: room});
-            sentFalse = false;
-        }
-        else { // is not written
-            if(sentFalse === false) {  // send it only once
-                socket.emit('writing', {user: sessionStorage.mv_username, writing: false, room: room});
-                sentFalse = true;
-            }
-        }
-    }
+      var Username = angular.injector(['ng', 'multiverse']).get("User").get();
+      var isWritten = $("#chaut").val();
+      if(isWritten !== ''){ // something is written
+        cl("me");
+          socket.emit('writing', {user: Username, writing: true, room: room});
+          sentFalse = false;
+      }
+      else { // is not written
+          if(sentFalse === false) {  // send it only once
+              socket.emit('writing', {user: Username, writing: false, room: room});
+              sentFalse = true;
+          }
+      }
+    }*/
 
     socket.on('reconnect_failed', function () {cl("reconnect failed!");})
 
     socket.on('reconnect_error', function (data) {cl("reconnect error!"+data);})
 
 
-	socket.on("connecting", function(){
-		cl("client connecting");
-	});
-	socket.on("connect", function(){
-		cl("client connected");
-	});
-	socket.on("connect_failed", function(){
-		cl("client connect_failed");
-	});
-	socket.on("reconnecting", function(){
-		cl("client reconnecting");
-	});
-	socket.on("reconnect", function(){
-		cl("client reconnected");
-	});
-	socket.on("reconnect_failed", function(){
-		cl("client reconnect_failed");
-	});
-	socket.on('message', function(message){
-		cl(message);
-	});
-	socket.on('disconnect', function(){
-		cl("client disconnected");
-	});
-	socket.on('error', function(err){ // server not started
-		cl("client error\n"+err);
-	});
+  	socket.on("connecting", function(){
+  		cl("client connecting");
+  	});
+  	socket.on("connect", function(){
+  		cl("client connected");
+  	});
+  	socket.on("connect_failed", function(){
+  		cl("client connect_failed");
+  	});
+  	socket.on("reconnecting", function(){
+  		cl("client reconnecting");
+  	});
+  	socket.on("reconnect", function(){
+  		cl("client reconnected");
+  	});
+  	socket.on("reconnect_failed", function(){
+  		cl("client reconnect_failed");
+  	});
+  	socket.on('message', function(message){
+  		cl(message);
+  	});
+  	socket.on('disconnect', function(){
+  		cl("client disconnected");
+  	});
+  	socket.on('error', function(err){ // server not started
+  		cl("client error\n"+err);
+  	});
 
 
 
@@ -120,18 +125,13 @@ $(document).ready(function() {
         announcer ("You are logged out");
         $("#jetzt").addClass("hidden");
     });
-/*
-    socket.on('roomHeader', function (data) {
-        $("#roomId").html("#"+data.room);
-        localStorage.room = data.room;
-    });
-*/
+
     // let know if users have seen the message
     socket.on('nsa', function (data) {
+        var Username = angular.injector(['ng', 'multiverse']).get("User").get();
         var thePost = "#"+data.nid;
         var author = $(thePost).find(".name").find("strong").html();
-
-        if(sessionStorage.mv_username != data.name && data.name != author && data.name != "false") {
+        if(Username != data.name && data.name != author && data.name != "false") {
             $(thePost).find(".viewers").find(".tick").show();
             $(thePost).find(".viewers").append("&nbsp;"+data.name+",");
         }
@@ -140,10 +140,11 @@ $(document).ready(function() {
 
     // let know if a user is writing
     socket.on('writing', function (data) {
+        var Username = angular.injector(['ng', 'multiverse']).get("User").get();
         if(data.writing === true) {
-            if(data.user !== sessionStorage.mv_username) {
+            if(data.user !== Username) {
                 $("#isWriting").remove();
-                if (data.user != "false") {
+                if (data.user != "false" && data.user != undefined) {
                   $("#jetzt").before('<span id="isWriting" class="gray small">'+data.user+' is writing</span>');
                 }
             }
@@ -159,7 +160,7 @@ $(document).ready(function() {
         cl("this browser does not support notifications");
       } else {
         if (Notification.permission === "granted") {
-          if (name != sessionStorage.mv_username ) {
+          if (name != Username) {
             if (name != "Server" ) {
               var notification = new Notification(name, {icon: "images/users/"+avatar, body: message});
               setTimeout(function(){
@@ -175,18 +176,17 @@ $(document).ready(function() {
 
     // posts news
     function writer(data, quiet) {
-        //if(sessionStorage.mv_username != "false") { // hides news from non logged ins
-            message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; room = data.room || '';
-            message = findLinksAndImages(message); // find links and images
-            var avatar = getAvatar(name);
-            $("#isWriting").remove(); // <a href="#kala" class="nodecoration" style="color: inherit;">
-            $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+nid+'">'+time+'</a></div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+' <a href="#/r/'+room+'" class="gray nodecoration">#'+room+'</a><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div></a>');
-            scrollAndBeep(data);
-            if(quiet != true) {
-              notifier(avatar, name, message);
-            }
-            socket.emit('nsa', { nid: data.nid, name: sessionStorage.mv_username, room: data.room });
-        //}
+      var Username = angular.injector(['ng', 'multiverse']).get("User").get();
+      message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; room = data.room || '';
+      message = findLinksAndImages(message); // find links and images
+      var avatar = getAvatar(name);
+      $("#isWriting").remove(); // <a href="#kala" class="nodecoration" style="color: inherit;">
+      $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+nid+'">'+time+'</a></div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+' <a href="#/r/'+room+'" class="gray nodecoration">#'+room+'</a><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div></a>');
+      scrollAndBeep(data);
+      if(quiet != true) {
+        notifier(avatar, name, message);
+      }
+      socket.emit('nsa', { nid: data.nid, name: Username, room: data.room });
     }
 
     // print announcements
@@ -196,23 +196,25 @@ $(document).ready(function() {
     }
 
     // Prints shortcuts
-    function paint(data, quiet) {
+    function paint(data, quiet) { cl(data);
+        var Username = angular.injector(['ng', 'multiverse']).get("User").get();
+
         title = data.title || ''; author = data.author || ''; time = data.time || ''; city = data.city || ''; nid = data.nid || '';
         var avatar = getAvatar(author);
 
         if(title.indexOf(" ") != -1) title = title.slice(0, title.indexOf(" "));
         $("#isWriting").remove();
-        $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><span class="gray" >'+time+'</span></div><div class="place small">'+city+'</div><p class="name"><strong>'+author+'</strong>&nbsp;&nbsp;<a class="gray nodecoration" href="#/r/'+room+'">#'+room+'</a></p><img class="full" src="images/shortcuts/'+shortcuts[title].img+'" /><span class="viewers"></span></div>');
+        $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><span class="gray" >'+time+'</span></div><div class="place small">'+city+'</div><p class="name"><strong>'+author+'</strong>&nbsp;&nbsp;<a class="gray nodecoration" href="#/r/'+room+'">#'+room+'</a></p><img class="full" src="images/shortcuts/'+shortcuts[title].img+'" /><span class="viewers gray small"></span></div>');
         scrollAndBeep(data);
         if(quiet != true) {
           notifier(avatar, author, title);
         }
-        socket.emit('nsa', { nid: data.nid, name: sessionStorage.mv_username, room: data.room });
+        socket.emit('nsa', { nid: data.nid, name: Username, room: data.room });
     }
 
     // Prints private messages
     function tell(data) {
-      if (data.recipient === sessionStorage.mv_username) {
+      if (data.recipient === Username) {
         message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; room = data.room || '';
         message = findLinksAndImages(message); // find links and images
         var avatar = getAvatar(name);
@@ -221,7 +223,7 @@ $(document).ready(function() {
         scrollAndBeep(data);
         var itsPrivate = name+" privately:";
         notifier(avatar, itsPrivate, message);
-        socket.emit('nsa', { nid: data.nid, name: sessionStorage.mv_username, room: data.room });
+        socket.emit('nsa', { nid: data.nid, name: Username, room: data.room });
 
         //save last private messenger name for "re "
         var scope = angular.element($("#jetzt")).scope();
@@ -347,8 +349,7 @@ $(document).ready(function() {
 
     // scroll and beep on command
     function scrollAndBeep(data) {
-        if (sessionStorage.mv_username != data.author) {
-			//cl (localStorage.sound);
+        if (Username != data.author) {
 			if(localStorage.sound === "on") {
 				document.getElementById('ping1').play();
 			}
@@ -440,7 +441,7 @@ multiverse.controller('one', function($scope, $route, $routeParams, $location) {
 
 
 // controller for input
-multiverse.controller('sendout', function($scope, $route, $routeParams, $location, Room) {
+multiverse.controller('sendout', function($scope, $route, $routeParams, $location, Room, User) {
 
     // hides add desktop notif button
     if ("Notification" in window) {
@@ -459,12 +460,12 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
     $scope.chatter = function(htmlForm) {
 
     // if not a registered user take first input as username
-    if (sessionStorage.mv_username === "false") {
+    if (User.get() == "false") {
       var username = $scope.chat.chaut;
       name = String(username);
       $("#pleaseWait").show();
       socket.emit('adduser', { username: username, time: getTime(), room: room });
-      sessionStorage.mv_username = username; // this can be achieved just with using "name"
+      User.set(username);
       document.getElementById("chaut").removeAttribute("placeholder");
       $scope.chat = "";
       return;
@@ -472,7 +473,7 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
 
       var title = $scope.chat.chaut;
       var message = title;
-      var username = sessionStorage.mv_username;
+      var username = User.get();
 
       analyzeEntry($scope, $location, message, username);
 
@@ -517,6 +518,19 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
       // if input is "re ", replace it with "t lastPMAuthor"
       if ($scope.chat.chaut.length === 3 && $scope.lastPMAuthor != undefined && /re\s$/ig.test($scope.chat.chaut)) {
         $scope.chat.chaut = "t " + $scope.lastPMAuthor + " ";
+      }
+
+      // let other users know somebody is writing
+      if ($scope.chat.chaut.length > 0) {
+        if ($scope.chat.chaut.length <= 2) {
+          socket.emit('writing', {user: User.get(), writing: true, room: room});
+        }
+      }
+
+      // if not writing, remove the "is writing" tag
+      if ($scope.chat.chaut.length === 0) {
+        socket.emit('writing', {user: User.get(), writing: false, room: room});
+        isTyping = 0;
       }
 
     }
@@ -576,6 +590,21 @@ multiverse.factory('Room', function () {
     this.set = function (nr) {
       room = nr;
       socket.emit('room', { title: "r "+ room });
+      return;
+    }
+  }
+});
+
+multiverse.factory('User', function () {
+  return new function () {
+    if(window['user'] === undefined) {
+      user = "false";
+    }
+    this.get = function () {
+      return user;
+    }
+    this.set = function (newUser) {
+      user = newUser;
       return;
     }
   }

@@ -464,6 +464,8 @@ function getMemeName(message) {
 
 function memeIt(data) {
 
+    var Username = angular.injector(['ng', 'multiverse']).get("User");
+
     var rndNumb=Math.floor(Math.random()*1000000)
     var memeId = "meme"+rndNumb;
 
@@ -473,7 +475,7 @@ function memeIt(data) {
     //$("#jetzt").before("<div class='message'><p><canvas id='"+memeId+"' class='full'></canvas></p></div>");
     $("#jetzt").before('<div class="message" id="'+data.nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+data.nid+'">'+data.time+'</a></div><div class="place small">'+data.city+'</div><p class="name"><strong>'+data.author+'</strong>&nbsp;&nbsp;<a class="gray nodecoration" href="#/r/'+data.room+'">#'+data.room+'</a></p><p><canvas id='+memeId+' class="full"></canvas><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div>');
 
-    socket.emit('nsa', { nid: data.nid, name: sessionStorage.mv_username, room: data.room });
+    socket.emit('nsa', { nid: data.nid, name: Username.get(), room: data.room });
 
     var message = data.title;
 
