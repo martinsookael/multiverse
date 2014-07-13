@@ -19,23 +19,6 @@ $(document).ready(function() {
     var room = angular.injector(['ng', 'multiverse']).get("Room").get();
     var Username = angular.injector(['ng', 'multiverse']).get("User").get();
 
-    /*setInterval(checkTyping, 3000);
-    function checkTyping(){
-      var Username = angular.injector(['ng', 'multiverse']).get("User").get();
-      var isWritten = $("#chaut").val();
-      if(isWritten !== ''){ // something is written
-        cl("me");
-          socket.emit('writing', {user: Username, writing: true, room: room});
-          sentFalse = false;
-      }
-      else { // is not written
-          if(sentFalse === false) {  // send it only once
-              socket.emit('writing', {user: Username, writing: false, room: room});
-              sentFalse = true;
-          }
-      }
-    }*/
-
     socket.on('reconnect_failed', function () {cl("reconnect failed!");})
 
     socket.on('reconnect_error', function (data) {cl("reconnect error!"+data);})
