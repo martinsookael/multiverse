@@ -1,6 +1,5 @@
 // JavaScript Document
 
-
 sessionStorage.mv_username = false;
 
 if(localStorage.sound !== "off") {
@@ -16,16 +15,17 @@ $(document).ready(function() {
 
     // check weather user is writing
     var sentFalse = true;
+    var room = angular.injector(['ng', 'multiverse']).get("Room").get();
     setInterval(checkTyping, 3000);
     function checkTyping(){
         var isWritten = $("#chaut").val();
         if(isWritten !== '' ){ // something is written
-            socket.emit('writing', {user: sessionStorage.mv_username, writing: true, room: localStorage.room});
+            socket.emit('writing', {user: sessionStorage.mv_username, writing: true, room: room});
             sentFalse = false;
         }
         else { // is not written
             if(sentFalse === false) {  // send it only once
-                socket.emit('writing', {user: sessionStorage.mv_username, writing: false, room: localStorage.room});
+                socket.emit('writing', {user: sessionStorage.mv_username, writing: false, room: room});
                 sentFalse = true;
             }
         }
@@ -120,12 +120,12 @@ $(document).ready(function() {
         announcer ("You are logged out");
         $("#jetzt").addClass("hidden");
     });
-
+/*
     socket.on('roomHeader', function (data) {
         $("#roomId").html("#"+data.room);
         localStorage.room = data.room;
     });
-
+*/
     // let know if users have seen the message
     socket.on('nsa', function (data) {
         var thePost = "#"+data.nid;
@@ -225,9 +225,11 @@ $(document).ready(function() {
 
         //save last private messenger name for "re "
         var scope = angular.element($("#jetzt")).scope();
-        scope.$apply(function(){
-          scope.lastPMAuthor = name;
-        })
+        $timeout(function() { // timeought ought to help against $apply already in progress.
+          scope.$apply(function(){
+            scope.lastPMAuthor = name;
+          })
+        });
       }
     }
 
@@ -279,9 +281,10 @@ $(document).ready(function() {
       scroll();
     }
 
+    // if there's more news to print - like when user logs in or presses "l"
     function serialWriter(data) {
-        announcer('History for room #' +localStorage.room);
-        //scroll();
+        var room = angular.injector(['ng', 'multiverse']).get("Room").get();
+        announcer('History for room #' + room);
         if(data) {
           for (var i=0;i<data.length;i++) {
               if(data[i].title.indexOf(" ") != -1) var firstWord = data[i].title.slice(0, data[i].title.indexOf(" "));
@@ -383,7 +386,6 @@ $(document).keydown(function(e){
 });
 
 
-
 var multiverse = angular.module('multiverse', ['ngRoute']);
 
 // Routes
@@ -423,8 +425,9 @@ multiverse.controller('one', function($scope, $route, $routeParams, $location) {
   $scope.roomer = function(htmlForm) {
     var room = $scope.roomer.number;
     room = String(room);
-    //var goToRoom = "http://www.multiverse.im/#/r/"+room;
     var goToRoom = "/r/"+room;
+    // there's a lot of commented stuff here to remind me of something :)
+    //var goToRoom = "http://www.multiverse.im/#/r/"+room;
     //var goToRoom = "http://localhost:3001/#/r/"+room;
     //$scope.$apply( $location.path( goToRoom ) );
     //$location.path( goToRoom );
@@ -445,7 +448,7 @@ multiverse.controller('one', function($scope, $route, $routeParams, $location) {
 
 
 // controller for input
-multiverse.controller('sendout', function($scope, $route, $routeParams, $location) {
+multiverse.controller('sendout', function($scope, $route, $routeParams, $location, Room) {
 
     // hides add desktop notif button
     if ("Notification" in window) {
@@ -454,7 +457,9 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
       }
     }
 
-    localStorage.room = $routeParams.room;
+    Room.set($routeParams.room);
+    room = $routeParams.room;
+    //socket.emit('room', { title: "r "+ room });
 
     $scope.memeImage = "blank";
     $scope.memeName = "blank";
@@ -465,8 +470,8 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
     if (sessionStorage.mv_username === "false") {
       var username = $scope.chat.chaut;
       name = String(username);
-      $("#pleaseWait").show(); //console.log(localStorage.room+"aaaa");
-      socket.emit('adduser', { username: username, time: getTime(), room: localStorage.room });
+      $("#pleaseWait").show();
+      socket.emit('adduser', { username: username, time: getTime(), room: room });
       sessionStorage.mv_username = username; // this can be achieved just with using "name"
       document.getElementById("chaut").removeAttribute("placeholder");
       $scope.chat = "";
@@ -527,22 +532,8 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
 
 
 // controller for #/r/*****
-multiverse.controller('room', function($scope, $route, $routeParams, $location, $http) {
-
-    if(document.readyState == 'complete') {
-      $scope.room = $routeParams.room;
-      var room = $scope.room
-      localStorage.room = room;
-    }
-
-/*
-    var room = $routeParams.room;
-
-    $http({method: 'GET', url: '/api/last/'+room}).success(function(data) {
-      $scope.lastposts = data;
-    });
-*/
-
+multiverse.controller('room', function($scope, $route, $routeParams, $location, $http, Room) {
+    //Room.set($routeParams.room);
 });
 
 
@@ -554,11 +545,11 @@ multiverse.controller('posts', function($scope, $route, $routeParams, $location,
     var last = id.substring(id.lastIndexOf("/") + 1, id.length);
     last = String(last);
 
-    socket.emit('room', { title: "r "+ last });
+    //socket.emit('room', { title: "r "+ last });
 
 
     $http({method: 'GET', url: '/api/p/'+last}).success(function(data) {
-      localStorage.room = data.nid;
+      Room.set(data.nid);
       // create avatar if known user
       var avatar = getAvatar(data.author);
       $scope.avatar = avatar;
@@ -582,10 +573,18 @@ multiverse.run(function($rootScope, $templateCache) {
    });
 });
 
-multiverse.directive('lastposts', function() {
-    return function($scope, $element, $attrs, $location) {
-        $scope.$watch('room', function(value){
-          socket.emit('room', { title: "r "+ localStorage.room });
-        });
+multiverse.factory('Room', ['$rootScope', function ($rootScope) {
+  return new function () {
+    if(window['room'] === undefined) {
+      room = "one";
     }
-});
+    this.get = function () {
+      return room;
+    }
+    this.set = function (nr) {
+      room = nr;
+      socket.emit('room', { title: "r "+ room });
+      return;
+    }
+  }
+}]);

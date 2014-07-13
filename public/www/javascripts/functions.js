@@ -84,20 +84,21 @@ function cl(data) {
     console.log(data);
 }
 
+/*
 function logInIfUser(changeRoom) {
+  var Room = angular.injector(['ng', 'multiverse']).get("Room");
   if (sessionStorage.mv_username != undefined) {
     document.getElementById("chaut").removeAttribute("placeholder");
-    //cl(localStorage.room);
     if(changeRoom === "true") {
-      if(localStorage.room === 'undefined') {
-        socket.emit('room', { title: "r multiverse" });
+      if(Room.get() === 'undefined') {
+        socket.emit('room', { title: "r one" });
       }
     }
     announcer2 ("You are logged in as "+sessionStorage.mv_username);
     announcer2 ("write 'h'+enter for help");
   }
 }
-
+*/
 
 
 /*
@@ -135,6 +136,8 @@ function soundOff() {
 
 
 function analyzeEntry($scope, $location, message, username) {
+
+      var Room = angular.injector(['ng', 'multiverse']).get("Room");
 
       var rndNumb=Math.floor(Math.random()*1000000);
       var nid = "p"+rndNumb;
@@ -174,7 +177,7 @@ function analyzeEntry($scope, $location, message, username) {
             if(message === "m" || message === "M") {
                 //announcer2("<strong>Meme it!</strong><strong>type: <br /></strong>m shortcut top caption/bottom caption<br />e.g:<br />m gf i know you're coming back to me/i have all your socks<br /><br />If a shortcut has either top or bottom line in brackets, it's pre­set, but can be changed.<br /><br /><strong>Shortcuts:</strong><br />m fwp<br>m fwp text to top / text to bottom<br>m fwp text to top<br>m fwp / text to bottom<br><br><strong>Available memes:</strong><br /><strong>m fwp</strong> - First World Problem<br><strong>m bru</strong> - bottom text: 'IMPOSSIBRU!!'<br /><strong>m baby</strong> - SuccessBaby<br /><strong>m yuno</strong> - Y U No?<br /><strong>m goodguy</strong> - Good Guy Greg<br /><strong>m man</strong> - Most interesting guy on earth<br /><strong>m simply</strong> - top text: 'One does not simply'<br /><strong>m whatif</strong> - top text: 'What if I told you?'<br /><strong>m scumb</strong> - Scumbag Steve<br /><strong>m scumg</strong> - Scumbag Stacy<br /><strong>m gf</strong> - Overly attached girlfriend<br /><strong>m fuckme</strong> - bottom text: 'Fuck me, right?' <br /><strong>m nobody</strong> - Bottom text: 'Ain&quot;t nobody got time for that'<br /><strong>m fa</strong> - Forever alone <br /><strong>m boat</strong> - I should buy a boat cat <br /><strong>m acc</strong> - top text: 'challegne accepted' <br /><strong>m notbad</strong> - bottom text: 'not bad' <br /><strong>m yoda</strong> - master yoda<br /><strong>m soclose</strong> - so close<br /><strong>m africa</strong> - top text: so you're telling me<br /><strong>m aliens</strong> - bottom text 'aliens'<br /><strong>m brian</strong> - bad luck Brian<br /><strong>m dawg</strong> - yo dawg, i heard...<br /><strong>m high</strong> - bottom text: 'is too damn high'<br /><strong>m isee</strong> - bottom text: i see what you did there<br /><strong>m notsure</strong> - not sure...<br /><strong>m bean</strong> - ...if you know what I meme<br /><strong>m evil</strong> - Dr. Evils one million dollars<br /><strong>m stoned</strong> - the stoned dude<br /><strong>m gusta</strong> - Me gusta<br /><strong>m parrot</strong> - Paranoid parrot<br /><strong>m social</strong> - Socially Awkward Penguin <br /><strong>m say</strong> - You don't say?<br /><strong>m kidding</strong> - Are you fucking kidding me?<br /><strong>m smth</strong> - It's something <br /><strong>m story</strong> - True strory<br /><strong>m yeah</strong> - Aww yeah <br /><strong>m please</strong> - Bitch please <br /><strong>m eyes</strong> - seductive eyes <br /><strong>m fu</strong> - fuck you <br />");
                 //scroll();
-                socket.emit("memehelp", { title: message, author: sessionStorage.mv_username, time: getTime(), city: city, nid: nid, room: localStorage.room });
+                socket.emit("memehelp", { title: message, author: sessionStorage.mv_username, time: getTime(), city: city, nid: nid, room: Room.get() });
             }
 
             else {
@@ -208,12 +211,12 @@ function analyzeEntry($scope, $location, message, username) {
                     var channel = shortcuts[firstWord].channel;
                     if(channel === 'room') {
                       var newroom = message.slice(2);
-                      localStorage.room = newroom;
-                      $scope.$apply( $location.path( "r/"+localStorage.room ) );
-
-
+                      Room.set(newroom);
+                      //$scope.$apply( $location.path( "r/"+newroom, false ) );
+                      return;
                     }
-                    socket.emit(channel, { title: message, author: sessionStorage.mv_username, time: getTime(), city: city, nid:nid, room:localStorage.room });
+
+                    socket.emit(channel, { title: message, author: sessionStorage.mv_username, time: getTime(), city: city, nid:nid, room: Room.get() });
                 }
             }
         } // it's a meme!
@@ -222,12 +225,12 @@ function analyzeEntry($scope, $location, message, username) {
             data.title = message;
             data.author = "Server";
             data.time = getTime();
-            socket.emit("meme", { title: message, author: sessionStorage.mv_username, time: getTime(), city: city, nid: nid, room: localStorage.room });
+            socket.emit("meme", { title: message, author: sessionStorage.mv_username, time: getTime(), city: city, nid: nid, room: Room.get() });
         }
     }
 
     else { // if no shortcut, send it to the wire
-        socket.emit('news', { text: message, author: sessionStorage.mv_username, time: getTime(), city: city, nid: nid, room: localStorage.room}, function(feedBack) {
+        socket.emit('news', { text: message, author: sessionStorage.mv_username, time: getTime(), city: city, nid: nid, room: Room.get()}, function(feedBack) {
             //console.log(feedBack); // fires when server has seen it
         });
     }
