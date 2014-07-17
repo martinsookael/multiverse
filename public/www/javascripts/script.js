@@ -425,7 +425,7 @@ multiverse.controller('one', function($scope, $route, $routeParams, $location) {
 
 
 // controller for input
-multiverse.controller('sendout', function($scope, $route, $routeParams, $location, Room, User) {
+multiverse.controller('sendout', function($scope, $route, $routeParams, $location, Room, User, inputParser) {
 
     // hides add desktop notif button
     if ("Notification" in window) {
@@ -466,53 +466,32 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
     }
 
     $scope.onTextInput = function(){
-      var message = $scope.chat.chaut;
-      var chunks = message.split(" ");
-      //var memeToShow = null;
-      //var sh = window.shortcuts;
+      var message = $scope.chat.chaut,
+          msgLength = message.length,
+          result = inputParser(message);
 
-      // Show preview for shortcuts
-      if(chunks.length == 1){
-        var needle = chunks[0];
-        if(needle in window.shortcuts) {
-          var scSuggestion = shortcuts[needle];
-          if(scSuggestion.img){ // some shortcuts don't have images
-            $scope.showPreview = true;
-            $scope.previewImage = "images/shortcuts/" + scSuggestion.img;
-            $scope.previewName = scSuggestion.img; // couldn't figure out how to get the key #rookie
-          }
-          return; //exit early
-        }
+      if(result.image != null){
+        $scope.showPreview = true;
+        $scope.previewImage = result.image;
+        $scope.previewName = result.name;
+      } else {
+        $scope.showPreview = false;
       }
-
-      //only if we have two bits = it might be a meme
-      if(chunks.length == 2){
-        var needle = chunks[1];
-        var found = window.memes.filter(function(item) { return item.name == needle; });
-        if(found.length >= 1){
-          $scope.showPreview = true;
-          var memeSuggestion = found[0];
-          $scope.previewImage = "images/meme/" + memeSuggestion.img;
-          $scope.previewName = memeSuggestion.name;
-          return; //exit early
-        }
-      }
-      $scope.showPreview = false;
 
       // if input is "re ", replace it with "t lastPMAuthor"
-      if ($scope.chat.chaut.length === 3 && $scope.lastPMAuthor != undefined && /re\s$/ig.test($scope.chat.chaut)) {
+      if (msgLength === 3 && $scope.lastPMAuthor != undefined && /re\s$/ig.test($scope.chat.chaut)) {
         $scope.chat.chaut = "t " + $scope.lastPMAuthor + " ";
       }
 
       // let other users know somebody is writing
-      if ($scope.chat.chaut.length > 0) {
-        if ($scope.chat.chaut.length <= 2) {
+      if (msgLength > 0) {
+        if (msgLength <= 2) {
           socket.emit('writing', {user: User.get(), writing: true, room: room});
         }
       }
 
       // if not writing, remove the "is writing" tag
-      if ($scope.chat.chaut.length === 0) {
+      if (msgLength === 0) {
         socket.emit('writing', {user: User.get(), writing: false, room: room});
         isTyping = 0;
       }
@@ -591,5 +570,58 @@ multiverse.factory('User', function () {
       user = newUser;
       return;
     }
+  }
+});
+
+
+multiverse.factory("inputParser", function(){
+
+  //parses a shortcut from a string
+  function parseShortcut(needle, resultObj){
+    if(needle in window.shortcuts) {
+      var scSuggestion = shortcuts[needle];
+      if(scSuggestion.img){
+        resultObj.image = "images/shortcuts/" + scSuggestion.img;
+        resultObj.name = scSuggestion.img;
+      }
+      return true;
+    }
+    //not a valid shortcut
+    return false;
+  }
+
+  //parses a meme name
+  function parseMeme(needle, resultObj){
+    var found = window.memes.filter(function(item) { return item.name == needle; });
+    if(found.length >= 1){
+      var memeSuggestion = found[0];
+      resultObj.image = "images/meme/" + memeSuggestion.img;
+      resultObj.name = memeSuggestion.name;
+      resultObj.desc = memeSuggestion.desc
+    }
+  }
+
+  return function(text){
+
+    var result = {
+      input: text,
+      image: null,
+      name: null,
+      desc: null
+    };
+
+    var chunks = text.split(" ");
+    if(chunks.length >= 1){
+      // Show preview for shortcuts
+      var needle = chunks[0];
+      //if we parsed and found a shortcut
+      var foundShortcut = parseShortcut(chunks[0], result);
+      if(foundShortcut && chunks.length >= 2){
+        //only if we have two or more bits
+        parseMeme(chunks[1], result);
+      }
+    }
+
+    return result;
   }
 });
