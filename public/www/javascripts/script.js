@@ -346,31 +346,6 @@ $(document).ready(function() {
     }
 });
 
-
-
-// up and down arrows bring up last commands
-var c = new Array;
-c.push({id:"", message:""});
-var cIndex = 0;
-
-$(document).keydown(function(e){
-  if (e.keyCode == 38) {
-      cIndex--;
-      var command = $(c).get(cIndex);
-      $("#chaut").val(command.message);
-      return false;
-  }
-
-  if (e.keyCode == 40) {
-      cIndex++;
-      var command = $(c).get(cIndex);
-      $("#chaut").val(command.message);
-      return false;
-    }
-
-});
-
-
 var multiverse = angular.module('multiverse', ['ngRoute']);
 
 // Routes
@@ -441,6 +416,21 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
     $scope.memeImage = "blank";
     $scope.memeName = "blank";
 
+    var commandHistory = [],
+        cIndex = 0;
+
+    function detectPreview(text){
+      var result = inputParser(text);
+
+      if(result.image != null){
+        $scope.showPreview = true;
+        $scope.previewImage = result.image;
+        $scope.previewName = result.name;
+      } else {
+        $scope.showPreview = false;
+      }
+    }
+
     $scope.chatter = function(htmlForm) {
 
     // if not a registered user take first input as username
@@ -459,24 +449,57 @@ multiverse.controller('sendout', function($scope, $route, $routeParams, $locatio
       var message = title;
       var username = User.get();
 
+      //push the text message and set the index to the end (deliberately +1)
+      commandHistory.push(message);
+      cIndex = commandHistory.length;
+
       analyzeEntry($scope, $location, message, username);
 
-      $scope.chat = "";
+      $scope.chat.chaut = "";
       $scope.showPreview = false;
+    }
+
+    $scope.onKey = function(event){
+      //ensures that only a correct index can be used
+      function restoreCommandIndex(index){
+        if(index >= 0){
+          var maxLength = commandHistory.length;
+          if(index >= maxLength){
+            $scope.chat.chaut = "";
+            cIndex = maxLength;
+          } else {
+            cIndex = index;
+            var message = commandHistory[cIndex];
+            $scope.chat.chaut = message;
+            detectPreview(message);
+          }
+        } else {
+          cIndex = 0;
+        }
+        //prevent default behavior
+        event.preventDefault();
+      }
+
+      // up and down arrows bring up last commands
+      if(commandHistory.length > 0){
+        var newText = null;
+        switch(event.keyCode){
+          case 38:
+            restoreCommandIndex(cIndex-1);
+            break;
+          case 40:
+            restoreCommandIndex(cIndex+1);
+            break;
+        }
+      }
     }
 
     $scope.onTextInput = function(){
       var message = $scope.chat.chaut,
-          msgLength = message.length,
-          result = inputParser(message);
+          msgLength = message.length;
 
-      if(result.image != null){
-        $scope.showPreview = true;
-        $scope.previewImage = result.image;
-        $scope.previewName = result.name;
-      } else {
-        $scope.showPreview = false;
-      }
+      //show a preview if available
+      detectPreview(message);
 
       // if input is "re ", replace it with "t lastPMAuthor"
       if (msgLength === 3 && $scope.lastPMAuthor != undefined && /re\s$/ig.test($scope.chat.chaut)) {

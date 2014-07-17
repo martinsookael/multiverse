@@ -5,7 +5,7 @@
   </div>
   <img src="images/users/drm.jpg" class="avatar">
   <form method="post" id="jetztChat" autocomplete="off" ng-submit="chatter()" novalidate >
-    <input type="text" id="chaut" class="typeahead" name="chaut" ng-model="chat.chaut" autofocus="autofocus" placeholder="Select your username" ng-change="onTextInput()" ng-trim="false">
+    <input type="text" id="chaut" class="typeahead" name="chaut" ng-model="chat.chaut" autofocus="autofocus" placeholder="Select your username" ng-change="onTextInput()" ng-trim="false" ng-keyup="onKey($event)">
     <div id="requestNotifications" style="height: 50px; text-align: center;"><br /><input type="button" onclick="requestNotifications()" value ="Enable desktop notifications"></div>
   </form>
 </div>

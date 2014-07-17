@@ -145,8 +145,6 @@ function analyzeEntry($scope, $location, message, username) {
       var rndNumb=Math.floor(Math.random()*1000000);
       var nid = "p"+rndNumb;
 
-      c.push({id:nid, message:message}); // add this to local command list
-
       // get the first word
       if (message === '') return false;
       message = message.trim();
