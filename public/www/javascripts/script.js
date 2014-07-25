@@ -214,11 +214,11 @@ $(document).ready(function() {
 
         //save last private messenger name for "re "
         var scope = angular.element($("#jetzt")).scope();
-        $timeout(function() { // timeought ought to help against $apply already in progress.
+        //$timeout(function() { // timeought ought to help against $apply already in progress.
           scope.$apply(function(){
             scope.lastPMAuthor = name;
           })
-        });
+        //});
       }
     }
 
