@@ -200,6 +200,7 @@ $(document).ready(function() {
 
     // Prints private messages
     function tell(data) {
+      var Username = angular.injector(['ng', 'multiverse']).get("User").get();
       if (data.recipient === Username) {
         message = data.title || ''; name = data.author || ''; time = data.time || '';  city = data.city || ''; nid = data.nid || ''; room = data.room || '';
         message = findLinksAndImages(message); // find links and images
