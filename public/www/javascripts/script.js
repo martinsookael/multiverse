@@ -182,7 +182,7 @@ $(document).ready(function() {
     }
 
     // Prints shortcuts
-    function paint(data, quiet) { cl(data);
+    function paint(data, quiet) { 
         var Username = angular.injector(['ng', 'multiverse']).get("User").get();
 
         title = data.title || ''; author = data.author || ''; time = data.time || ''; city = data.city || ''; nid = data.nid || '';
