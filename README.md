@@ -27,7 +27,7 @@ or
 2. git clone git@github.com:martinsookael/multiverse.git .
 3. sudo npm install
 4. I tend to get "node-gyp rebuild 2> builderror.log" but nevertheless the stuff seams to work
-5. go to conf.js and set "usesDb" to "false" if you don't plan to use database. Also the port can be set from there. 
+5. go to conf.js and set "usesDb" to "false" if you don't plan to use database. Also the port can be set from there.
 6. `npm start` this also resolves the bower dependencies for the frontend
 7. go to yourdomain:3001 or however you configured it.
 
@@ -49,6 +49,35 @@ Either start with:
 or edit conf.js with accurate database credidentials.
 
 ![A second meme sample](https://raw.github.com/martinsookael/multiverse/master/public/www/images/memeSample2.png)
+
+
+(MANUAL) TESTING  
+-------------------  
+
+Core functionality:
+- create meme  
+- create meme with text  
+- create shortcut  
+- up/down buttons  
+- private messaging  
+- change rooms (command line / url / front page)  
+
+Functionality:
+- "is writing"
+- "has seen"
+- private message seen
+- desktop notifications  
+- sound  
+- serialwriter - writes seven last messages on log in or on command "l"
+- preview  
+
+All yet unnamed fronted functionality, usually won't break:
+- url-s to links (broken, looses all of text)  
+- images to inline images  
+- scroll to bottom of page if something is posted (sometimes broken)  
+- working in iframe - like www.multiverse.im/#/r/one?iframe=1  
+- m, sc, w, logout, h, l, soundon, soundoff,
+- avatars  
 
 
 UPDATES
