@@ -399,6 +399,14 @@ var memes = [
         "img" : "sasha.jpg",
         "desc": "Sasha Baron approves this message."
     },{
+        "name": "joonatan1",
+        "img" : "joonatan1.jpg",
+        "desc": "Joonatan 1"
+    },{
+        "name": "joonatan2",
+        "img" : "joonatan2.jpg",
+        "desc": "Joonatan 2"
+    },{
         "name": "cowboy1",
         "img" : "cowboy1.jpg",
         "desc": "As cowboy as Clint Eastwood can be"
