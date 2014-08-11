@@ -407,6 +407,10 @@ var memes = [
         "img" : "joonatan2.jpg",
         "desc": "Joonatan 2"
     },{
+        "name": "peppe",
+        "img" : "peppe.jpg",
+        "desc": "Peppe is meeting you at the Cube!"
+    },{
         "name": "cowboy1",
         "img" : "cowboy1.jpg",
         "desc": "As cowboy as Clint Eastwood can be"
