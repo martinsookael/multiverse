@@ -165,7 +165,7 @@ $(document).ready(function() {
       message = findLinksAndImages(message); // find links and images
       var avatar = getAvatar(name);
       $("#isWriting").remove(); // <a href="#kala" class="nodecoration" style="color: inherit;">
-      $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+nid+'">'+time+'</a></div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+' <a href="#/r/'+room+'" class="gray nodecoration">#'+room+'</a><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div></a>');
+      $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+nid+'">'+time+'</a></div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong></p><p>'+message+' <a href="#/r/'+room+'" class="gray nodecoration hashtag">#'+room+'</a><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div></a>');
       scrollAndBeep(data);
       if(quiet != true) {
         notifier(avatar, name, message);
@@ -182,7 +182,7 @@ $(document).ready(function() {
     }
 
     // Prints shortcuts
-    function paint(data, quiet) { 
+    function paint(data, quiet) {
         var Username = angular.injector(['ng', 'multiverse']).get("User").get();
 
         title = data.title || ''; author = data.author || ''; time = data.time || ''; city = data.city || ''; nid = data.nid || '';
@@ -190,7 +190,7 @@ $(document).ready(function() {
 
         if(title.indexOf(" ") != -1) title = title.slice(0, title.indexOf(" "));
         $("#isWriting").remove();
-        $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><span class="gray" >'+time+'</span></div><div class="place small">'+city+'</div><p class="name"><strong>'+author+'</strong>&nbsp;&nbsp;<a class="gray nodecoration" href="#/r/'+room+'">#'+room+'</a></p><img class="full" src="images/shortcuts/'+shortcuts[title].img+'" /><span class="viewers gray small"></span></div>');
+        $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><span class="gray" >'+time+'</span></div><div class="place small">'+city+'</div><p class="name"><strong>'+author+'</strong>&nbsp;&nbsp;<a class="gray nodecoration hashtag" href="#/r/'+room+'">#'+room+'</a></p><img class="full" src="images/shortcuts/'+shortcuts[title].img+'" /><span class="viewers gray small"></span></div>');
         scrollAndBeep(data);
         if(quiet != true) {
           notifier(avatar, author, title);
@@ -206,7 +206,7 @@ $(document).ready(function() {
         message = findLinksAndImages(message); // find links and images
         var avatar = getAvatar(name);
         $("#isWriting").remove(); // <a href="#kala" class="nodecoration" style="color: inherit;">
-        $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+nid+'">'+time+'</a></div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong> sent private message:</p><p>'+message+' <a href="#/r/'+room+'" class="gray nodecoration">#'+room+'</a><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div></a>');
+        $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+nid+'">'+time+'</a></div><div class="place small">'+city+'</div><p class="name"><strong>'+name+'</strong> sent private message:</p><p>'+message+' <a href="#/r/'+room+'" class="gray nodecoration hashtag">#'+room+'</a><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div></a>');
         scrollAndBeep(data);
         var itsPrivate = name+" privately:";
         notifier(avatar, itsPrivate, message);
@@ -228,7 +228,7 @@ $(document).ready(function() {
       message = findLinksAndImages(message); // find links and images
       var avatar = getAvatar(name);
       $("#isWriting").remove(); // <a href="#kala" class="nodecoration" style="color: inherit;">
-      $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+nid+'">'+time+'</a></div><div class="place small">'+city+'</div><p class="name"><strong>You</strong> told privately to '+recipient+':</p><p>'+message+' <a href="#/r/'+room+'" class="gray nodecoration">#'+room+'</a><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div></a>');
+      $("#jetzt").before('<div class="message" id="'+nid+'"><img src="images/users/'+avatar+'" class="avatar" /><div class="time"><a class="gray" href="#/p/'+nid+'">'+time+'</a></div><div class="place small">'+city+'</div><p class="name"><strong>You</strong> told privately to '+recipient+':</p><p>'+message+' <a href="#/r/'+room+'" class="gray nodecoration hashtag">#'+room+'</a><span class="viewers gray small"><span class="tick hidden">&nbsp;&nbsp;&#10003;</span></span></p></div></a>');
       scrollAndBeep(data);
     }
 
