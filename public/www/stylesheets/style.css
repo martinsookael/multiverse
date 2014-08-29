@@ -153,6 +153,9 @@ canvas#meme {
   #angellist {
     display: none;
   }
+}
+
+@media all and (max-width:300px) {
   .hashtag {
     display: none;
   }
